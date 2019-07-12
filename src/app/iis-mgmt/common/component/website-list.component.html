@@ -1,0 +1,23 @@
+<sme-loading-wheel *ngIf="loading"></sme-loading-wheel>
+<sme-action-bar #actionBar>
+  <sme-action-button #action [text]="'Add'" [iconClass]="'sme-icon sme-icon-add'" [enabled]="canAdd()"></sme-action-button>
+  <sme-action-button #action [text]="'Remove'" [iconClass]="'sme-icon sme-icon-remove'" [enabled]="canRemove()"></sme-action-button>
+  <sme-action-button #action [text]="'Edit'" [iconClass]="'sme-icon sme-icon-edit'" [enabled]="canEdit()"></sme-action-button>
+  <sme-action-button #action [text]="'Restart'" [iconClass]="'sme-icon sme-icon-refresh'" [enabled]="canStop()"></sme-action-button>
+  <sme-action-button #action [text]="'Start'" [iconClass]="'sme-icon sme-icon-play'" [enabled]="canStart()"></sme-action-button>
+  <sme-action-button #action [text]="'Stop'" [iconClass]="'sme-icon sme-icon-stop'" [enabled]="canStop()"></sme-action-button>
+</sme-action-bar>
+<sme-data-table
+  class="sme-layout-absolute sme-position-inset-none sme-arrange-stack-v"
+  *ngIf="!loading"
+  [items]="items"
+  [(selection)]="selected"
+  [defaultSortColumn]="nameColumn"
+  [defaultSortMode]="1"
+  [rememberSelection]="true">
+<!-- [getItemIdentityFunction]="getItemIdentityFunction"> -->
+  <sme-data-table-column #nameColumn field="name" header="{{strings.MsftIISWAC.common.name}}" sortable="true"></sme-data-table-column>
+  <sme-data-table-column field="status" header="{{strings.MsftIISWAC.common.status}}" sortable="true"></sme-data-table-column>
+  <sme-data-table-column field="application_pool" header="{{strings.MsftIISWAC.common.applicationPool}}" sortable="true"></sme-data-table-column>
+  <sme-data-table-column field="bindings" header="{{strings.MsftIISWAC.common.url}}" sortable="false"></sme-data-table-column>
+</sme-data-table>

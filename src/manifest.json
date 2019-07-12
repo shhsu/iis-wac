@@ -1,0 +1,52 @@
+{
+  "$schema": "../node_modules/@microsoft/windows-admin-center-sdk/core/manifest/module-schema.json#",
+  "name": "msft.iis.iis-management",
+  "displayName": "resources:strings:displayName",
+  "description": "resources:strings:description",
+  "target": "/modules/msft.iis.iis-management",
+  "icon": "sme-icon:sme-icon-windowsAdminCenterIIS",
+  "keywords": [
+    "resources:strings:keywords"
+  ],
+  "entryPoints": [
+    {
+      "entryPointType": "tool",
+      "name": "main",
+      "urlName": "msft.iis.iis-management",
+      "displayName": "resources:strings:displayName",
+      "description": "resources:strings:description",
+      "icon": "sme-icon:sme-icon-windowsAdminCenterIIS",
+      "path": "",
+      "requirements": [
+        {
+          "solutionIds": [
+            "msft.sme.server-manager!servers",
+            "msft.sme.server-manager!windowsClients",
+            "msft.sme.developer-tools!main"
+          ],
+          "connectionTypes": [
+            "msft.sme.connection-type.server",
+            "msft.sme.connection-type.windows-client"
+          ],
+          "conditions": [
+            {
+              "localhost": true,
+              "script": "@{ State = if (Get-Service w3svc -ErrorAction SilentlyContinue) { 'Available' } else { 'NotSupported' }; Message = 'IIS Web Server cannot be found on the host. Enable \"Web Server\" windows feature to manage IIS Web Server' }"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "locale": "default",
+      "strings": {
+        "displayName": "IIS",
+        "description": "{!product-description}",
+        "keywords": "SME"
+      }
+    }
+  ],
+  "powerShellModuleName": "msft.iis-wac"
+}

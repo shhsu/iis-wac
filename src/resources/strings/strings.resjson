@@ -1,0 +1,30 @@
+{
+    "//": "manifest section",
+    "MsftIISWAC_Manifest_displayName": "IIS",
+    "MsftIISWAC_Manifest_description": "{!product-description}",
+    "MsftIISWAC_Manifest_keywords": "SME",
+
+    "//": "iiswac",
+    "MsftIISWAC_title": "IIS",
+    "MsftIISWAC_toolTitle": "IIS",
+
+    "MsftIISWAC_status_starting": "Starting",
+    "MsftIISWAC_status_started": "Started",
+    "MsftIISWAC_status_stopping": "Stopping",
+    "MsftIISWAC_status_stopped": "Stopped",
+    "MsftIISWAC_status_unknown": "Unknown",
+
+    "MsftIISWAC_common_name": "Name",
+    "MsftIISWAC_common_status": "Status",
+    "MsftIISWAC_common_webServer": "Web Server",
+    "MsftIISWAC_common_website": "Web Site",
+    "MsftIISWAC_common_appPool": "App Pool",
+    "MsftIISWAC_common_applicationPool": "Application Pool",
+    "MsftIISWAC_common_url": "URL",
+
+    "MsftIISWAC_generalTabTitle": "General",
+
+    "//": "about",
+    "MsftIISWAC_about": "{!product-about}",
+    "MsftIISWAC_aboutDescription": "{!product-about-description}"
+}
