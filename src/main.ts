@@ -7,10 +7,10 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { CoreEnvironment } from '@microsoft/windows-admin-center-sdk/core';
 import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import { IsProduction } from './environments/environment';
 import { PowerShellScripts } from './generated/powershell-scripts';
 
-if (environment.production) {
+if (IsProduction) {
     enableProdMode();
 }
 
@@ -19,7 +19,7 @@ CoreEnvironment.initialize(
     {
         name: 'msft.iis.iis-management',
         powerShellModuleName: PowerShellScripts.module,
-        isProduction: environment.production,
+        isProduction: IsProduction,
         shellOrigin: '*'
     },
     {
