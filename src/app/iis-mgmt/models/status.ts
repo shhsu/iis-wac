@@ -10,7 +10,7 @@ const objectStates = [
     strings.MsftIISWAC.status.unknown,
 ];
 
-export function toString(state: number): string {
+export function printStatus(state: Status): string {
     return objectStates[state];
 }
 

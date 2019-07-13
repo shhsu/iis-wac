@@ -15,7 +15,7 @@ export abstract class WACComponent {
             _ => {},
             __ => {},
             () => {
-                Logging.logWarning(logSource, `Marking component as loaded`);
+                Logging.logVerbose(logSource, `Marking component as loaded`);
                 this._loading = false;
             },
         );

@@ -18,7 +18,7 @@ export abstract class ListComponent<T> extends WACComponent implements OnInit {
               site => this.items.push(site),
               _ => {},
               () => {
-                  Logging.logWarning(logSource, `list loaded, number of entries ${this.items.length}`);
+                  Logging.logVerbose(logSource, `list loaded, number of entries ${this.items.length}`);
               }),
         );
     }

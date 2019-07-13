@@ -17,7 +17,11 @@
   [rememberSelection]="true">
 <!-- [getItemIdentityFunction]="getItemIdentityFunction"> -->
   <sme-data-table-column #nameColumn field="name" header="{{strings.MsftIISWAC.common.name}}" sortable="true"></sme-data-table-column>
-  <sme-data-table-column field="status" header="{{strings.MsftIISWAC.common.status}}" sortable="true"></sme-data-table-column>
+  <sme-data-table-column header="{{strings.MsftIISWAC.common.status}}" sortable="true">
+    <ng-template let-data>
+      <iis-status [status]="data.status"></iis-status>
+    </ng-template>
+  </sme-data-table-column>
   <sme-data-table-column field="application_pool" header="{{strings.MsftIISWAC.common.applicationPool}}" sortable="true"></sme-data-table-column>
   <sme-data-table-column field="bindings" header="{{strings.MsftIISWAC.common.url}}" sortable="false"></sme-data-table-column>
 </sme-data-table>

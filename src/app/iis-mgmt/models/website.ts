@@ -46,6 +46,6 @@ export function convert(serialized: any): WebSite {
     return <WebSite> {
         name: serialized.Name,
         id: serialized.Id,
-        status: serialized.Status,
+        status: serialized.State,
     };
 }
