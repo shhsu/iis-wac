@@ -10,6 +10,14 @@ const objectStates = [
     strings.MsftIISWAC.status.unknown,
 ];
 
+export function extractStatus(obj: any): Status {
+    if (obj.State == null) {
+        return Status.Unknown;
+    } else {
+        return obj.State;
+    }
+}
+
 export function printStatus(state: Status): string {
     return objectStates[state];
 }

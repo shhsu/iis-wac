@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { AppContextService } from '@microsoft/windows-admin-center-sdk/angular';
-import { WACComponent } from 'src/app/iis-mgmt/common/component/wac-component';
-import { PowershellService } from './common/service/powershell.service';
+import { WACComponent } from 'src/app/iis-mgmt/shared-components/generic/wac-component';
+import { PowershellService } from './service/powershell.service';
 
 @Component({
   selector: 'iis-component',
@@ -18,7 +18,7 @@ export class IISComponent extends WACComponent implements OnInit {
   }
 
   constructor(
-    // private sme: AppContextService,
+    private router: Router,
     private ps: PowershellService,
   ) {
     super();
@@ -26,6 +26,6 @@ export class IISComponent extends WACComponent implements OnInit {
 
   public ngOnInit() {
     this.ps.createSession();
+    this.router.navigate([ 'webserver' ]);
   }
-
 }

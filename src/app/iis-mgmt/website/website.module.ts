@@ -1,20 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { Routes } from '@angular/router';
-import { SettingsModule, SmeFormsModule } from '@microsoft/windows-admin-center-sdk/angular';
+import { LoadingWheelModule, SettingsModule, SmeFormsModule, } from '@microsoft/windows-admin-center-sdk/angular';
+import { WebSiteListModule } from 'src/app/iis-mgmt/shared-components/website/website-list.module';
+import { WebsiteGeneralComponent } from './website-general.component';
 import { WebsiteComponent } from './website.component';
-
-export const routes: Routes = [
-];
 
 @NgModule({
     imports: [
         CommonModule,
+        LoadingWheelModule,
         SettingsModule,
         SmeFormsModule,
+        WebSiteListModule,
     ],
     declarations: [
         WebsiteComponent,
+        WebsiteGeneralComponent,
     ],
     exports: [
         WebsiteComponent,

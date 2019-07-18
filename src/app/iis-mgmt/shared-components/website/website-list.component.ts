@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { PowershellService } from 'src/app/iis-mgmt/common/service/powershell.service';
 import { Status } from 'src/app/iis-mgmt/models/status';
-import { convert, WebSite } from 'src/app/iis-mgmt/models/website';
-import { PowerShellScripts } from 'src/generated/powershell-scripts';
-import { ListComponent } from './list.component';
+import { WebSite } from 'src/app/iis-mgmt/models/website';
+import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
+import { ListComponent } from '../generic/list.component';
 
 @Component({
-  selector: 'app-website-list',
+  selector: 'iis-website-list',
   templateUrl: './website-list.component.html',
   styleUrls: ['./website-list.component.css']
 })
 export class WebsiteListComponent extends ListComponent<WebSite> {
   constructor(
-    private ps: PowershellService,
+    private router: Router,
+    private srv: WebSiteService,
   ) {
     super();
   }
 
   get contents(): Observable<WebSite> {
-    return this.ps.get(PowerShellScripts.Iis.Get_WebSite).pipe(map(convert));
+    return this.srv.getAll();
   }
 
   getName(site: WebSite): string {
@@ -33,5 +33,9 @@ export class WebsiteListComponent extends ListComponent<WebSite> {
 
   canStop(): boolean {
     return this.selected && this.selected.status === Status.Started;
+  }
+
+  editSelection() {
+    this.router.navigate([ `website/${this.selected.id}` ]);
   }
 }

@@ -1,50 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
-import { AppContextService, CommonSettingsNavigationItem } from '@microsoft/windows-admin-center-sdk/angular';
-import { WACComponent } from 'src/app/iis-mgmt/common/component/wac-component';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { AppContextService } from '@microsoft/windows-admin-center-sdk/angular';
+import { CommonSetting, getModules } from 'src/app/iis-mgmt/shared-components/settings/settings-item';
+import { SettingsComponent } from 'src/app/iis-mgmt/shared-components/settings/settings.component';
 
-// @dynamic
+const webServerSettings = getModules(
+  CommonSetting.VirtualDirectory,
+  CommonSetting.Authentication,
+  CommonSetting.Authorization,
+  CommonSetting.Certificate,
+  CommonSetting.CertStore,
+  CommonSetting.DefaultDoc,
+  CommonSetting.DirBrowsing,
+  CommonSetting.IpRestriction,
+  CommonSetting.Logging,
+  CommonSetting.MimeMap,
+  CommonSetting.Monitoring,
+  CommonSetting.Module,
+  CommonSetting.Compression,
+  CommonSetting.RequestFiltering,
+  CommonSetting.Header,
+  CommonSetting.Tracing,
+  CommonSetting.StaticContent,
+  CommonSetting.UrlRewrite,
+);
+
 @Component({
   selector: 'iis-webserver',
   templateUrl: './webserver.component.html',
   styleUrls: ['./webserver.component.css']
 })
-export class WebserverComponent extends WACComponent implements OnInit {
-  public settingItems: CommonSettingsNavigationItem[] = [];
-
+export class WebserverComponent extends SettingsComponent implements OnInit {
   public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
     return 'webserver';
   }
 
   constructor(
-    // route: ActivatedRoute,
+    route: ActivatedRoute,
+    router: Router,
   ) {
-    super();
-    this.settingItems.push(
-      {
-        label: this.strings.MsftIISWAC.generalTabTitle,
-        routeParams: {
-          commands: [
-            '/webserver/general',
-            // {
-            //   relativeTo: route
-            // }
-          ],
-        },
-        smeIconClassName: 'sme-icon-windowsAdminCenterIIS',
-      },
-      {
-        label: 'delete me',
-        routeParams: {
-          commands: [
-            '../empty',
-          ],
-        },
-        smeIconClassName: 'sme-icon-windowsAdminCenterIIS',
-      },
-    );
-  }
-
-  ngOnInit() {
+    super(WebserverComponent, route, router, webServerSettings);
   }
 }
