@@ -11,6 +11,10 @@ import { WebserverComponent } from './webserver.component';
 
 export const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'general',
+    },
+    {
         path: 'general',
         component: WebserverGeneralComponent,
     },

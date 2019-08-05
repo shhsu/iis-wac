@@ -1,25 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteSnapshot } from '@angular/router';
-import { AppContextService } from '@microsoft/windows-admin-center-sdk/angular';
-import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
-import { WebsiteSettingComponent } from './website-setting.component';
+import { WebSiteService } from '../service/website.service';
+import { LoaderComponent } from '../shared-components/loaders/loader.component';
 
 @Component({
   selector: 'iis-website-general',
   templateUrl: './website-general.component.html',
   styleUrls: ['./website-general.component.css']
 })
-export class WebsiteGeneralComponent extends WebsiteSettingComponent {
+export class WebsiteGeneralComponent {
+  @ViewChild('loader')
+  loader: LoaderComponent;
 
-  public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
-    return 'general';
-  }
+  private _content = this.srv.fromRoute(this.route);
 
   constructor(
-    route: ActivatedRoute,
-    srv: WebSiteService,
-  ) {
-    super(route, srv);
+    private route: ActivatedRoute,
+    private srv: WebSiteService,
+  ) { }
+
+  get content() {
+    return this._content;
+  }
+
+  get website() {
+    return this.loader.items[0];
   }
 }

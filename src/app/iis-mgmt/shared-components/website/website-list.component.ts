@@ -1,26 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Status } from 'src/app/iis-mgmt/models/status';
 import { WebSite } from 'src/app/iis-mgmt/models/website';
 import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
-import { ListComponent } from '../generic/list.component';
+import { ListLoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/list-loader.component';
+import { Strings } from 'src/generated/strings';
 
 @Component({
   selector: 'iis-website-list',
   templateUrl: './website-list.component.html',
   styleUrls: ['./website-list.component.css']
 })
-export class WebsiteListComponent extends ListComponent<WebSite> {
+export class WebsiteListComponent {
+  public readonly strings = MsftSme.resourcesStrings<Strings>();
+  private _contents = this.srv.getAll();
+  public dummy = of(1);
+  @ViewChild('loader')
+  loader: ListLoaderComponent;
+
   constructor(
     private router: Router,
     private srv: WebSiteService,
-  ) {
-    super();
-  }
+  ) {}
 
   get contents(): Observable<WebSite> {
-    return this.srv.getAll();
+    return this._contents;
+  }
+
+  get selected(): WebSite {
+    if (this.loader) {
+      return this.loader.selected;
+    }
+  }
+
+  set selected(site: WebSite) {
+    if (this.loader) {
+      this.loader.selected = site;
+    }
   }
 
   getName(site: WebSite): string {

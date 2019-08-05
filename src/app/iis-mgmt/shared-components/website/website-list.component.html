@@ -1,37 +1,37 @@
-<sme-loading-wheel *ngIf="loading"></sme-loading-wheel>
-<div class="sme-layout-absolute sme-position-inset-none sme-arrange-stack-v">
-  <sme-action-bar #actionBar class="sme-position-flex-none">
-    <sme-action-button #action [text]="'Add'" [iconClass]="'sme-icon sme-icon-add'" [enabled]="canAdd()"></sme-action-button>
-    <sme-action-button #action [text]="'Remove'" [iconClass]="'sme-icon sme-icon-remove'" [enabled]="canRemove()"></sme-action-button>
-    <sme-action-button #action [text]="'Edit'" [iconClass]="'sme-icon sme-icon-edit'" [enabled]="canEdit()" (execute)="editSelection()"></sme-action-button>
-    <sme-action-button #action [text]="'Restart'" [iconClass]="'sme-icon sme-icon-refresh'" [enabled]="canStop()"></sme-action-button>
-    <sme-action-button #action [text]="'Start'" [iconClass]="'sme-icon sme-icon-play'" [enabled]="canStart()"></sme-action-button>
-    <sme-action-button #action [text]="'Stop'" [iconClass]="'sme-icon sme-icon-stop'" [enabled]="canStop()"></sme-action-button>
-  </sme-action-bar>
-  <sme-data-table #dataTable
-    *ngIf="!loading"
-    class="sme-position-flex-auto sme-position-inset-none sme-arrange-stack-v"
-    [items]="items"
-    [(selection)]="selected"
-    [defaultSortColumn]="nameColumn"
-    [defaultSortMode]="1"
-    [rememberSelection]="true">
-    <!-- [getItemIdentityFunction]="getItemIdentityFunction"> -->
-    <sme-data-table-column #nameColumn header="{{strings.MsftIISWAC.common.name}}" sortable="true">
-      <ng-template let-data>
-        <span>{{data.name}}</span>
-      </ng-template>
-    </sme-data-table-column>
-    <sme-data-table-column header="{{strings.MsftIISWAC.common.status}}" sortable="true">
-      <ng-template let-data>
-        <iis-status [status]="data.status"></iis-status>
-      </ng-template>
-    </sme-data-table-column>
-    <sme-data-table-column header="{{strings.MsftIISWAC.common.applicationPool}}" sortable="true">
-      <ng-template let-data>
-        <iis-app-pool-annotation *ngIf="data.applicationPool" [appPool]="data.applicationPool"></iis-app-pool-annotation>
-      </ng-template>
-    </sme-data-table-column>
-    <sme-data-table-column field="bindings" header="{{strings.MsftIISWAC.common.url}}" sortable="false"></sme-data-table-column>
-  </sme-data-table>  
-</div>
+<list-loader #loader [observes]="contents" [table]="dataTable">
+  <div class="sme-layout-absolute sme-position-inset-none sme-arrange-stack-v">
+    <sme-action-bar #actionBar class="sme-position-flex-none">
+      <sme-action-button #action [text]="'Add'" [iconClass]="'sme-icon sme-icon-add'" [enabled]="loader.canAdd()"></sme-action-button>
+      <sme-action-button #action [text]="'Remove'" [iconClass]="'sme-icon sme-icon-remove'" [enabled]="loader.canRemove()"></sme-action-button>
+      <sme-action-button #action [text]="'Edit'" [iconClass]="'sme-icon sme-icon-edit'" [enabled]="loader.canEdit()" (execute)="editSelection()"></sme-action-button>
+      <sme-action-button #action [text]="'Restart'" [iconClass]="'sme-icon sme-icon-refresh'" [enabled]="canStop()"></sme-action-button>
+      <sme-action-button #action [text]="'Start'" [iconClass]="'sme-icon sme-icon-play'" [enabled]="canStart()"></sme-action-button>
+      <sme-action-button #action [text]="'Stop'" [iconClass]="'sme-icon sme-icon-stop'" [enabled]="canStop()"></sme-action-button>
+    </sme-action-bar>
+    <sme-data-table #dataTable
+      class="sme-position-flex-auto sme-position-inset-none sme-arrange-stack-v"
+      [items]="loader.items"
+      [(selection)]="loader.selected"
+      [defaultSortColumn]="nameColumn"
+      [defaultSortMode]="1"
+      [rememberSelection]="true">
+      <!-- [getItemIdentityFunction]="getItemIdentityFunction"> -->
+      <sme-data-table-column #nameColumn header="{{strings.MsftIISWAC.common.name}}" sortable="true">
+        <ng-template let-data>
+          <span>{{data.name}}</span>
+        </ng-template>
+      </sme-data-table-column>
+      <sme-data-table-column header="{{strings.MsftIISWAC.common.status}}" sortable="true">
+        <ng-template let-data>
+          <iis-status [status]="data.status"></iis-status>
+        </ng-template>
+      </sme-data-table-column>
+      <sme-data-table-column header="{{strings.MsftIISWAC.common.applicationPool}}" sortable="true">
+        <ng-template let-data>
+          <iis-app-pool-annotation *ngIf="data.applicationPool" [appPool]="data.applicationPool"></iis-app-pool-annotation>
+        </ng-template>
+      </sme-data-table-column>
+      <sme-data-table-column field="bindings" header="{{strings.MsftIISWAC.common.url}}" sortable="false"></sme-data-table-column>
+    </sme-data-table>
+  </div>
+</list-loader>

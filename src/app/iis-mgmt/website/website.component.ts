@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 import { AppContextService } from '@microsoft/windows-admin-center-sdk/angular';
+import { WebsiteIdentifierField } from 'src/app/iis-mgmt/service/website.service';
 import { CommonSetting, getModules } from 'src/app/iis-mgmt/shared-components/settings/settings-item';
-import { SettingsComponent } from 'src/app/iis-mgmt/shared-components/settings/settings.component';
 
 export const websiteSettings = getModules(
   CommonSetting.VirtualDirectory,
@@ -27,15 +27,10 @@ export const websiteSettings = getModules(
   templateUrl: './website.component.html',
   styleUrls: ['./website.component.css']
 })
-export class WebsiteComponent extends SettingsComponent {
+export class WebsiteComponent {
+  public static readonly keyName = WebsiteIdentifierField;
+  public readonly items = websiteSettings;
   public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
     return 'website';
-  }
-
-  constructor(
-    route: ActivatedRoute,
-    router: Router,
-  ) {
-    super(WebsiteComponent, route, router, websiteSettings);
   }
 }

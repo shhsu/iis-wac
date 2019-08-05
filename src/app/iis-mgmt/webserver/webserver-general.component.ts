@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationTitle } from '@microsoft/windows-admin-center-sdk/angular';
 
 // @dynamic
@@ -10,11 +10,5 @@ import { NavigationTitle } from '@microsoft/windows-admin-center-sdk/angular';
 @NavigationTitle({
   getTitle: () => 'Web Server General'
 })
-export class WebserverGeneralComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class WebserverGeneralComponent {
 }

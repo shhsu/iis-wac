@@ -10,7 +10,6 @@ import {
     GuidedPanelModule,
     IconModule,
     IdleModule,
-    LoadingWheelModule,
     ResourceService,
     SmeUxModule
 } from '@microsoft/windows-admin-center-sdk/angular';
@@ -29,7 +28,6 @@ import { AppComponent } from './app.component';
         FormsModule,
         SmeUxModule,
         IconModule,
-        LoadingWheelModule,
         GuidedPanelModule,
         IdleModule,
         AppRoutingModule,

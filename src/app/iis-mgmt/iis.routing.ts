@@ -8,6 +8,11 @@ import { websiteRoute } from './website/website.route';
 const routes: Routes = [
 {
     path: '',
+    pathMatch: 'full',
+    redirectTo: 'webserver',
+},
+{
+    path: '',
     component: IISComponent,
     children: [
         websiteRoute,
