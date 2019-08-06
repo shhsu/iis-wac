@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { DataTableComponent, LoadingWheelModule } from '@microsoft/windows-admin-center-sdk/angular';
 import { Logging } from '@microsoft/windows-admin-center-sdk/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Strings } from 'src/generated/strings';
+import { Module as ErrorModule } from './error.component';
 
 @Component({
     selector: 'list-loader contents',
@@ -22,13 +24,14 @@ export class ContentWrapperComponent implements OnInit {
     selector: `list-loader`,
     template: `
 <sme-loading-wheel *ngIf="loading"></sme-loading-wheel>
-<!-- TODO: add error handling -->
+<error *ngIf="error" [headline]="strings.MsftIISWAC.errors.onList" [error]="error"></error>
 <contents *ngIf="!loading" [table]="table">
     <ng-content></ng-content>
 </contents>
 `,
 })
 export class ListLoaderComponent implements OnInit {
+    public readonly strings = MsftSme.resourcesStrings<Strings>();
     @Input()
     private observes: Observable<any>;
     @Input()
@@ -36,12 +39,21 @@ export class ListLoaderComponent implements OnInit {
 
     @Input()
     public readonly table: DataTableComponent;
-    public readonly items = [];
+    public items = [];
     public selected: any;
     public loading = true;
+    private subscription: Subscription;
+    error: Error;
 
-    ngOnInit(): void {
-        this.observes.subscribe(
+    reload() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+        this.items = [];
+        this.selected = null;
+        this.loading = true;
+        this.error = null;
+        this.subscription = this.observes.subscribe(
             item => {
                 this.items.push(item);
                 if (this.table &&
@@ -52,7 +64,9 @@ export class ListLoaderComponent implements OnInit {
                 }
             },
             e => {
-                // handle error
+                this.error = e;
+                this.loading = false;
+                Logging.logError(logSource, `Error occurred while loading list ${e.message}\n${e.toString()}`);
             },
             () => {
                 this.loading = false;
@@ -62,6 +76,10 @@ export class ListLoaderComponent implements OnInit {
                 Logging.logVerbose(logSource, `list loaded, number of entries ${this.items.length}`);
             }
         );
+    }
+
+    ngOnInit() {
+        this.reload();
     }
 
     canAdd(): boolean {
@@ -83,6 +101,7 @@ const logSource = (typeof ListLoaderComponent).toString();
     imports: [
         CommonModule,
         LoadingWheelModule,
+        ErrorModule,
     ],
     exports: [
         ListLoaderComponent,

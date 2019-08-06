@@ -43,6 +43,11 @@
     "MsftIISWAC_tabs_staticContent": "Static Content",
     "MsftIISWAC_tabs_urlRewrite": "Url Rewrite",
 
+    "MsftIISWAC_errors_onLoad": "An error has occurred while showing this page: ",
+    "MsftIISWAC_errors_onList": "An error has occurred while retrieving resources, the list may be incomplete: ",
+    "MsftIISWAC_errors_show": "<Click here for details>",
+    "MsftIISWAC_errors_hide": "<Click here to hide details>",
+
     "//": "about",
     "MsftIISWAC_about": "{!product-about}",
     "MsftIISWAC_aboutDescription": "{!product-about-description}"

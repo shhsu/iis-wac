@@ -20,7 +20,9 @@ export class WebSiteService extends RepositoryService<WebSite> {
 
     public getAll(): Observable<WebSite> {
         const psCommand = PowerShell.createScript(PowerShellScripts.Iis.Get_WebSite.script);
-        return this.ps.get(psCommand).pipe(map(WebSite.aggregate));
+        return this.ps.get(psCommand).pipe(
+            map(WebSite.aggregate),
+        );
     }
 
     public get(key: any): Observable<WebSite> {

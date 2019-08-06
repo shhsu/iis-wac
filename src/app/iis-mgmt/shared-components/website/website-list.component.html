@@ -1,5 +1,5 @@
 <list-loader #loader [observes]="contents" [table]="dataTable">
-  <div class="sme-layout-absolute sme-position-inset-none sme-arrange-stack-v">
+  <div class="sme-position-stretch-v sme-position-inset-none sme-arrange-stack-v">
     <sme-action-bar #actionBar class="sme-position-flex-none">
       <sme-action-button #action [text]="'Add'" [iconClass]="'sme-icon sme-icon-add'" [enabled]="loader.canAdd()"></sme-action-button>
       <sme-action-button #action [text]="'Remove'" [iconClass]="'sme-icon sme-icon-remove'" [enabled]="loader.canRemove()"></sme-action-button>
