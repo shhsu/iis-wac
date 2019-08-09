@@ -1,8 +1,8 @@
 
 import { CommonModule } from '@angular/common';
 import { Component, Input, NgModule, OnInit } from '@angular/core';
-import { LoadingWheelModule } from '@microsoft/windows-admin-center-sdk/angular';
-import { Logging } from '@microsoft/windows-admin-center-sdk/core';
+import { LoadingWheelModule } from '@msft-sme/angular';
+import { Logging } from '@msft-sme/core';
 import { Observable, Subscription } from 'rxjs';
 import { Strings } from 'src/generated/strings';
 import { Module as ErrorModule } from './error.component';

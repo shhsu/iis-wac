@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { AppContextService } from '@microsoft/windows-admin-center-sdk/angular';
+import { AppContextService } from '@msft-sme/angular';
 import { CommonSetting, getModules } from 'src/app/iis-mgmt/shared-components/settings/settings-item';
 
 const webServerSettings = getModules(

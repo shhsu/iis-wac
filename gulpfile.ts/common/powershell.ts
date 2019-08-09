@@ -1,10 +1,10 @@
 import { Config } from './config';
 const { dest, series, src } = require('gulp');
-const psCode = require('@microsoft/windows-admin-center-sdk/tools/gulp-ps-code');
-const psCim = require('@microsoft/windows-admin-center-sdk/tools/gulp-ps-cim');
-const psModule = require('@microsoft/windows-admin-center-sdk/tools/gulp-ps-module');
-const psResjson = require('@microsoft/windows-admin-center-sdk/tools/gulp-ps-resjson');
-const psManifest = require('@microsoft/windows-admin-center-sdk/tools/gulp-ps-manifest');
+const psCode = require('@msft-sme/tools/gulp-ps-code');
+const psCim = require('@msft-sme/tools/gulp-ps-cim');
+const psModule = require('@msft-sme/tools/gulp-ps-module');
+const psResjson = require('@msft-sme/tools/gulp-ps-resjson');
+const psManifest = require('@msft-sme/tools/gulp-ps-manifest');
 const Utilities = require('./utilities');
 const config: Config = require('../config-data').gulpConfig();
 

@@ -1,6 +1,6 @@
 const { parallel, src } = require('gulp');
-const schemaForm = require('@microsoft/windows-admin-center-sdk/tools/gulp-schema-form');
-const manifestValidator = require('@microsoft/windows-admin-center-sdk/tools/gulp-manifest-validator');
+const schemaForm = require('@msft-sme/tools/gulp-schema-form');
+const manifestValidator = require('@msft-sme/tools/gulp-manifest-validator');
 const Utilities = require('./utilities');
 
 module ValidateModule {

@@ -13,7 +13,7 @@ function gulpConfig(): Config {
             guid: '23b1e598-f2f3-4e70-a4de-700bdcf2ab0d',
             list: [
                 'src',
-                'node_modules/@microsoft/windows-admin-center-sdk'
+                'node_modules/@msft-sme'
             ],
             enablePester: false,
             skipCim: true

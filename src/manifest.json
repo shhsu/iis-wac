@@ -1,5 +1,5 @@
 {
-  "$schema": "../node_modules/@microsoft/windows-admin-center-sdk/core/manifest/module-schema.json#",
+  "$schema": "../node_modules/@msft-sme/core/manifest/module-schema.json#",
   "name": "msft.iis.iis-management",
   "displayName": "resources:strings:displayName",
   "description": "resources:strings:description",

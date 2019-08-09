@@ -52,8 +52,18 @@ export class Binding {
     }
 }
 
+function selectByPath(items: any[], path: string) {
+    if (!items) {
+        return null;
+    }
+    const filtered = items.filter(item => item.Path === path);
+    if (filtered.length === 0) {
+        return null;
+    }
+    return filtered[0];
+}
 
-export class WebSite {
+export class Website {
     constructor(
         public name: string = null,
         public id: number = null,
@@ -68,13 +78,13 @@ export class WebSite {
         public applicationPool: ApplicationPool = null,   // TODO: include more details such as status
     ) {}
 
-    public static aggregate(info: any): WebSite {
+    public static aggregate(info: any): Website {
         const site = info.site;
-        const result = fromCSObject(WebSite, info.site);
+        const result = fromCSObject(Website, info.site);
         // TODO: site.id encode/decode?
-        const rootApp = site.Applications['/'];
+        const rootApp = selectByPath(site.Applications, '/');
         if (rootApp) {
-            const vDir = rootApp.VirtualDirectories['/'];
+            const vDir = selectByPath(rootApp.VirtualDirectories, '/');
             if (vDir) {
                 result.physicalPath = vDir.PhysicalPath;
             }

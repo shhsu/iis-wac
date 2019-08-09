@@ -1,0 +1,20 @@
+<sme-file-explorer-dialog></sme-file-explorer-dialog>
+<form #formCtrl="ngForm" class="sme-position-inset-none">
+    <sme-form-field
+        name="physicalPathSelect"
+        type="remotefolder"
+        required="true"
+        [(ngModel)]="site.physicalPath"
+        [label]="strings.MsftIISWAC.website.physicalPath"
+        [browseLabel]="strings.MsftIISWAC.common.browse"
+        [cancelLabel]="strings.MsftIISWAC.common.cancel"
+        [inputLabel]="strings.MsftIISWAC.common.selectPath"
+        [openLabel]="strings.MsftIISWAC.common.ok"
+        [headerLabel]="strings.MsftIISWAC.website.selectPath">
+    </sme-form-field>
+    <!-- <sme-form-field type="toggle-switch"
+        name="autoStartSwitch"
+        [(ngModel)]="site.serverAutoStart"
+        [label]="'Auto Start'">
+    </sme-form-field> -->
+</form>

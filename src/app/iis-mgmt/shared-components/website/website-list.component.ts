@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Status } from 'src/app/iis-mgmt/models/status';
-import { WebSite } from 'src/app/iis-mgmt/models/website';
+import { Website } from 'src/app/iis-mgmt/models/website';
 import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
 import { ListLoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/list-loader.component';
 import { Strings } from 'src/generated/strings';
@@ -24,23 +24,23 @@ export class WebsiteListComponent {
     private srv: WebSiteService,
   ) {}
 
-  get contents(): Observable<WebSite> {
+  get contents(): Observable<Website> {
     return this._contents;
   }
 
-  get selected(): WebSite {
+  get selected(): Website {
     if (this.loader) {
       return this.loader.selected;
     }
   }
 
-  set selected(site: WebSite) {
+  set selected(site: Website) {
     if (this.loader) {
       this.loader.selected = site;
     }
   }
 
-  getName(site: WebSite): string {
+  getName(site: Website): string {
     return site.name;
   }
 

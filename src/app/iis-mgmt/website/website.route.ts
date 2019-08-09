@@ -4,7 +4,7 @@ import { AuthenticationComponent } from 'src/app/iis-mgmt/configuration/authenti
 import { AuthorizationComponent } from 'src/app/iis-mgmt/configuration/authorization.component';
 import { WebsiteIdentifierField } from 'src/app/iis-mgmt/service/website.service';
 import { WebsiteListComponent } from 'src/app/iis-mgmt/shared-components/website/website-list.component';
-import { WebsiteGeneralComponent } from './website-general.component';
+import { websiteGeneralRoute } from './general/website-general.route';
 import { WebsiteComponent } from './website.component';
 
 export const websiteRoute: Route = {
@@ -22,10 +22,7 @@ export const websiteRoute: Route = {
                     path: '',
                     redirectTo: 'general',
                 },
-                {
-                    path: 'general',
-                    component: WebsiteGeneralComponent,
-                },
+                websiteGeneralRoute,
                 {
                     path: 'authentication',
                     component: AuthenticationComponent,

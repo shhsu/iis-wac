@@ -1,4 +1,4 @@
-import { Logging } from '@microsoft/windows-admin-center-sdk/core';
+import { Logging } from '@msft-sme/core';
 import { Observable, OperatorFunction } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IsProduction } from 'src/environments/environment';

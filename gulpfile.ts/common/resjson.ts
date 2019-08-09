@@ -1,8 +1,8 @@
 import { Config } from './config';
 const { dest, parallel, series, src } = require('gulp');
-const gulpResJson = require('@microsoft/windows-admin-center-sdk/tools/gulp-resjson');
-const gulpMergeJsonInFolders = require('@microsoft/windows-admin-center-sdk/tools/gulp-merge-json-in-folders');
-const manifestResource = require('@microsoft/windows-admin-center-sdk/tools/gulp-manifest-resource');
+const gulpResJson = require('@msft-sme/tools/gulp-resjson');
+const gulpMergeJsonInFolders = require('@msft-sme/tools/gulp-merge-json-in-folders');
+const manifestResource = require('@msft-sme/tools/gulp-manifest-resource');
 const Utilities = require('./utilities');
 const config: Config = require('../config-data').gulpConfig();
 
@@ -26,7 +26,7 @@ module ResjsonModule {
     }
 
     function mergeLocalizedJson(): any {
-        return src(['./node_modules/@microsoft/windows-admin-center-sdk/**/assets/strings'])
+        return src(['./node_modules/@msft-sme/**/assets/strings'])
             .pipe(gulpMergeJsonInFolders({ src: './src/assets/strings' }))
             .pipe(dest('src/assets/strings'));
     }

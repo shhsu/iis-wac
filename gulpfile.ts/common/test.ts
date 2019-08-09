@@ -1,6 +1,6 @@
 import { Config } from './config';
 const { dest, src } = require('gulp');
-const testRunner = require('@microsoft/windows-admin-center-sdk/tools/test-runner');
+const testRunner = require('@msft-sme/tools/test-runner');
 const Utilities = require('./utilities');
 const argv = Utilities.gulpArgv();
 const config: Config = require('../config-data').gulpConfig();

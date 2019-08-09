@@ -12,7 +12,7 @@ import {
     IdleModule,
     ResourceService,
     SmeUxModule
-} from '@microsoft/windows-admin-center-sdk/angular';
+} from '@msft-sme/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 

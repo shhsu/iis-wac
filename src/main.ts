@@ -5,7 +5,7 @@ import './polyfills.ts';
 
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { CoreEnvironment } from '@microsoft/windows-admin-center-sdk/core';
+import { CoreEnvironment } from '@msft-sme/core';
 import { AppModule } from './app/app.module';
 import { IsProduction } from './environments/environment';
 import { PowerShellScripts } from './generated/powershell-scripts';

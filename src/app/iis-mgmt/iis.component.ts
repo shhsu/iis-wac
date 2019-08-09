@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { AppContextService } from '@microsoft/windows-admin-center-sdk/angular';
+import { AppContextService } from '@msft-sme/angular';
 import { Strings } from 'src/generated/strings';
 import { PowershellService } from './service/powershell.service';
 

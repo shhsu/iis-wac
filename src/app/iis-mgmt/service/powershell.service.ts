@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AppContextService } from '@microsoft/windows-admin-center-sdk/angular';
-import { Logging, PowerShellCommand, PowerShellResult, PowerShellSession } from '@microsoft/windows-admin-center-sdk/core';
+import { AppContextService } from '@msft-sme/angular';
+import { Logging, PowerShellCommand, PowerShellResult, PowerShellSession } from '@msft-sme/core';
 import { Observable } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { instrument } from 'src/app/iis-mgmt/common/util/logging';

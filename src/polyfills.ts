@@ -60,7 +60,7 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 // Server management tools specific polyfills
-import '@microsoft/windows-admin-center-sdk/core/polyfills';
+import '@msft-sme/core/polyfills';
 
 /**
  * Date, currency, decimal and percent pipes.

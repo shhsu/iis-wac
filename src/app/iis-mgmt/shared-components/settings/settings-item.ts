@@ -1,4 +1,4 @@
-import { CommonSettingsNavigationItem } from '@microsoft/windows-admin-center-sdk/angular';
+import { CommonSettingsNavigationItem } from '@msft-sme/angular';
 import { Strings } from 'src/generated/strings';
 
 export enum CommonSetting {

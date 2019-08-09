@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AppContextService, NavigationService } from '@microsoft/windows-admin-center-sdk/angular';
+import { AppContextService, NavigationService } from '@msft-sme/angular';
 
 @Component({
     selector: 'sme-root',

@@ -1,0 +1,31 @@
+<loader #loader [content]="content">
+  <div *ngIf="loader.show">
+    <sme-action-bar #actionBar class="sme-position-flex-none">
+      <sme-action-button #action [text]="strings.MsftIISWAC.common.restart" [iconClass]="'sme-icon sme-icon-refresh'" [enabled]="canStop()"></sme-action-button>
+      <sme-action-button #action [text]="strings.MsftIISWAC.common.start" [iconClass]="'sme-icon sme-icon-play'" [enabled]="canStart()"></sme-action-button>
+      <sme-action-button #action [text]="strings.MsftIISWAC.common.stop" [iconClass]="'sme-icon sme-icon-stop'" [enabled]="canStop()"></sme-action-button>
+    </sme-action-bar>
+    <sme-pivot class="sme-pivot sme-position-flex-auto">
+      <sme-pivot-tab [label]="strings.MsftIISWAC.common.settings">
+        <ng-template>
+          <website-settings [site]="website"></website-settings>
+        </ng-template>
+      </sme-pivot-tab>
+      <sme-pivot-tab [label]="strings.MsftIISWAC.common.bindings">
+        <ng-template>
+          <binding-list></binding-list>
+        </ng-template>
+      </sme-pivot-tab>
+      <sme-pivot-tab [label]="strings.MsftIISWAC.website.limits">
+          <ng-template>
+            <div>limits</div>
+          </ng-template>
+      </sme-pivot-tab>
+      <sme-pivot-tab [label]="strings.MsftIISWAC.common.applicationPool">
+        <ng-template>
+          <div>app pool</div>
+        </ng-template>
+      </sme-pivot-tab>
+    </sme-pivot>
+  </div>
+</loader>

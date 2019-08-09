@@ -3,7 +3,7 @@ import { Component, Input, NgModule } from '@angular/core';
 import { Strings } from 'src/generated/strings';
 
 @Component({
-    selector: '[list-loader error][loader error]',
+    selector: 'error',
     template: `
 <div class="sme-position-flex-none sme-position-inset-none sme-color-error">
     <p>{{headline}}{{error.message}}<a class="sme-link" (click)="toggleDetails()">{{linkText}}</a></p>

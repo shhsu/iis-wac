@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { PivotModule, SettingsModule, SmeFormsModule, SplitViewModule } from '@microsoft/windows-admin-center-sdk/angular';
+import { PivotModule, SettingsModule, SmeFormsModule, SplitViewModule } from '@msft-sme/angular';
 import { IISComponent } from './iis.component';
 import { Routing } from './iis.routing';
 import { PowershellService } from './service/powershell.service';
