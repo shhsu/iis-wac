@@ -42,6 +42,6 @@ export class WebsiteGeneralComponent {
   }
 
   get website(): Website {
-    return this.loader.items[0];
+    return this.loader.item;
   }
 }

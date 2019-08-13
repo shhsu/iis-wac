@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { PowerShell } from '@msft-sme/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Website } from 'src/app/iis-mgmt/models/website';
 import { PowershellService } from 'src/app/iis-mgmt/service/powershell.service';
@@ -19,7 +19,7 @@ export class WebSiteService extends RepositoryService<Website> {
     }
 
     public getAll(): Observable<Website> {
-        const psCommand = PowerShell.createScript(PowerShellScripts.Iis.Get_WebSite.script);
+        const psCommand = PowerShell.createScript(PowerShellScripts.Iis_website.Get_WebSite.script);
         return this.ps.get(psCommand).pipe(
             map(Website.aggregate),
         );
@@ -28,9 +28,13 @@ export class WebSiteService extends RepositoryService<Website> {
     public get(key: any): Observable<Website> {
         const id = key[WebsiteIdentifierField];
         const psCommand = PowerShell.createScript(
-            PowerShellScripts.Iis.Get_WebSite.script,
+            PowerShellScripts.Iis_website.Get_WebSite.script,
             { id: id },
         );
         return this.ps.get(psCommand).pipe(map(Website.aggregate));
+    }
+
+    public set(_: any, item: Website): Observable<Website> {
+        return of(item);
     }
 }

@@ -8,20 +8,12 @@ import { Website } from '../../models/website';
     selector: 'website-settings',
     templateUrl: 'website-settings.component.html',
 })
-export class WebsiteSettingsComponent implements OnInit {
+export class WebsiteSettingsComponent {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
     @Input()
     site: Website;
-    siteName: string;
-    physicalPath: string[];
-    autoStart: boolean;
 
     public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
       return 'settings';
-    }
-
-    ngOnInit() {
-        this.siteName = this.site.name;
-        this.physicalPath = [ this.site.physicalPath ];
     }
 }

@@ -4,6 +4,7 @@ import { PivotModule, SettingsModule, SmeFormsModule, SplitViewModule } from '@m
 import { IISComponent } from './iis.component';
 import { Routing } from './iis.routing';
 import { PowershellService } from './service/powershell.service';
+import { WebServerService } from './service/webserver.service';
 import { WebSiteService } from './service/website.service';
 import { WebSiteListModule } from './shared-components/website/website-list.module';
 import { WebServerModule } from './webserver/webserver.module';
@@ -26,6 +27,7 @@ import { WebSiteModule } from './website/website.module';
   ],
   providers: [
     PowershellService,
+    WebServerService,
     WebSiteService,
   ]
 })

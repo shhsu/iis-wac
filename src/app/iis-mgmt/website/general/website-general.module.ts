@@ -14,7 +14,6 @@ import { WebsiteSettingsComponent } from './website-settings.component';
     imports: [
         CommonModule,
         PivotModule,
-        SmeFormsModule,
         LoaderModule,
         ActionsModule,
         BindingsModule,
@@ -22,6 +21,7 @@ import { WebsiteSettingsComponent } from './website-settings.component';
         ReactiveFormsModule,
         FileExplorerLibModule,
         FileExplorerFormsModule,
+        SmeFormsModule,
     ],
     declarations: [
         WebsiteGeneralComponent,

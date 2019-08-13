@@ -16,6 +16,7 @@
 
     "MsftIISWAC_common_name": "Name",
     "MsftIISWAC_common_status": "Status",
+    "MsftIISWAC_common_version": "Version",
     "MsftIISWAC_common_webServer": "Web Server",
     "MsftIISWAC_common_website": "Web Site",
     "MsftIISWAC_common_appPool": "App Pool",
@@ -31,6 +32,7 @@
     "MsftIISWAC_common_stop": "Stop",
     "MsftIISWAC_common_browse": "Browse",
     "MsftIISWAC_common_ok": "OK",
+    "MsftIISWAC_common_submit": "Submit",
     "MsftIISWAC_common_cancel": "Cancel",
     "MsftIISWAC_common_selectPath": "Select Path: ",
 
@@ -63,7 +65,9 @@
     "MsftIISWAC_website_name": "Name",
     "MsftIISWAC_website_limits": "Limits",
     "MsftIISWAC_website_physicalPath": "Physical Path",
-    "MsftIISWAC_website_selectPath": "Select path to website:",
+    "MsftIISWAC_website_selectPathHeader": "Select path to website:",
+    "MsftIISWAC_website_protocols": "Protocols",
+    "MsftIISWAC_website_autoStart": "Auto Start",
 
     "//": "about",
     "MsftIISWAC_about": "{!product-about}",

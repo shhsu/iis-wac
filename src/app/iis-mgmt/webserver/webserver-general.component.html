@@ -1,1 +1,12 @@
-<div>Welcome to IIS</div>
+<loader #loader [content]="content" implicitCommit="true">
+    <div *ngIf="loader.show">
+        <sme-action-bar #actionBar class="sme-position-flex-none">
+            <sme-action-button #action [text]="strings.MsftIISWAC.common.restart" [iconClass]="'sme-icon sme-icon-refresh'" [enabled]="canStop()"></sme-action-button>
+            <sme-action-button #action [text]="strings.MsftIISWAC.common.start" [iconClass]="'sme-icon sme-icon-play'" [enabled]="canStart()"></sme-action-button>
+            <sme-action-button #action [text]="strings.MsftIISWAC.common.stop" [iconClass]="'sme-icon sme-icon-stop'" [enabled]="canStop()"></sme-action-button>
+        </sme-action-bar>
+        <h4>{{webserver.name}}</h4>
+        <h4>{{strings.MsftIISWAC.common.version}}</h4>
+        <p>{{webserver.version}}</p>
+    </div>
+</loader>
