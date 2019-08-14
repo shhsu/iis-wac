@@ -1,7 +1,7 @@
 <list-loader #loader [observes]="contents" [table]="dataTable">
   <div class="sme-position-stretch-v sme-position-inset-none sme-arrange-stack-v">
     <sme-action-bar #actionBar class="sme-position-flex-none">
-      <sme-action-button #action [text]="strings.MsftIISWAC.common.list.add" [iconClass]="'sme-icon sme-icon-add'" [enabled]="loader.canAdd()"></sme-action-button>
+      <sme-action-button #action [text]="strings.MsftIISWAC.common.list.add" [iconClass]="'sme-icon sme-icon-add'" [enabled]="loader.canAdd()" (execute)="createDialog.showDialog('iis-new-website-dialog')"></sme-action-button>
       <sme-action-button #action [text]="strings.MsftIISWAC.common.list.remove" [iconClass]="'sme-icon sme-icon-remove'" [enabled]="loader.canRemove()"></sme-action-button>
       <sme-action-button #action [text]="strings.MsftIISWAC.common.list.edit" [iconClass]="'sme-icon sme-icon-edit'" [enabled]="loader.canEdit()" (execute)="editSelection()"></sme-action-button>
       <sme-action-button #action [text]="strings.MsftIISWAC.common.restart" [iconClass]="'sme-icon sme-icon-refresh'" [enabled]="canStop()"></sme-action-button>
@@ -34,4 +34,10 @@
       <sme-data-table-column field="bindings" header="{{strings.MsftIISWAC.common.url}}" sortable="false"></sme-data-table-column>
     </sme-data-table>
   </div>
+  <iis-create-dialog #createDialog
+    id="iis-new-website-dialog"
+    [title]="strings.MsftIISWAC.website.createDialogHeader"
+    (created)="createWebsite(newSite.site)">
+    <iis-website-edit #newSite></iis-website-edit>
+  </iis-create-dialog>
 </list-loader>

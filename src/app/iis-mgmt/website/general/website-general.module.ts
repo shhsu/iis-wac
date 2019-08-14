@@ -2,11 +2,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActionsModule, PivotModule, SmeFormsModule } from '@msft-sme/angular';
+import { ActionsModule, DialogModule, PivotModule, SmeFormsModule } from '@msft-sme/angular';
 import { FileExplorerLibModule } from '@msft-sme/file-explorer';
 import { FileExplorerFormsModule } from '@msft-sme/file-explorer/dist/app/file-explorer/form-fields/file-explorer-forms.module';
 import { BindingsModule } from 'src/app/iis-mgmt/shared-components/binding/binding-list';
 import { Module as LoaderModule } from 'src/app/iis-mgmt/shared-components/loaders/loader.component';
+import { WebsiteEditComponent } from './website-edit.component';
 import { WebsiteGeneralComponent } from './website-general.component';
 import { WebsiteSettingsComponent } from './website-settings.component';
 
@@ -22,14 +23,16 @@ import { WebsiteSettingsComponent } from './website-settings.component';
         FileExplorerLibModule,
         FileExplorerFormsModule,
         SmeFormsModule,
+        DialogModule,
     ],
     declarations: [
-        WebsiteGeneralComponent,
+        WebsiteEditComponent,
         WebsiteSettingsComponent,
+        WebsiteGeneralComponent,
     ],
     exports: [
+        WebsiteEditComponent,
         WebsiteGeneralComponent,
-        WebsiteSettingsComponent,
     ]
 })
 export class WebsiteGeneralModule {}

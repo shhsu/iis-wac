@@ -5,15 +5,15 @@ import { Strings } from 'src/generated/strings';
 import { Website } from '../../models/website';
 
 @Component({
-    selector: 'website-settings',
+    selector: 'iis-website-settings',
     templateUrl: 'website-settings.component.html',
 })
 export class WebsiteSettingsComponent {
-    public readonly strings = MsftSme.resourcesStrings<Strings>();
-    @Input()
-    site: Website;
+  public readonly strings = MsftSme.resourcesStrings<Strings>();
+  @Input()
+  site: Website;
 
-    public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
-      return 'settings';
-    }
+  public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
+    return 'settings';
+  }
 }

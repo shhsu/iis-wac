@@ -3,8 +3,8 @@ import { Route } from '@angular/router';
 import { AuthenticationComponent } from 'src/app/iis-mgmt/configuration/authentication.component';
 import { AuthorizationComponent } from 'src/app/iis-mgmt/configuration/authorization.component';
 import { WebsiteIdentifierField } from 'src/app/iis-mgmt/service/website.service';
-import { WebsiteListComponent } from 'src/app/iis-mgmt/shared-components/website/website-list.component';
 import { websiteGeneralRoute } from './general/website-general.route';
+import { WebsiteListComponent } from './list/website-list.component';
 import { WebsiteComponent } from './website.component';
 
 export const websiteRoute: Route = {

@@ -68,6 +68,7 @@
     "MsftIISWAC_website_selectPathHeader": "Select path to website:",
     "MsftIISWAC_website_protocols": "Protocols",
     "MsftIISWAC_website_autoStart": "Auto Start",
+    "MsftIISWAC_website_createDialogHeader": "Create new website",
 
     "//": "about",
     "MsftIISWAC_about": "{!product-about}",

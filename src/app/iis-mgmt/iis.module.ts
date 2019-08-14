@@ -6,7 +6,6 @@ import { Routing } from './iis.routing';
 import { PowershellService } from './service/powershell.service';
 import { WebServerService } from './service/webserver.service';
 import { WebSiteService } from './service/website.service';
-import { WebSiteListModule } from './shared-components/website/website-list.module';
 import { WebServerModule } from './webserver/webserver.module';
 import { WebSiteModule } from './website/website.module';
 
@@ -20,7 +19,6 @@ import { WebSiteModule } from './website/website.module';
     SmeFormsModule,
     WebServerModule,
     WebSiteModule,
-    WebSiteListModule,
   ],
   declarations: [
     IISComponent,

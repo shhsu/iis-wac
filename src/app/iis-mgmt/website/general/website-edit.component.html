@@ -1,0 +1,22 @@
+<sme-pivot class="sme-pivot sme-position-flex-auto">
+    <sme-pivot-tab [label]="strings.MsftIISWAC.common.settings">
+        <ng-template>
+        <iis-website-settings [site]="site"></iis-website-settings>
+        </ng-template>
+    </sme-pivot-tab>
+    <sme-pivot-tab [label]="strings.MsftIISWAC.common.bindings">
+        <ng-template>
+        <binding-list></binding-list>
+        </ng-template>
+    </sme-pivot-tab>
+    <sme-pivot-tab [label]="strings.MsftIISWAC.website.limits">
+        <ng-template>
+            <div>limits</div>
+        </ng-template>
+    </sme-pivot-tab>
+    <sme-pivot-tab [label]="strings.MsftIISWAC.common.applicationPool">
+        <ng-template>
+        <div>app pool</div>
+        </ng-template>
+    </sme-pivot-tab>
+</sme-pivot>

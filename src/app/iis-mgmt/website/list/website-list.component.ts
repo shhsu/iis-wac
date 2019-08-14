@@ -1,11 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogService } from '@msft-sme/angular';
 import { Observable, of } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { Status } from 'src/app/iis-mgmt/models/status';
 import { Website } from 'src/app/iis-mgmt/models/website';
 import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
 import { ListLoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/list-loader.component';
 import { Strings } from 'src/generated/strings';
+import { DialogInfo } from '../../shared-components/dialog/create-dialog.component';
 
 @Component({
   selector: 'iis-website-list',
@@ -54,5 +57,9 @@ export class WebsiteListComponent {
 
   editSelection() {
     this.router.navigate([ `website/${this.selected.id}` ]);
+  }
+
+  createWebsite(site: Website) {
+
   }
 }

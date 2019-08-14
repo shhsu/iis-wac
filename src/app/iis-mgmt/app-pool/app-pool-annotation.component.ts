@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, NgModule } from '@angular/core';
-import { ApplicationPool } from '../../models/app-pool';
+import { ApplicationPool } from '../models/app-pool';
 
 @Component({
   selector: 'iis-app-pool-annotation',
