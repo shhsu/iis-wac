@@ -28,7 +28,7 @@
       </sme-data-table-column>
       <sme-data-table-column header="{{strings.MsftIISWAC.common.applicationPool}}" sortable="true">
         <ng-template let-data>
-          <iis-app-pool-annotation *ngIf="data.applicationPool" [appPool]="data.applicationPool"></iis-app-pool-annotation>
+          <span>{{data.applicationPoolName}}</span>
         </ng-template>
       </sme-data-table-column>
       <sme-data-table-column field="bindings" header="{{strings.MsftIISWAC.common.url}}" sortable="false"></sme-data-table-column>

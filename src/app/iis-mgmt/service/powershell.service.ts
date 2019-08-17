@@ -67,9 +67,6 @@ Parsing error: ${rtnObject.errorsReported}`);
                 Logging.logWarning(logSource, `Powershell command ${scriptName} returns null response`);
             }
 
-            if (response.results.length <= 0) {
-                Logging.logWarning(logSource, `Powershell command ${scriptName} returns empty response`);
-            }
             return response.results;
         }),
         catchError((e, _) => {

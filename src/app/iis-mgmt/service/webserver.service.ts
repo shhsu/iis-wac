@@ -14,7 +14,7 @@ export class WebServerService {
 
     get WebServer(): Observable<WebServer> {
         return this.psSrv.get(PowerShellScripts.Iis_webserver.Get_WebServer.script).pipe(
-            map(WebServer.aggregate),
+            map(WebServer.transform),
         );
     }
 }

@@ -21,7 +21,7 @@ export class WebSiteService extends RepositoryService<Website> {
     public getAll(): Observable<Website> {
         const psCommand = PowerShell.createScript(PowerShellScripts.Iis_website.Get_WebSite.script);
         return this.ps.get(psCommand).pipe(
-            map(Website.aggregate),
+            map(Website.transform),
         );
     }
 
@@ -31,7 +31,7 @@ export class WebSiteService extends RepositoryService<Website> {
             PowerShellScripts.Iis_website.Get_WebSite.script,
             { id: id },
         );
-        return this.ps.get(psCommand).pipe(map(Website.aggregate));
+        return this.ps.get(psCommand).pipe(map(Website.transform));
     }
 
     public set(_: any, item: Website): Observable<Website> {

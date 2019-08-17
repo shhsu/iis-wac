@@ -24,7 +24,7 @@ export class Cpu {
     processorAffinityMask32: string;
     processorAffinityMask64: string;
 
-    public static deserialize(cpu: any): Cpu {
+    public static transform(cpu: any): Cpu {
         const result =  fromCSObject(Cpu, cpu);
         result.processorAffinityEnabled = cpu.SmpAffinitized;
         result.processorAffinityMask32 = `0x${cpu.SmpProcessorAffinityMask.toString(16)}`;
@@ -51,7 +51,7 @@ export class ProcessModel {
         public startupTimeLimit: number = null,
     ) {}
 
-    public static deserialize(model: any): ProcessModel {
+    public static transform(model: any): ProcessModel {
         const result = fromCSObject(ProcessModel, model);
         result.idleTimeout = model.IdleTimeout.TotalMinutes;
         result.pingInterval = model.PingInterval.TotalSeconds;
@@ -80,12 +80,12 @@ export class ApplicationPool {
     // rapid_fail_protection: RapidFailProtection;
     // process_orphaning: ProcessOrphaning;
 
-    public static deserialize(pool: any): ApplicationPool {
+    public static transform(pool: any): ApplicationPool {
         const result = fromCSObject(ApplicationPool, pool);
         // result.id = encode name
         result.status = extractStatus(pool);
-        result.cpu = Cpu.deserialize(pool.Cpu);
-        result.processModel = ProcessModel.deserialize(pool.ProcessModel);
+        result.cpu = Cpu.transform(pool.Cpu);
+        result.processModel = ProcessModel.transform(pool.ProcessModel);
         return result;
     }
 }

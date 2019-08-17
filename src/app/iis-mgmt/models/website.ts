@@ -12,7 +12,7 @@ export class Limits {
         public maxUrlSegments: number = null,
     ) {}
 
-    public static deserialize(limits: any): Limits {
+    public static transform(limits: any): Limits {
         const result = fromCSObject(Limits, limits);
         const attributes: any[] = limits.Schema.AttributeSchemas;
         if (!attributes.filter(e => e.Name === 'maxUrlSegments')) {
@@ -43,7 +43,7 @@ export class Binding {
         public isNew: boolean = null,
     ) {}
 
-    public static deserialize(binding: any): Binding {
+    public static transform(binding: any): Binding {
         const result = fromCSObject(Binding, binding);
         const bindingName = binding.Protocol.toLowerCase();
         if (bindingName === 'http' || bindingName === 'https') {
@@ -127,12 +127,11 @@ export class Website {
         public limits: Limits = null,
         public traceFailedRequestsLogging: RequestTracing = null,
         public bindings: Binding[] = null,
-        public applicationPool: ApplicationPool = null,   // TODO: include more details such as status
+        public applicationPoolName: string = null,
     ) {}
 
-    public static aggregate(info: any): Website {
-        const site = info.site;
-        const result = fromCSObject(Website, info.site);
+    public static transform(site: any): Website {
+        const result = fromCSObject(Website, site);
         // TODO: site.id encode/decode?
         const rootApp = selectByPath(site.Applications, '/');
         if (rootApp) {
@@ -141,18 +140,14 @@ export class Website {
                 result.physicalPath = vDir.PhysicalPath;
             }
             result.enabledProtocols = rootApp.EnabledProtocols;
-
+            result.applicationPoolName = rootApp.ApplicationPoolName;
         }
         result.key = site.Id;
         result.status = extractStatus(site);
-        result.limits = Limits.deserialize(site.Limits);
-
-        if (info.applicationPool) {
-            result.applicationPool = ApplicationPool.deserialize(info.applicationPool);
-        }
+        result.limits = Limits.transform(site.Limits);
 
         if (site.Bindings) {
-            result.bindings = site.Bindings.map(b => Binding.deserialize(b));
+            result.bindings = site.Bindings.map(b => Binding.transform(b));
         }
 
         if (site.TraceFailedRequestsLogging) {
