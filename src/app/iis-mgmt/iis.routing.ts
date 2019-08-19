@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { appPoolRoute } from './app-pool/app-pool.route';
 import { IISComponent } from './iis.component';
 import { WebserverComponent } from './webserver/webserver.component';
 import { routes as WebServerRoutes } from './webserver/webserver.module';
@@ -16,6 +17,7 @@ const routes: Routes = [
     component: IISComponent,
     children: [
         websiteRoute,
+        appPoolRoute,
         {
             path: 'webserver',
             component: WebserverComponent,

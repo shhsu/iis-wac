@@ -35,6 +35,7 @@
     "MsftIISWAC_common_submit": "Submit",
     "MsftIISWAC_common_cancel": "Cancel",
     "MsftIISWAC_common_selectPath": "Select Path: ",
+    "MsftIISWAC_common_notAvailableShort": "N/A",
 
     "MsftIISWAC_tabs_general": "General",
     "MsftIISWAC_tabs_virtualDirectory": "Virtual Directory",
@@ -69,6 +70,16 @@
     "MsftIISWAC_website_protocols": "Protocols",
     "MsftIISWAC_website_autoStart": "Auto Start",
     "MsftIISWAC_website_createDialogHeader": "Create new website",
+
+    "MsftIISWAC_appPool_recycle": "Recycle",
+    "MsftIISWAC_appPool_pipeline": "Pipeline",
+    "MsftIISWAC_appPool_identity_column": "Identity",
+    "MsftIISWAC_appPool_identity_localSystem": "Local System",
+    "MsftIISWAC_appPool_identity_localService": "Local Service",
+    "MsftIISWAC_appPool_identity_networkService": "Network Service",
+    "MsftIISWAC_appPool_identity_appPoolIdentity": "AppPool Identity",
+    "MsftIISWAC_appPool_netFrameworkVersion": ".NET Framework",
+    "MsftIISWAC_appPool_createDialogHeader": "Create new application pool",
 
     "//": "about",
     "MsftIISWAC_about": "{!product-about}",

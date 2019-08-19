@@ -1,14 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { DialogService } from '@msft-sme/angular';
 import { Observable, of } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { Status } from 'src/app/iis-mgmt/models/status';
 import { Website } from 'src/app/iis-mgmt/models/website';
 import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
 import { ListLoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/list-loader.component';
 import { Strings } from 'src/generated/strings';
-import { DialogInfo } from '../../shared-components/dialog/create-dialog.component';
 
 @Component({
   selector: 'iis-website-list',
@@ -18,7 +15,7 @@ import { DialogInfo } from '../../shared-components/dialog/create-dialog.compone
 export class WebsiteListComponent {
   public readonly strings = MsftSme.resourcesStrings<Strings>();
   private _contents = this.srv.getAll();
-  public dummy = of(1);
+
   @ViewChild('loader')
   loader: ListLoaderComponent;
 

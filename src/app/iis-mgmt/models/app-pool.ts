@@ -62,6 +62,64 @@ export class ProcessModel {
     }
 }
 
+export type ProcessModelIdentityType = 'LocalSystem' | 'LocalService' | 'NetworkService' | 'SpecificUser' | 'ApplicationPoolIdentity';
+export const ProcessModelIdentityType = {
+    LocalSystem: 'LocalSystem' as ProcessModelIdentityType,
+    LocalService: 'LocalService' as ProcessModelIdentityType,
+    NetworkService: 'NetworkService' as ProcessModelIdentityType,
+    SpecificUser: 'SpecificUser' as ProcessModelIdentityType,
+    ApplicationPoolIdentity: 'ApplicationPoolIdentity' as ProcessModelIdentityType
+};
+
+export class ApplicationPoolIdentity {
+    identityType: ProcessModelIdentityType;
+    username: string;
+    password: string;
+    loadUserProfile: boolean;
+}
+
+export class Recycling {
+    disable_overlapped_recycle: boolean;
+    disable_recycle_on_config_change: boolean;
+    log_events: {
+        time: boolean;
+        requests: boolean;
+        schedule: boolean;
+        memory: boolean;
+        isapi_unhealthy: boolean;
+        on_demand: boolean;
+        config_change: boolean;
+        private_memory: boolean;
+    };
+    periodic_restart: {
+        time_interval: number;
+        private_memory: number;
+        request_limit: number;
+        virtual_memory: number;
+        schedule: Array<string>;
+    };
+}
+
+export enum LoadBalancerCapabilities {
+    TcpLevel = 1,
+    HttpLevel
+}
+
+export class RapidFailProtection {
+    enabled: boolean;
+    load_balancer_capabilities: LoadBalancerCapabilities;
+    interval: number;
+    max_crashes: number;
+    auto_shutdown_exe: string;
+    auto_shutdown_params: string;
+}
+
+export class ProcessOrphaning {
+    enabled: boolean;
+    orphan_action_exe: string;
+    orphan_action_params: string;
+}
+
 export class ApplicationPool {
     constructor(
         public name: string = null,
@@ -74,11 +132,11 @@ export class ApplicationPool {
         public queueLength: number = null,
         public cpu: Cpu = null,
         public processModel: ProcessModel = null,
+        public identity: ApplicationPoolIdentity = null,
+        public recycling: Recycling = null,
+        public rapid_fail_protection: RapidFailProtection = null,
+        public process_orphaning: ProcessOrphaning = null,
     ) {}
-    // identity: ApplicationPoolIdentity;
-    // recycling: Recycling;
-    // rapid_fail_protection: RapidFailProtection;
-    // process_orphaning: ProcessOrphaning;
 
     public static transform(pool: any): ApplicationPool {
         const result = fromCSObject(ApplicationPool, pool);
@@ -89,66 +147,3 @@ export class ApplicationPool {
         return result;
     }
 }
-
-
-
-// export class ApplicationPoolIdentity {
-//     identity_type: ProcessModelIdentityType;
-//     username: string;
-//     password: string;
-//     load_user_profile: boolean;
-// }
-
-// export class Recycling {
-//     disable_overlapped_recycle: boolean;
-//     disable_recycle_on_config_change: boolean;
-//     log_events: {
-//         time: boolean;
-//         requests: boolean;
-//         schedule: boolean;
-//         memory: boolean;
-//         isapi_unhealthy: boolean;
-//         on_demand: boolean;
-//         config_change: boolean;
-//         private_memory: boolean;
-//     };
-//     periodic_restart: {
-//         time_interval: number;
-//         private_memory: number;
-//         request_limit: number;
-//         virtual_memory: number;
-//         schedule: Array<string>;
-//     };
-// }
-
-// export class RapidFailProtection {
-//     enabled: boolean;
-//     load_balancer_capabilities: LoadBalancerCapabilities;
-//     interval: number;
-//     max_crashes: number;
-//     auto_shutdown_exe: string;
-//     auto_shutdown_params: string;
-// }
-
-
-// export enum LoadBalancerCapabilities {
-//     TcpLevel = 1,
-//     HttpLevel
-// }
-
-
-// export class ProcessOrphaning {
-//     enabled: boolean;
-//     orphan_action_exe: string;
-//     orphan_action_params: string;
-// }
-
-// export type ProcessModelIdentityType = "LocalSystem" | "LocalService" | "NetworkService" | "SpecificUser" | "ApplicationPoolIdentity";
-// export const ProcessModelIdentityType = {
-//     LocalSystem: "LocalSystem" as ProcessModelIdentityType,
-//     LocalService: "LocalService" as ProcessModelIdentityType,
-//     NetworkService: "NetworkService" as ProcessModelIdentityType,
-//     SpecificUser: "SpecificUser" as ProcessModelIdentityType,
-//     ApplicationPoolIdentity: "ApplicationPoolIdentity" as ProcessModelIdentityType
-// }
-

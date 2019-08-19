@@ -2,11 +2,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ActionsModule, DataTableModule } from '@msft-sme/angular';
+import { AppPoolGeneralModule } from 'src/app/iis-mgmt/app-pool/general/app-pool-general.module';
 import { IISDialogModule } from 'src/app/iis-mgmt/shared-components/dialog/iis-dialog.module';
 import { Module as ListsModule } from 'src/app/iis-mgmt/shared-components/loaders/list-loader.component';
 import { StatusModule } from 'src/app/iis-mgmt/shared-components/status/status.component';
-import { WebsiteGeneralModule } from 'src/app/iis-mgmt/website/general/website-general.module';
-import { WebsiteListComponent } from './website-list.component';
+import { AppPoolListComponent } from './app-pool-list.component';
+import { IdentityComponent } from './identity.component';
 
 @NgModule({
     imports: [
@@ -16,13 +17,14 @@ import { WebsiteListComponent } from './website-list.component';
         StatusModule,
         ListsModule,
         IISDialogModule,
-        WebsiteGeneralModule,
+        AppPoolGeneralModule,
     ],
     declarations: [
-        WebsiteListComponent,
+        AppPoolListComponent,
+        IdentityComponent,
     ],
     exports: [
-        WebsiteListComponent,
+        AppPoolListComponent,
     ],
 })
-export class WebSiteListModule {}
+export class AppPoolListModule {}
