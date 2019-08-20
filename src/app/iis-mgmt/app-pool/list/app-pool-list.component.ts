@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApplicationPool } from 'src/app/iis-mgmt/models/app-pool';
@@ -14,6 +14,9 @@ import { Strings } from 'src/generated/strings';
 export class AppPoolListComponent {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
     private _contents = this.srv.getAll();
+
+    @Input()
+    select: [string, any];
 
     @ViewChild('loader')
     loader: ListLoaderComponent;
@@ -33,14 +36,10 @@ export class AppPoolListComponent {
       }
     }
 
-    set selected(site: ApplicationPool) {
+    set selected(pool: ApplicationPool) {
       if (this.loader) {
-        this.loader.selected = site;
+        this.loader.selected = pool;
       }
-    }
-
-    getName(site: ApplicationPool): string {
-      return site.name;
     }
 
     canStart(): boolean {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { AfterContentInit, Component, Input, NgModule, OnInit } from '@angular/core';
 import { DataTableComponent, LoadingWheelModule } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
 import { Observable, Subscription } from 'rxjs';
@@ -30,12 +30,14 @@ export class ContentWrapperComponent implements OnInit {
 </contents>
 `,
 })
-export class ListLoaderComponent implements OnInit {
+export class ListLoaderComponent implements AfterContentInit {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
     @Input()
     private observes: Observable<any>;
     @Input()
     private refreshRate = null;
+    @Input()
+    private select: [string, any];
 
     @Input()
     public readonly table: DataTableComponent;
@@ -56,6 +58,10 @@ export class ListLoaderComponent implements OnInit {
         this.subscription = this.observes.subscribe(
             item => {
                 this.items.push(item);
+                console.error(`loaded ${item.name}`);
+                if (this.select && item[this.select[0]] === this.select[1]) {
+                    this.selected = item;
+                }
                 if (this.table &&
                     this.refreshRate != null &&
                     this.items.length % this.refreshRate === 0) {
@@ -78,7 +84,7 @@ export class ListLoaderComponent implements OnInit {
         );
     }
 
-    ngOnInit() {
+    ngAfterContentInit() {
         this.reload();
     }
 

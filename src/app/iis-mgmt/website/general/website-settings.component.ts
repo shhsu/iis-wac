@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
-import { AppContextService } from '@msft-sme/angular';
 import { Strings } from 'src/generated/strings';
+import { ApplicationPool } from '../../models/app-pool';
 import { Website } from '../../models/website';
 
 @Component({
@@ -11,9 +10,15 @@ import { Website } from '../../models/website';
 export class WebsiteSettingsComponent {
   public readonly strings = MsftSme.resourcesStrings<Strings>();
   @Input()
-  site: Website;
+  site: Website = <Website> {
+    name: this.strings.MsftIISWAC.website.newName,
+  };
 
-  public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
-    return 'settings';
+  get appPoolDialogHeader() {
+    return `${this.strings.MsftIISWAC.website.selectAppPoolDialogHeader} ${this.site.name}`;
+  }
+
+  setAppPool(pool: ApplicationPool) {
+    this.site.applicationPoolName = pool.name;
   }
 }

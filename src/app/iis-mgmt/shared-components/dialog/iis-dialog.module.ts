@@ -2,7 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { DialogModule } from '@msft-sme/angular';
-import { CreateDialogComponent } from './create-dialog.component';
+import { IISDialogComponent } from './iis-dialog.component';
 
 @NgModule({
     imports: [
@@ -10,10 +10,10 @@ import { CreateDialogComponent } from './create-dialog.component';
         DialogModule,
     ],
     declarations: [
-        CreateDialogComponent,
+        IISDialogComponent,
     ],
     exports: [
-        CreateDialogComponent,
+        IISDialogComponent,
     ],
 })
 export class IISDialogModule {

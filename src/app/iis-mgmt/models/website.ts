@@ -1,6 +1,5 @@
 
 import { fromCSObject } from 'src/app/iis-mgmt/common/util/serialization';
-import { ApplicationPool } from './app-pool';
 import { Certificate } from './certificate';
 import { extractStatus, Status } from './status';
 

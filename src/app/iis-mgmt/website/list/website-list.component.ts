@@ -40,10 +40,6 @@ export class WebsiteListComponent {
     }
   }
 
-  getName(site: Website): string {
-    return site.name;
-  }
-
   canStart(): boolean {
     return this.selected && this.selected.status === Status.Stopped;
   }

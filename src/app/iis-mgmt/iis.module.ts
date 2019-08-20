@@ -5,6 +5,7 @@ import { AppPoolModule } from './app-pool/app-pool.module';
 import { IISComponent } from './iis.component';
 import { Routing } from './iis.routing';
 import { AppPoolService } from './service/app-pool.service';
+import { CertificateService } from './service/certificates.service';
 import { PowershellService } from './service/powershell.service';
 import { WebServerService } from './service/webserver.service';
 import { WebSiteService } from './service/website.service';
@@ -28,6 +29,7 @@ import { WebSiteModule } from './website/website.module';
   ],
   providers: [
     PowershellService,
+    CertificateService,
     WebServerService,
     AppPoolService,
     WebSiteService,

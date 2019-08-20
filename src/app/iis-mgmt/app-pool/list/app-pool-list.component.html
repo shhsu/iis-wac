@@ -1,44 +1,44 @@
-<list-loader #loader [observes]="contents" [table]="dataTable">
+<list-loader #loader [observes]="contents" [table]="dataTable" [select]="select">
     <div class="sme-position-stretch-v sme-position-inset-none sme-arrange-stack-v">
         <sme-action-bar #actionBar class="sme-position-flex-none">
-        <sme-action-button #action [text]="strings.MsftIISWAC.common.list.add" [iconClass]="'sme-icon sme-icon-add'" [enabled]="loader.canAdd()" (execute)="createDialog.showDialog('iis-new-app-pool-dialog')"></sme-action-button>
-        <sme-action-button #action [text]="strings.MsftIISWAC.common.list.remove" [iconClass]="'sme-icon sme-icon-remove'" [enabled]="loader.canRemove()"></sme-action-button>
-        <sme-action-button #action [text]="strings.MsftIISWAC.common.list.edit" [iconClass]="'sme-icon sme-icon-edit'" [enabled]="loader.canEdit()" (execute)="editSelection()"></sme-action-button>
-        <sme-action-button #action [text]="strings.MsftIISWAC.appPool.recycle" [iconClass]="'sme-icon sme-icon-refresh'" [enabled]="canStop()"></sme-action-button>
-        <sme-action-button #action [text]="strings.MsftIISWAC.common.start" [iconClass]="'sme-icon sme-icon-play'" [enabled]="canStart()"></sme-action-button>
-        <sme-action-button #action [text]="strings.MsftIISWAC.common.stop" [iconClass]="'sme-icon sme-icon-stop'" [enabled]="canStop()"></sme-action-button>
-    </sme-action-bar>
-    <sme-data-table #dataTable
-        class="sme-position-flex-auto sme-position-inset-none sme-arrange-stack-v"
-        [items]="loader.items"
-        [(selection)]="loader.selected"
-        [defaultSortColumn]="nameColumn"
-        [defaultSortMode]="1"
-        [rememberSelection]="true">
-        <!-- [getItemIdentityFunction]="getItemIdentityFunction"> -->
-        <sme-data-table-column #nameColumn header="{{strings.MsftIISWAC.common.name}}" sortable="true">
-            <ng-template let-data>
-                <span>{{data.name}}</span>
-            </ng-template>
-        </sme-data-table-column>
-        <sme-data-table-column header="{{strings.MsftIISWAC.common.status}}" sortable="true">
-            <ng-template let-data>
-                <iis-status [status]="data.status"></iis-status>
-            </ng-template>
-        </sme-data-table-column>
-        <sme-data-table-column header="{{strings.MsftIISWAC.appPool.pipeline}}" field="managedPipelineMode" sortable="true"></sme-data-table-column>
-        <sme-data-table-column header="{{strings.MsftIISWAC.appPool.netFrameworkVersion}}" field="managedRuntimeVersion" sortable="true"></sme-data-table-column>
-        <sme-data-table-column header="{{strings.MsftIISWAC.appPool.identity.column}}" sortable="true">
-            <ng-template let-data>
-                <identity [value]="data.identity"></identity>
-            </ng-template>
-        </sme-data-table-column>
+            <sme-action-button #action [text]="strings.MsftIISWAC.common.list.add" [iconClass]="'sme-icon sme-icon-add'" [enabled]="loader.canAdd()" (execute)="createDialog.showDialog()"></sme-action-button>
+            <sme-action-button #action [text]="strings.MsftIISWAC.common.list.remove" [iconClass]="'sme-icon sme-icon-remove'" [enabled]="loader.canRemove()"></sme-action-button>
+            <sme-action-button #action [text]="strings.MsftIISWAC.common.list.edit" [iconClass]="'sme-icon sme-icon-edit'" [enabled]="loader.canEdit()" (execute)="editSelection()"></sme-action-button>
+            <sme-action-button #action [text]="strings.MsftIISWAC.appPool.recycle" [iconClass]="'sme-icon sme-icon-refresh'" [enabled]="canStop()"></sme-action-button>
+            <sme-action-button #action [text]="strings.MsftIISWAC.common.start" [iconClass]="'sme-icon sme-icon-play'" [enabled]="canStart()"></sme-action-button>
+            <sme-action-button #action [text]="strings.MsftIISWAC.common.stop" [iconClass]="'sme-icon sme-icon-stop'" [enabled]="canStop()"></sme-action-button>
+        </sme-action-bar>
+        <sme-data-table #dataTable
+            class="sme-position-flex-auto sme-position-inset-none sme-arrange-stack-v"
+            [items]="loader.items"
+            [(selection)]="loader.selected"
+            [defaultSortColumn]="nameColumn"
+            [defaultSortMode]="1"
+            [rememberSelection]="true">
+            <!-- [getItemIdentityFunction]="getItemIdentityFunction"> -->
+            <sme-data-table-column #nameColumn header="{{strings.MsftIISWAC.common.name}}" sortable="true">
+                <ng-template let-data>
+                    <span>{{data.name}}</span>
+                </ng-template>
+            </sme-data-table-column>
+            <sme-data-table-column header="{{strings.MsftIISWAC.common.status}}" sortable="true">
+                <ng-template let-data>
+                    <iis-status [status]="data.status"></iis-status>
+                </ng-template>
+            </sme-data-table-column>
+            <sme-data-table-column header="{{strings.MsftIISWAC.appPool.pipeline}}" field="managedPipelineMode" sortable="true"></sme-data-table-column>
+            <sme-data-table-column header="{{strings.MsftIISWAC.appPool.netFrameworkVersion}}" field="managedRuntimeVersion" sortable="true"></sme-data-table-column>
+            <sme-data-table-column header="{{strings.MsftIISWAC.appPool.identity.column}}" sortable="true">
+                <ng-template let-data>
+                    <identity [value]="data.identity"></identity>
+                </ng-template>
+            </sme-data-table-column>
         </sme-data-table>
     </div>
-    <iis-create-dialog #createDialog
-        id="iis-new-app-pool-dialog"
+    <iis-dialog #createDialog
+        id="app-pool-create-dialog"
         [title]="strings.MsftIISWAC.appPool.createDialogHeader"
-        (created)="createAppPool(newAppPool.pool)">
-        <iis-app-pool-edit #newAppPool></iis-app-pool-edit>
-    </iis-create-dialog>
+        (output)="createAppPool(newAppPool.pool)">
+        <iis-app-pool-edit *ngIf="createDialog.visible" #newAppPool></iis-app-pool-edit>
+    </iis-dialog>
 </list-loader>

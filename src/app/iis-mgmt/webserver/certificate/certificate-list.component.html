@@ -1,0 +1,16 @@
+<list-loader #loader [observes]="contents" [table]="dataTable">
+    <sme-data-table #dataTable
+        class="sme-position-flex-auto sme-position-inset-none sme-arrange-stack-v"
+        [items]="loader.items"
+        [(selection)]="loader.selected"
+        [defaultSortColumn]="nameColumn"
+        [defaultSortMode]="1"
+        [rememberSelection]="true">
+        <!-- [getItemIdentityFunction]="getItemIdentityFunction"> -->
+        <sme-data-table-column #nameColumn header="{{strings.MsftIISWAC.cert.name}}" field="displayName" sortable="true"></sme-data-table-column>
+        <sme-data-table-column header="{{strings.MsftIISWAC.cert.location}}" field="location" sortable="true"></sme-data-table-column>
+        <sme-data-table-column header="{{strings.MsftIISWAC.cert.subject}}" field="subject" sortable="true"></sme-data-table-column>
+        <sme-data-table-column header="{{strings.MsftIISWAC.cert.issuer}}" field="issuer" sortable="true"></sme-data-table-column>
+        <sme-data-table-column header="{{strings.MsftIISWAC.cert.notAfter}}" field="notAfter" sortable="true"></sme-data-table-column>
+    </sme-data-table>
+</list-loader>

@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BaseDialogComponent, DialogService } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
 import { take } from 'rxjs/operators';
@@ -10,19 +10,21 @@ export enum DialogInfo {
 }
 
 @Component({
-    selector: 'iis-create-dialog',
-    templateUrl: 'create-dialog.component.html',
+    selector: 'iis-dialog',
+    templateUrl: 'iis-dialog.component.html',
 })
-export class CreateDialogComponent extends BaseDialogComponent<{}, DialogInfo> {
+export class IISDialogComponent extends BaseDialogComponent<{}, DialogInfo> {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
     @Input()
     title: string;
 
     @Output()
-    created = new EventEmitter<any>();
+    output = new EventEmitter<any>();
+
+    visible = false;
 
     constructor(
-        private dialogSrv: DialogService,
+        dialogSrv: DialogService,
     ) {
         super(dialogSrv);
     }
@@ -30,17 +32,20 @@ export class CreateDialogComponent extends BaseDialogComponent<{}, DialogInfo> {
     onSubmit() {
         // TODO: validate
         this.hide(DialogInfo.OK);
+        this.visible = false;
     }
 
     onCancel() {
         this.hide(DialogInfo.Cancel);
+        this.visible = false;
     }
 
-    showDialog(id: string) {
-        this.dialogSrv.show<{}, DialogInfo>(id, {}).pipe(take(1)).subscribe(
+    showDialog() {
+        this.visible = true;
+        super.show({}).pipe(take(1)).subscribe(
             v => {
                 if (v === DialogInfo.OK) {
-                    this.created.next(v);
+                    this.output.next(v);
                 }
             },
             e => {
@@ -50,4 +55,4 @@ export class CreateDialogComponent extends BaseDialogComponent<{}, DialogInfo> {
     }
 }
 
-const logSource = (typeof CreateDialogComponent).toString();
+const logSource = (typeof IISDialogComponent).toString();

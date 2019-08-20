@@ -28,4 +28,19 @@
         [(ngModel)]="site.enabledProtocols"
         [label]="strings.MsftIISWAC.website.protocols">
     </sme-form-field>
+    <sme-form-field type="text"
+        #appPoolName
+        name="appPool"
+        [(ngModel)]="site.applicationPoolName"
+        [label]="strings.MsftIISWAC.common.applicationPool"
+        [required]="true"
+        [showFieldAction]="true"
+        [fieldActionText]="strings.MsftIISWAC.common.selectBtn"
+        (fieldAction)="appPoolDialog.showDialog()"></sme-form-field>
 </form>
+<iis-dialog #appPoolDialog
+    id="website-select-app-pool-dialog"
+    [title]="appPoolDialogHeader"
+    (output)="setAppPool(appPoolSelect.selected)">
+    <iis-app-pool-list *ngIf="appPoolDialog.visible" #appPoolSelect [select]="['name', site.applicationPoolName]"></iis-app-pool-list>
+</iis-dialog>
