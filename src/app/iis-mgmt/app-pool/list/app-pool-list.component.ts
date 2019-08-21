@@ -6,6 +6,7 @@ import { Status } from 'src/app/iis-mgmt/models/status';
 import { AppPoolService } from 'src/app/iis-mgmt/service/app-pool.service';
 import { ListLoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/list-loader.component';
 import { Strings } from 'src/generated/strings';
+import { AppPoolEditComponent } from '../general/app-pool-edit.component';
 
 @Component({
     selector: 'iis-app-pool-list',
@@ -20,6 +21,9 @@ export class AppPoolListComponent {
 
     @ViewChild('loader')
     loader: ListLoaderComponent;
+
+    @ViewChild('newAppPool')
+    newAppPool: AppPoolEditComponent;
 
     constructor(
       private router: Router,
@@ -54,6 +58,6 @@ export class AppPoolListComponent {
       this.router.navigate([ `app-pool/${this.selected.id}` ]);
     }
 
-    createAppPool(pool: ApplicationPool) {
+    createAppPool() {
     }
 }

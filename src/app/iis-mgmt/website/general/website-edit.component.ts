@@ -4,7 +4,7 @@ import { Strings } from 'src/generated/strings';
 
 @Component({
     selector: 'iis-website-edit',
-    templateUrl: 'website-edit.component.html',
+    templateUrl: './website-edit.component.html',
 })
 export class WebsiteEditComponent implements OnInit {
     public readonly strings = MsftSme.resourcesStrings<Strings>();

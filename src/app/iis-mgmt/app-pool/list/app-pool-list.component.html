@@ -38,7 +38,7 @@
     <iis-dialog #createDialog
         id="app-pool-create-dialog"
         [title]="strings.MsftIISWAC.appPool.createDialogHeader"
-        (output)="createAppPool(newAppPool.pool)">
-        <iis-app-pool-edit *ngIf="createDialog.visible" #newAppPool></iis-app-pool-edit>
+        (proceed)="createAppPool()">
+        <iis-app-pool-edit #newAppPool *ngIf="createDialog.visible"></iis-app-pool-edit>
     </iis-dialog>
 </list-loader>

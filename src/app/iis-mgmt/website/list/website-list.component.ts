@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Status } from 'src/app/iis-mgmt/models/status';
 import { Website } from 'src/app/iis-mgmt/models/website';
 import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
 import { ListLoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/list-loader.component';
 import { Strings } from 'src/generated/strings';
+import { WebsiteEditComponent } from '../general/website-edit.component';
 
 @Component({
   selector: 'iis-website-list',
@@ -18,6 +19,9 @@ export class WebsiteListComponent {
 
   @ViewChild('loader')
   loader: ListLoaderComponent;
+
+  @ViewChild('newSite')
+  newSite: WebsiteEditComponent;
 
   constructor(
     private router: Router,
@@ -52,7 +56,6 @@ export class WebsiteListComponent {
     this.router.navigate([ `website/${this.selected.id}` ]);
   }
 
-  createWebsite(site: Website) {
-
+  createWebsite() {
   }
 }

@@ -34,8 +34,8 @@ export class Binding {
         public ipAddress: string = null,
         public port: number = null,
         public hostname: string = null,
-        public require_sni: boolean = null,
-        public is_https: boolean = null,
+        public requireSni: boolean = null,
+        public isHttps: boolean = null,
         public protocol: string = null,
         public bindingInformation: boolean = null,
         public certificate: Certificate = null,     // TODO:

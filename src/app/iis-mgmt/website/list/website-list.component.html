@@ -37,7 +37,7 @@
   <iis-dialog #createDialog
     id="website-create-dialog"
     [title]="strings.MsftIISWAC.website.createDialogHeader"
-    (output)="createWebsite(newSite.site)">
-    <iis-website-edit *ngIf="createDialog.visible" #newSite></iis-website-edit>
+    (output)="createWebsite()">
+    <iis-website-edit #newSite *ngIf="createDialog.visible"></iis-website-edit>
   </iis-dialog>
 </list-loader>

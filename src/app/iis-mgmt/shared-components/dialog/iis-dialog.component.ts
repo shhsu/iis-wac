@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseDialogComponent, DialogService } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
 import { take } from 'rxjs/operators';
@@ -11,7 +11,7 @@ export enum DialogInfo {
 
 @Component({
     selector: 'iis-dialog',
-    templateUrl: 'iis-dialog.component.html',
+    templateUrl: './iis-dialog.component.html',
 })
 export class IISDialogComponent extends BaseDialogComponent<{}, DialogInfo> {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
@@ -19,7 +19,7 @@ export class IISDialogComponent extends BaseDialogComponent<{}, DialogInfo> {
     title: string;
 
     @Output()
-    output = new EventEmitter<any>();
+    proceed = new EventEmitter<any>();
 
     visible = false;
 
@@ -30,7 +30,7 @@ export class IISDialogComponent extends BaseDialogComponent<{}, DialogInfo> {
     }
 
     onSubmit() {
-        // TODO: validate
+        // TODO: validate, for example selection cannot be null
         this.hide(DialogInfo.OK);
         this.visible = false;
     }
@@ -45,7 +45,7 @@ export class IISDialogComponent extends BaseDialogComponent<{}, DialogInfo> {
         super.show({}).pipe(take(1)).subscribe(
             v => {
                 if (v === DialogInfo.OK) {
-                    this.output.next(v);
+                    this.proceed.next(v);
                 }
             },
             e => {

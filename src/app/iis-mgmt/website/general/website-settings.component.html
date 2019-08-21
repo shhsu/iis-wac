@@ -41,6 +41,6 @@
 <iis-dialog #appPoolDialog
     id="website-select-app-pool-dialog"
     [title]="appPoolDialogHeader"
-    (output)="setAppPool(appPoolSelect.selected)">
-    <iis-app-pool-list *ngIf="appPoolDialog.visible" #appPoolSelect [select]="['name', site.applicationPoolName]"></iis-app-pool-list>
+    (proceed)="selectAppPool()">
+    <iis-app-pool-list #appPoolSelect *ngIf="appPoolDialog.visible" [select]="['name', site.applicationPoolName]"></iis-app-pool-list>
 </iis-dialog>

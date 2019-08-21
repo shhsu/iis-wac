@@ -7,7 +7,7 @@ import { Strings } from 'src/generated/strings';
 
 @Component({
     selector: 'iis-certs',
-    templateUrl: 'certificate-list.component.html',
+    templateUrl: './certificate-list.component.html',
 })
 export class CertificateListComponent {
     public readonly strings = MsftSme.resourcesStrings<Strings>();

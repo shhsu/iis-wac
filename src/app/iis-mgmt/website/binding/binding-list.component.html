@@ -1,0 +1,23 @@
+<div class="sme-position-stretch-v sme-position-inset-none sme-arrange-stack-v">
+    <sme-action-bar #actionBar class="sme-position-flex-none">
+        <sme-action-button #action [text]="strings.MsftIISWAC.common.list.add" [iconClass]="'sme-icon sme-icon-add'" (execute)="createNew()"></sme-action-button>
+        <sme-action-button #action [text]="strings.MsftIISWAC.common.list.remove" [iconClass]="'sme-icon sme-icon-remove'" [enabled]="selected !== null"></sme-action-button>
+        <sme-action-button #action [text]="strings.MsftIISWAC.common.list.edit" [iconClass]="'sme-icon sme-icon-edit'" [enabled]="selected !== null" (execute)="editSelected()"></sme-action-button>
+    </sme-action-bar>
+    <sme-data-table #dataTable
+        class="sme-position-flex-auto sme-position-inset-none sme-arrange-stack-v"
+        [items]="site.bindings"
+        selectionMode="single"
+        [(selection)]="selected">
+        <sme-data-table-column header="{{strings.MsftIISWAC.website.protocol}}" field="protocol" sortable="true"></sme-data-table-column>
+        <sme-data-table-column header="{{strings.MsftIISWAC.website.hostname}}" field="hostname" sortable="true"></sme-data-table-column>
+        <sme-data-table-column header="{{strings.MsftIISWAC.website.ipAddress}}" field="ipAddress" sortable="true"></sme-data-table-column>
+        <sme-data-table-column header="{{strings.MsftIISWAC.website.port}}" field="port" sortable="true"></sme-data-table-column>
+    </sme-data-table>
+</div>
+<iis-dialog #editDialog
+    id="binding-create-dialog"
+    [title]="dialogHeader"
+    (proceed)="saveEdits()">
+    <iis-binding #editBinding *ngIf="editDialog.visible"></iis-binding>
+</iis-dialog>
