@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AppContextService } from '@msft-sme/angular';
-import { Logging, PowerShellCommand, PowerShellResult, PowerShellSession } from '@msft-sme/core';
+import { Logging, PowerShellResult, PowerShellSession } from '@msft-sme/core';
 import { Observable } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { instrument } from 'src/app/iis-mgmt/common/util/logging';
+import { stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 
 const psKey = 'msft.iis.iis-management';
 
@@ -33,7 +34,7 @@ export class PowershellService {
                     Logging.logError(logSource,
 `Error parsing results from powershell script ${name}:
 Script output: ${results.join('\n')}
-Parsing error: ${rtnObject.errorsReported}`);
+Parsing error: ${stringifySafe(rtnObject.errorsReported)}`);
                 }
                 return rtnObject;
             });

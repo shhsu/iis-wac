@@ -40,6 +40,7 @@
     "MsftIISWAC_common_selectBtn": "Select",
     "MsftIISWAC_common_discardChangeTitle": "Discard changes",
     "MsftIISWAC_common_discardChangeMessage": "Some changes has been made, discard?",
+    "MsftIISWAC_common_errorSubmitData": "Error submitting user input",
 
     "MsftIISWAC_cert_unnamed": "(unnamed certificate)",
     "MsftIISWAC_cert_name": "Certificate",
@@ -73,6 +74,7 @@
     "MsftIISWAC_errors_onLoad": "An error has occurred while showing this page: ",
     "MsftIISWAC_errors_onList": "An error has occurred while retrieving resources, the list may be incomplete: ",
     "MsftIISWAC_errors_details": "Details",
+    "MsftIISWAC_errors_more": "More",
     "MsftIISWAC_errors_lineInfo": "At {0} (${1}, ${2})",
 
     "MsftIISWAC_website_name": "Name",

@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { AppContextService } from '@msft-sme/angular';
+import { Status } from 'src/app/iis-mgmt/models/status';
+import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
+import { LoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/loader.component';
 import { Strings } from 'src/generated/strings';
-import { Status } from '../../models/status';
-import { Website } from '../../models/website';
-import { WebSiteService } from '../../service/website.service';
-import { LoaderComponent } from '../../shared-components/loaders/loader.component';
 
 @Component({
   selector: 'iis-website-general',
@@ -30,18 +29,14 @@ export class WebsiteGeneralComponent {
   ) { }
 
   canStart() {
-    return this.website.status === Status.Stopped;
+    return this.loader.item.status === Status.Stopped;
   }
 
   canStop() {
-    return this.website.status === Status.Started;
+    return this.loader.item.status === Status.Started;
   }
 
   get content() {
     return this._content;
-  }
-
-  get website(): Website {
-    return this.loader.item;
   }
 }

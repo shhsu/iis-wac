@@ -1,0 +1,20 @@
+<sme-dialog *ngIf="options" #dialog id="iis-error-dialog" dialogMode="wide-pane" class="error-details">
+    <sme-dialog-header>
+      <h3 id="sme-dialog-title">{{options.headline}}</h3>
+    </sme-dialog-header>
+    <sme-dialog-content>
+      <p *ngFor="let line of knownProperties">{{line}}</p>
+      <ng-container *ngIf="options.showDetails">
+          <p>{{lineInfo}}</p>
+          <p *ngIf="stack">{{stack}}</p>
+          <p></p>
+          <p></p>
+          <p>Capture:</p>
+          <p>{{errorObjectDump}}</p>
+      </ng-container>
+    </sme-dialog-content>
+    <sme-dialog-footer class="sme-layout-float-right">
+        <button type="button" (click)="toggleDetails()">{{strings.MsftIISWAC.errors.more}}</button>
+        <button type="button" class="sme-button-primary" (click)="onOK()">{{strings.MsftIISWAC.common.ok}}</button>
+    </sme-dialog-footer>
+</sme-dialog>

@@ -3,6 +3,7 @@ import { AfterContentInit, Component, Input, NgModule, OnInit } from '@angular/c
 import { DataTableComponent, LoadingWheelModule } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
 import { Observable, Subscription } from 'rxjs';
+import { stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Strings } from 'src/generated/strings';
 import { Module as ErrorModule } from './error.component';
 
@@ -72,7 +73,7 @@ export class ListLoaderComponent implements AfterContentInit {
             e => {
                 this.error = e;
                 this.loading = false;
-                Logging.logError(logSource, `Error occurred while loading list ${e.message}\n${e.toString()}`);
+                Logging.logError(logSource, `Error occurred while loading list ${stringifySafe(e)}`);
             },
             () => {
                 this.loading = false;

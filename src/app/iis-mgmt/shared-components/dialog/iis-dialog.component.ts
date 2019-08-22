@@ -3,7 +3,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseDialogComponent, DialogService } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
 import { take } from 'rxjs/operators';
+import { stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Strings } from 'src/generated/strings';
+
 export enum DialogInfo {
     OK,
     Cancel,
@@ -13,13 +15,13 @@ export enum DialogInfo {
     selector: 'iis-dialog',
     templateUrl: './iis-dialog.component.html',
 })
-export class IISDialogComponent extends BaseDialogComponent<{}, DialogInfo> {
+export class IISDialogComponent<T> extends BaseDialogComponent<T, DialogInfo> {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
     @Input()
     title: string;
 
     @Output()
-    proceed = new EventEmitter<any>();
+    proceed = new EventEmitter<T>();
 
     visible = false;
 
@@ -40,16 +42,16 @@ export class IISDialogComponent extends BaseDialogComponent<{}, DialogInfo> {
         this.visible = false;
     }
 
-    showDialog() {
+    showDialog(param: T = null) {
         this.visible = true;
-        super.show({}).pipe(take(1)).subscribe(
+        super.show(param).pipe(take(1)).subscribe(
             v => {
                 if (v === DialogInfo.OK) {
-                    this.proceed.next(v);
+                    this.proceed.next(param);
                 }
             },
             e => {
-                Logging.logWarning(logSource, `Dialog ended with error ${e}`);
+                Logging.logError(logSource, `Dialog ended with error ${stringifySafe(e)}`);
             },
         );
     }

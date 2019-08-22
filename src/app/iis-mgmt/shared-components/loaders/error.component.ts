@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, NgModule, ViewChild } from '@angular/core';
-import { DialogModule, HealthAlertSeverity } from '@msft-sme/angular';
+import { HealthAlertSeverity, PageAlertBarModule } from '@msft-sme/angular';
+import { IISDialogModule } from 'src/app/iis-mgmt/shared-components/dialog/iis-dialog.module';
+import { IISErrorDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-error-dialog.component';
 import { Strings } from 'src/generated/strings';
-import { ErrorDialogComponent } from './error-dialog.component';
 
 @Component({
     selector: 'error',
     template: `
-<sme-page-alert-bar [alert]="alert"></sme-page-alert-bar>
-<iis-error-dialog id="iis-error-dialog" [error]="error"></iis-error-dialog>
+<sme-page-alert-bar id="iis-error-alert-bar" [alert]="alert"></sme-page-alert-bar>
+<iis-error-dialog id="iis-error-dialog"></iis-error-dialog>
 `,
 })
 export class ErrorComponent {
@@ -22,14 +23,18 @@ export class ErrorComponent {
     error: Error;
 
     @ViewChild('iis-error-dialog')
-    dialog: ErrorDialogComponent;
+    dialog: IISErrorDialogComponent;
 
     get alert() {
         return {
             severity: this.severity,
             message: this.headline,
             detailsCaption: this.strings.MsftIISWAC.errors.details,
-            detailsCommand: _ => this.dialog.show(null),
+            detailsCommand: _ => this.dialog.show({
+                headline: this.headline,
+                error: this.error,
+                showDetails: true,
+            }),
         };
     }
 }
@@ -37,10 +42,10 @@ export class ErrorComponent {
 @NgModule({
     imports: [
         CommonModule,
-        DialogModule,
+        IISDialogModule,
+        PageAlertBarModule,
     ],
     exports: [
-        ErrorDialogComponent,
         ErrorComponent,
     ],
     declarations: [
