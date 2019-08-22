@@ -8,7 +8,7 @@ export function formatF(s: string, ...args: string[]) {
 
 export function stringifySafe(jsObject) {
     const seen = new Set<any>();
-    const serializedData = JSON.stringify(jsObject, function(_, value) {
+    const serializedData = JSON.stringify(jsObject, function (_, value) {
         if (typeof value === 'object') {
             if (seen.has(value)) {
                 return '(circular reference)';
@@ -21,11 +21,11 @@ export function stringifySafe(jsObject) {
     return serializedData;
 }
 
-const knownFields = [ 'name', 'message', 'details' ];
+const knownFields = ['name', 'message', 'details'];
 export function* enumerateKnownProperties(e: any) {
     for (const p of knownFields) {
         if (this.error[p]) {
-           yield `${p}: ${e[p]}`;
+            yield `${p}: ${e[p]}`;
         }
     }
 }

@@ -6,8 +6,7 @@ import { PowershellService } from './service/powershell.service';
 
 @Component({
   selector: 'iis-component',
-  templateUrl: './iis.component.html',
-  styleUrls: ['./iis.component.css']
+  templateUrl: './iis.component.html'
 })
 export class IISComponent implements OnInit {
   public readonly strings = MsftSme.resourcesStrings<Strings>();

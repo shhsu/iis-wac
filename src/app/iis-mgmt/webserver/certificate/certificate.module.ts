@@ -18,4 +18,4 @@ import { CertificateListComponent } from './certificate-list.component';
         CertificateListComponent,
     ],
 })
-export class CertificateListModule {}
+export class CertificateListModule { }

@@ -22,4 +22,4 @@ import { AppPoolListModule } from './list/app-pool-list.module';
         AppPoolComponent,
     ],
 })
-export class AppPoolModule {}
+export class AppPoolModule { }

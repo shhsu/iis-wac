@@ -9,53 +9,52 @@ import { Strings } from 'src/generated/strings';
 import { WebsiteEditComponent } from '../general/website-edit.component';
 
 @Component({
-  selector: 'iis-website-list',
-  templateUrl: './website-list.component.html',
-  styleUrls: ['./website-list.component.css']
+    selector: 'iis-website-list',
+    templateUrl: './website-list.component.html'
 })
 export class WebsiteListComponent {
-  public readonly strings = MsftSme.resourcesStrings<Strings>();
-  private _contents = this.srv.getAll();
+    public readonly strings = MsftSme.resourcesStrings<Strings>();
+    private _contents = this.srv.getAll();
 
-  @ViewChild('loader')
-  loader: ListLoaderComponent;
+    @ViewChild('loader')
+    loader: ListLoaderComponent;
 
-  @ViewChild('newSite')
-  newSite: WebsiteEditComponent;
+    @ViewChild('newSite')
+    newSite: WebsiteEditComponent;
 
-  constructor(
-    private router: Router,
-    private srv: WebSiteService,
-  ) {}
+    constructor(
+        private router: Router,
+        private srv: WebSiteService,
+    ) { }
 
-  get contents(): Observable<Website> {
-    return this._contents;
-  }
-
-  get selected(): Website {
-    if (this.loader) {
-      return this.loader.selected;
+    get contents(): Observable<Website> {
+        return this._contents;
     }
-  }
 
-  set selected(site: Website) {
-    if (this.loader) {
-      this.loader.selected = site;
+    get selected(): Website {
+        if (this.loader) {
+            return this.loader.selected;
+        }
     }
-  }
 
-  canStart(): boolean {
-    return this.selected && this.selected.status === Status.Stopped;
-  }
+    set selected(site: Website) {
+        if (this.loader) {
+            this.loader.selected = site;
+        }
+    }
 
-  canStop(): boolean {
-    return this.selected && this.selected.status === Status.Started;
-  }
+    canStart(): boolean {
+        return this.selected && this.selected.status === Status.Stopped;
+    }
 
-  editSelection() {
-    this.router.navigate([ `website/${this.selected.id}` ]);
-  }
+    canStop(): boolean {
+        return this.selected && this.selected.status === Status.Started;
+    }
 
-  createWebsite() {
-  }
+    editSelection() {
+        this.router.navigate([`website/${this.selected.id}`]);
+    }
+
+    createWebsite() {
+    }
 }

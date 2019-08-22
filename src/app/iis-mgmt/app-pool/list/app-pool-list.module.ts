@@ -27,4 +27,4 @@ import { IdentityComponent } from './identity.component';
         AppPoolListComponent,
     ],
 })
-export class AppPoolListModule {}
+export class AppPoolListModule { }

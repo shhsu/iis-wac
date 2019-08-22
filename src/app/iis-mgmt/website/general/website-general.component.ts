@@ -8,8 +8,7 @@ import { Strings } from 'src/generated/strings';
 
 @Component({
   selector: 'iis-website-general',
-  templateUrl: './website-general.component.html',
-  styleUrls: ['./website-general.component.css']
+  templateUrl: './website-general.component.html'
 })
 export class WebsiteGeneralComponent {
   public readonly strings = MsftSme.resourcesStrings<Strings>();

@@ -3,5 +3,20 @@
         "deserialize",
         "mgmt",
         "vdir"
-    ]
+    ],
+    "files.exclude": {
+        ".git": true,
+        "node_modules": true,
+        "dist": true,
+        "inlineDist": true,
+        "inlineSrc": true,
+        "bundle": true,
+    },
+    "editor.autoIndent": true,
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "files.insertFinalNewline": true,
+    "eslint.enable": true,
+    "eslint.autoFixOnSave": true
 }

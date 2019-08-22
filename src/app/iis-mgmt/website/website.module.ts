@@ -24,4 +24,4 @@ import { WebsiteComponent } from './website.component';
         WebsiteComponent,
     ],
 })
-export class WebSiteModule {}
+export class WebSiteModule { }

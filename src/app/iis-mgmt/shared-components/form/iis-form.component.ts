@@ -45,7 +45,7 @@ export class IISFormComponent {
 
     constructor(
         private appContext: AppContextService,
-    ) {}
+    ) { }
 
     @Input()
     set editNew(value: any) {
@@ -119,7 +119,7 @@ export class IISFormComponent {
             if (this.validate(this._editing)) {
                 this.submitting = true;
                 this.submit().subscribe(
-                    _ => {},
+                    _ => { },
                     e => {
                         this.dialog.show({
                             headline: this.strings.MsftIISWAC.common.errorSubmitData,

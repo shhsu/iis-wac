@@ -9,55 +9,55 @@ import { Strings } from 'src/generated/strings';
 import { AppPoolEditComponent } from '../general/app-pool-edit.component';
 
 @Component({
-    selector: 'iis-app-pool-list',
-    templateUrl: 'app-pool-list.component.html',
+  selector: 'iis-app-pool-list',
+  templateUrl: 'app-pool-list.component.html',
 })
 export class AppPoolListComponent {
-    public readonly strings = MsftSme.resourcesStrings<Strings>();
-    private _contents = this.srv.getAll();
+  public readonly strings = MsftSme.resourcesStrings<Strings>();
+  private _contents = this.srv.getAll();
 
-    @Input()
-    select: [string, any];
+  @Input()
+  select: [string, any];
 
-    @ViewChild('loader')
-    loader: ListLoaderComponent;
+  @ViewChild('loader')
+  loader: ListLoaderComponent;
 
-    @ViewChild('newAppPool')
-    newAppPool: AppPoolEditComponent;
+  @ViewChild('newAppPool')
+  newAppPool: AppPoolEditComponent;
 
-    constructor(
-      private router: Router,
-      private srv: AppPoolService,
-    ) {}
+  constructor(
+    private router: Router,
+    private srv: AppPoolService,
+  ) { }
 
-    get contents(): Observable<ApplicationPool> {
-      return this._contents;
+  get contents(): Observable<ApplicationPool> {
+    return this._contents;
+  }
+
+  get selected(): ApplicationPool {
+    if (this.loader) {
+      return this.loader.selected;
     }
+  }
 
-    get selected(): ApplicationPool {
-      if (this.loader) {
-        return this.loader.selected;
-      }
+  set selected(pool: ApplicationPool) {
+    if (this.loader) {
+      this.loader.selected = pool;
     }
+  }
 
-    set selected(pool: ApplicationPool) {
-      if (this.loader) {
-        this.loader.selected = pool;
-      }
-    }
+  canStart(): boolean {
+    return this.selected && this.selected.status === Status.Stopped;
+  }
 
-    canStart(): boolean {
-      return this.selected && this.selected.status === Status.Stopped;
-    }
+  canStop(): boolean {
+    return this.selected && this.selected.status === Status.Started;
+  }
 
-    canStop(): boolean {
-      return this.selected && this.selected.status === Status.Started;
-    }
+  editSelection() {
+    this.router.navigate([`app-pool/${this.selected.id}`]);
+  }
 
-    editSelection() {
-      this.router.navigate([ `app-pool/${this.selected.id}` ]);
-    }
-
-    createAppPool() {
-    }
+  createAppPool() {
+  }
 }

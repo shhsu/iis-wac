@@ -11,7 +11,7 @@ export interface PersistenceMechanic<TData, TDialogParam> {
 class TablePersistenceMechanic<TData> implements PersistenceMechanic<TData, number> {
     constructor(
         private table: DataTableComponent,
-    ) {}
+    ) { }
 
     getCreateParam() {
         return null;
@@ -48,7 +48,6 @@ export class IISCollectionDialogComponent<T> {
     @Input()
     selected: T;
 
-    @Input()
     editing: T;
 
     @Input()
@@ -71,6 +70,7 @@ export class IISCollectionDialogComponent<T> {
 
     onEdit() {
         this.dialogHeader = this.editHeader;
+        this.editing = this.selected;
         const param = this.core.getEditParam(this.selected);
         this.dialog.showDialog(param);
     }

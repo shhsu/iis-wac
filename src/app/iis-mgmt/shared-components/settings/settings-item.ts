@@ -24,7 +24,7 @@ export enum CommonSetting {
 }
 
 export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationItem>([
-    [CommonSetting.VirtualDirectory, <CommonSettingsNavigationItem> {
+    [CommonSetting.VirtualDirectory, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.virtualDirectory,
         routeParams: {
             commands: [
@@ -33,7 +33,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-folder',
     }],
-    [CommonSetting.Authentication, <CommonSettingsNavigationItem> {
+    [CommonSetting.Authentication, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.authentication,
         routeParams: {
             commands: [
@@ -42,7 +42,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-localAdmin',
     }],
-    [CommonSetting.Authorization, <CommonSettingsNavigationItem> {
+    [CommonSetting.Authorization, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.authorization,
         routeParams: {
             commands: [
@@ -51,7 +51,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-group',
     }],
-    [CommonSetting.Certificate, <CommonSettingsNavigationItem> {
+    [CommonSetting.Certificate, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.certificate,
         routeParams: {
             commands: [
@@ -60,7 +60,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-lock',
     }],
-    [CommonSetting.CertStore, <CommonSettingsNavigationItem> {
+    [CommonSetting.CertStore, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.certStore,
         routeParams: {
             commands: [
@@ -69,7 +69,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-certificateManager',
     }],
-    [CommonSetting.DefaultDoc, <CommonSettingsNavigationItem> {
+    [CommonSetting.DefaultDoc, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.defaultDoc,
         routeParams: {
             commands: [
@@ -78,7 +78,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-openFile',
     }],
-    [CommonSetting.DirBrowsing, <CommonSettingsNavigationItem> {
+    [CommonSetting.DirBrowsing, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.dirBrowsing,
         routeParams: {
             commands: [
@@ -87,7 +87,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-openFolderHorizontal',
     }],
-    [CommonSetting.Files, <CommonSettingsNavigationItem> {
+    [CommonSetting.Files, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.files,
         routeParams: {
             commands: [
@@ -96,7 +96,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-hardDrive',
     }],
-    [CommonSetting.IpRestriction, <CommonSettingsNavigationItem> {
+    [CommonSetting.IpRestriction, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.ipRestriction,
         routeParams: {
             commands: [
@@ -105,7 +105,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-blocked2',
     }],
-    [CommonSetting.Logging, <CommonSettingsNavigationItem> {
+    [CommonSetting.Logging, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.logging,
         routeParams: {
             commands: [
@@ -114,7 +114,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-edit',
     }],
-    [CommonSetting.MimeMap, <CommonSettingsNavigationItem> {
+    [CommonSetting.MimeMap, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.mimeMap,
         routeParams: {
             commands: [
@@ -123,7 +123,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-virtualNetwork',
     }],
-    [CommonSetting.Monitoring, <CommonSettingsNavigationItem> {
+    [CommonSetting.Monitoring, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.monitoring,
         routeParams: {
             commands: [
@@ -132,7 +132,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-sDNMonitoring',
     }],
-    [CommonSetting.Module, <CommonSettingsNavigationItem> {
+    [CommonSetting.Module, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.module,
         routeParams: {
             commands: [
@@ -141,7 +141,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-tripleColumn',
     }],
-    [CommonSetting.Compression, <CommonSettingsNavigationItem> {
+    [CommonSetting.Compression, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.compression,
         routeParams: {
             commands: [
@@ -150,7 +150,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-unzipFolder',
     }],
-    [CommonSetting.RequestFiltering, <CommonSettingsNavigationItem> {
+    [CommonSetting.RequestFiltering, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.requestFiltering,
         routeParams: {
             commands: [
@@ -159,7 +159,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-filter',
     }],
-    [CommonSetting.Header, <CommonSettingsNavigationItem> {
+    [CommonSetting.Header, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.header,
         routeParams: {
             commands: [
@@ -168,7 +168,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-down',
     }],
-    [CommonSetting.Tracing, <CommonSettingsNavigationItem> {
+    [CommonSetting.Tracing, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.tracing,
         routeParams: {
             commands: [
@@ -177,7 +177,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-networkPipes',
     }],
-    [CommonSetting.StaticContent, <CommonSettingsNavigationItem> {
+    [CommonSetting.StaticContent, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.staticContent,
         routeParams: {
             commands: [
@@ -186,7 +186,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
         },
         smeIconClassName: 'sme-icon-fileExplorer',
     }],
-    [CommonSetting.UrlRewrite, <CommonSettingsNavigationItem> {
+    [CommonSetting.UrlRewrite, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.urlRewrite,
         routeParams: {
             commands: [
@@ -198,7 +198,7 @@ export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationIte
 ]);
 
 export function getModules(...includes: CommonSetting[]): CommonSettingsNavigationItem[] {
-    const generalTab = <CommonSettingsNavigationItem> {
+    const generalTab = <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.general,
         routeParams: { commands: ['general'] },
         smeIconClassName: 'sme-icon-serverProcesses',

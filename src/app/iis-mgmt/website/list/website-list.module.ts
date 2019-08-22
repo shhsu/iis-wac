@@ -25,4 +25,4 @@ import { WebsiteListComponent } from './website-list.component';
         WebsiteListComponent,
     ],
 })
-export class WebSiteListModule {}
+export class WebSiteListModule { }

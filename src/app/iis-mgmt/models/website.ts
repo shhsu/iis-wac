@@ -9,7 +9,7 @@ export class Limits {
         public maxBandwidth: number = null,
         public maxConnections: number = null,
         public maxUrlSegments: number = null,
-    ) {}
+    ) { }
 
     public static transform(limits: any): Limits {
         const result = fromCSObject(Limits, limits);
@@ -26,7 +26,7 @@ export class RequestTracing {
         public enabled: boolean = null,
         public directory: string = null,
         public maxLogFiles: number = null,
-    ) {}
+    ) { }
 }
 
 export class Binding {
@@ -40,7 +40,7 @@ export class Binding {
         public bindingInformation: boolean = null,
         public certificate: Certificate = null,     // TODO:
         public isNew: boolean = null,
-    ) {}
+    ) { }
 
     public static transform(binding: any): Binding {
         const result = fromCSObject(Binding, binding);
@@ -59,6 +59,11 @@ export class Binding {
         result.hostname = binding.Host;
 
         if (bindingName === 'https') {
+        }
+        return result;
+    }
+}
+
 //     if (binding.Protocol.Equals("https")) {
 //         ICertificateStore store = null;
 
@@ -98,10 +103,6 @@ export class Binding {
 //             obj.require_sni = binding.SslFlags.HasFlag(SslFlags.Sni);
 //         }
 //     }
-        }
-        return result;
-    }
-}
 
 function selectByPath(items: any[], path: string) {
     if (!items) {
@@ -127,7 +128,7 @@ export class Website {
         public traceFailedRequestsLogging: RequestTracing = null,
         public bindings: Binding[] = null,
         public applicationPoolName: string = null,
-    ) {}
+    ) { }
 
     public static transform(site: any): Website {
         const result = fromCSObject(Website, site);

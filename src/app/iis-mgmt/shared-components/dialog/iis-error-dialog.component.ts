@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { BaseDialogComponent } from '@msft-sme/angular';
+import { Component } from '@angular/core';
+import { BaseDialogComponent, DialogService } from '@msft-sme/angular';
 import { enumerateKnownProperties, formatF, stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Strings } from 'src/generated/strings';
 
@@ -22,6 +22,12 @@ export class IISErrorDialogComponent extends BaseDialogComponent<IISErrorDialogO
     public readonly strings = MsftSme.resourcesStrings<Strings>();
 
     options: IISErrorDialogOptions;
+
+    constructor(
+        srv: DialogService,
+    ) {
+        super(srv);
+    }
 
     get knownProperties() {
         return enumerateKnownProperties(this.options.error);

@@ -7,24 +7,24 @@ import { routes as WebServerRoutes } from './webserver/webserver.module';
 import { websiteRoute } from './website/website.route';
 
 const routes: Routes = [
-{
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'webserver',
-},
-{
-    path: '',
-    component: IISComponent,
-    children: [
-        websiteRoute,
-        appPoolRoute,
-        {
-            path: 'webserver',
-            component: WebserverComponent,
-            children: WebServerRoutes,
-        }
-    ],
-}
+    {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'webserver',
+    },
+    {
+        path: '',
+        component: IISComponent,
+        children: [
+            websiteRoute,
+            appPoolRoute,
+            {
+                path: 'webserver',
+                component: WebserverComponent,
+                children: WebServerRoutes,
+            }
+        ],
+    }
 ];
 
 @NgModule({

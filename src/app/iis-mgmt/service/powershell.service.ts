@@ -15,74 +15,74 @@ export class PowershellService {
 
   constructor(
     private sme: AppContextService,
-  ) {}
+  ) { }
 
   public createSession() {
-      this.session = this.sme.powerShell.createSession(
-          this.sme.activeConnection.nodeName,
-          psKey,
-      );
+    this.session = this.sme.powerShell.createSession(
+      this.sme.activeConnection.nodeName,
+      psKey,
+    );
   }
 
   public get<T>(cmd: string, reviver?: (this: any, key: string, value: any) => any): Observable<T> {
     const scriptName = cmd.split('\n')[0];
     return this.invoke(scriptName, cmd).pipe(
-        mergeMap(results => {
-            return results.map(result => {
-                const rtnObject: any = JSON.parse(result, reviver);
-                if (rtnObject && rtnObject.errorsReported) {
-                    Logging.logError(logSource,
-`Error parsing results from powershell script ${name}:
+      mergeMap(results => {
+        return results.map(result => {
+          const rtnObject: any = JSON.parse(result, reviver);
+          if (rtnObject && rtnObject.errorsReported) {
+            Logging.logError(logSource,
+              `Error parsing results from powershell script ${name}:
 Script output: ${results.join('\n')}
 Parsing error: ${stringifySafe(rtnObject.errorsReported)}`);
-                }
-                return rtnObject;
-            });
-        }),
+          }
+          return rtnObject;
+        });
+      }),
     );
   }
 
   public invoke(scriptName: string, cmd: string): Observable<any[]> {
     return this.session.powerShell.run(cmd).pipe(
-        instrument(logSource, `${scriptName}`),
-        map((response: PowerShellResult) => {
-            if (!response) {
-                throw new Error(`Powershell command ${scriptName} returns no response`);
-            }
+      instrument(logSource, `${scriptName}`),
+      map((response: PowerShellResult) => {
+        if (!response) {
+          throw new Error(`Powershell command ${scriptName} returns no response`);
+        }
 
-            if (response.warning) {
-                Logging.logWarning(logSource, `Powershell command ${scriptName} returns the following warnings`);
-                for (const line of response.warning) {
-                    Logging.logWarning(logSource, line);
-                }
-            }
-
-            if (response.errors) {
-                Logging.logError(logSource, `Powershell command ${scriptName} returns the following errors`);
-                for (const line of response.errors) {
-                    Logging.logError(logSource, line);
-                }
-            }
-
-            if (!response.results) {
-                Logging.logWarning(logSource, `Powershell command ${scriptName} returns null response`);
-            }
-
-            return response.results;
-        }),
-        catchError((e, _) => {
-          let rethrow = e;
-          // WAC wrap the powershell error (or exception) message around this AjaxError object. We would unwrap it for easier readability
-          if (e.name === 'AjaxError' && e.status === 400) {
-            if (e.response.error && !e.response.exception) {
-              rethrow = e.response.error;
-            }
-            if (!e.response.error && e.response.exception) {
-              rethrow = e.response.exception;
-            }
+        if (response.warning) {
+          Logging.logWarning(logSource, `Powershell command ${scriptName} returns the following warnings`);
+          for (const line of response.warning) {
+            Logging.logWarning(logSource, line);
           }
-          throw rethrow;
-        }),
+        }
+
+        if (response.errors) {
+          Logging.logError(logSource, `Powershell command ${scriptName} returns the following errors`);
+          for (const line of response.errors) {
+            Logging.logError(logSource, line);
+          }
+        }
+
+        if (!response.results) {
+          Logging.logWarning(logSource, `Powershell command ${scriptName} returns null response`);
+        }
+
+        return response.results;
+      }),
+      catchError((e, _) => {
+        let rethrow = e;
+        // WAC wrap the powershell error (or exception) message around this AjaxError object. We would unwrap it for easier readability
+        if (e.name === 'AjaxError' && e.status === 400) {
+          if (e.response.error && !e.response.exception) {
+            rethrow = e.response.error;
+          }
+          if (!e.response.error && e.response.exception) {
+            rethrow = e.response.exception;
+          }
+        }
+        throw rethrow;
+      }),
     );
   }
 }

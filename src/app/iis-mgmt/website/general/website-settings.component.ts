@@ -9,20 +9,20 @@ import { Strings } from 'src/generated/strings';
     templateUrl: './website-settings.component.html',
 })
 export class WebsiteSettingsComponent {
-  public readonly strings = MsftSme.resourcesStrings<Strings>();
-  @Input()
-  site: Website = <Website> {
-    name: this.strings.MsftIISWAC.website.newName,
-  };
+    public readonly strings = MsftSme.resourcesStrings<Strings>();
+    @Input()
+    site: Website = <Website>{
+        name: this.strings.MsftIISWAC.website.newName,
+    };
 
-  @ViewChild('appPoolSelect')
-  pools: AppPoolListComponent;
+    @ViewChild('appPoolSelect')
+    pools: AppPoolListComponent;
 
-  get appPoolDialogHeader() {
-    return formatF(this.strings.MsftIISWAC.website.selectAppPoolDialogHeader, this.site.name);
-  }
+    get appPoolDialogHeader() {
+        return formatF(this.strings.MsftIISWAC.website.selectAppPoolDialogHeader, this.site.name);
+    }
 
-  selectAppPool() {
-    this.site.applicationPoolName = this.pools.selected.name;
-  }
+    selectAppPool() {
+        this.site.applicationPoolName = this.pools.selected.name;
+    }
 }

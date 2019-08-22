@@ -26,8 +26,7 @@ const webServerSettings = getModules(
 
 @Component({
   selector: 'iis-webserver',
-  templateUrl: './webserver.component.html',
-  styleUrls: ['./webserver.component.css']
+  templateUrl: './webserver.component.html'
 })
 export class WebserverComponent {
   public readonly items = webServerSettings;

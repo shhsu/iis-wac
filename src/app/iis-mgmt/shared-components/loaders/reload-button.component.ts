@@ -31,4 +31,4 @@ export class ReloadButtonComponent {
         ReloadButtonComponent,
     ],
 })
-export class Module {}
+export class Module { }

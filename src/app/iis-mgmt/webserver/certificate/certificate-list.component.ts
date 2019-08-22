@@ -17,22 +17,22 @@ export class CertificateListComponent {
     loader: ListLoaderComponent;
 
     constructor(
-      private srv: CertificateService,
-    ) {}
+        private srv: CertificateService,
+    ) { }
 
     get contents(): Observable<Certificate> {
-      return this._contents;
+        return this._contents;
     }
 
     get selected(): Certificate {
-      if (this.loader) {
-        return this.loader.selected;
-      }
+        if (this.loader) {
+            return this.loader.selected;
+        }
     }
 
     set selected(cert: Certificate) {
-      if (this.loader) {
-        this.loader.selected = cert;
-      }
+        if (this.loader) {
+            this.loader.selected = cert;
+        }
     }
 }

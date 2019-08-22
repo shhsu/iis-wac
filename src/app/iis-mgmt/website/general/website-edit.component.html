@@ -1,13 +1,13 @@
 <iis-form #form [editItem]="{ type: editMode, value: site }">
-    <sme-pivot class="sme-pivot sme-position-flex-auto">
+    <sme-pivot #pivot class="sme-pivot sme-position-stretch-v" (layoutChanged)="onLayoutChanged()">
         <sme-pivot-tab [label]="strings.MsftIISWAC.common.settings">
             <ng-template>
                 <iis-website-settings [site]="form.item"></iis-website-settings>
             </ng-template>
         </sme-pivot-tab>
-        <sme-pivot-tab [label]="strings.MsftIISWAC.common.bindings">
+        <sme-pivot-tab #bindingTab [label]="strings.MsftIISWAC.common.bindings">
             <ng-template>
-                <binding-list [site]="form.item"></binding-list>
+                <binding-list #bindingList [site]="form.item"></binding-list>
             </ng-template>
         </sme-pivot-tab>
         <sme-pivot-tab [label]="strings.MsftIISWAC.website.limits">

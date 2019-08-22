@@ -1,46 +1,26 @@
 <sme-file-explorer-dialog></sme-file-explorer-dialog>
 <form #formCtrl="ngForm" class="sme-position-inset-none">
-    <sme-form-field name="siteNameTextbox"
-        type="text"
-        required="true"
-        [label]="strings.MsftIISWAC.website.name"
+    <sme-form-field name="siteNameTextbox" type="text" required="true" [label]="strings.MsftIISWAC.website.name"
         [(ngModel)]="site.name">
     </sme-form-field>
-    <sme-form-field
-        name="physicalPathSelect"
-        type="remotefolder"
-        required="true"
-        [(ngModel)]="site.physicalPath"
-        [label]="strings.MsftIISWAC.website.physicalPath"
-        [browseLabel]="strings.MsftIISWAC.common.browse"
-        [cancelLabel]="strings.MsftIISWAC.common.cancel"
-        [inputLabel]="strings.MsftIISWAC.common.selectPath"
-        [openLabel]="strings.MsftIISWAC.common.ok"
-        [headerLabel]="strings.MsftIISWAC.website.selectPathHeader">
+    <sme-form-field name="physicalPathSelect" type="remotefolder" required="true" [(ngModel)]="site.physicalPath"
+        [label]="strings.MsftIISWAC.website.physicalPath" [browseLabel]="strings.MsftIISWAC.common.browse"
+        [cancelLabel]="strings.MsftIISWAC.common.cancel" [inputLabel]="strings.MsftIISWAC.common.selectPath"
+        [openLabel]="strings.MsftIISWAC.common.ok" [headerLabel]="strings.MsftIISWAC.website.selectPathHeader">
     </sme-form-field>
-    <sme-form-field type="toggle-switch"
-        name="autoStartSwitch"
-        [(ngModel)]="site.serverAutoStart"
+    <sme-form-field type="toggle-switch" name="autoStartSwitch" [(ngModel)]="site.serverAutoStart"
         [label]="strings.MsftIISWAC.website.autoStart">
     </sme-form-field>
-    <sme-form-field type="text"
-        name="protocol"
-        [(ngModel)]="site.enabledProtocols"
+    <sme-form-field type="text" name="protocol" [(ngModel)]="site.enabledProtocols"
         [label]="strings.MsftIISWAC.website.protocols">
     </sme-form-field>
-    <sme-form-field type="text"
-        #appPoolName
-        name="appPool"
-        [(ngModel)]="site.applicationPoolName"
-        [label]="strings.MsftIISWAC.common.applicationPool"
-        [required]="true"
-        [showFieldAction]="true"
-        [fieldActionText]="strings.MsftIISWAC.common.selectBtn"
-        (fieldAction)="appPoolDialog.showDialog()"></sme-form-field>
+    <sme-form-field type="text" #appPoolName name="appPool" [(ngModel)]="site.applicationPoolName"
+        [label]="strings.MsftIISWAC.common.applicationPool" [required]="true" [showFieldAction]="true"
+        [fieldActionText]="strings.MsftIISWAC.common.selectBtn" (fieldAction)="appPoolDialog.showDialog()">
+    </sme-form-field>
 </form>
-<iis-dialog #appPoolDialog
-    id="website-select-app-pool-dialog"
-    [title]="appPoolDialogHeader"
+<iis-dialog #appPoolDialog id="website-select-app-pool-dialog" [title]="appPoolDialogHeader"
     (proceed)="selectAppPool()">
-    <iis-app-pool-list #appPoolSelect *ngIf="appPoolDialog.visible" [select]="['name', site.applicationPoolName]"></iis-app-pool-list>
+    <iis-app-pool-list #appPoolSelect *ngIf="appPoolDialog.visible" [select]="['name', site.applicationPoolName]">
+    </iis-app-pool-list>
 </iis-dialog>

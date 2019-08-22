@@ -22,7 +22,7 @@ export class WebserverGeneralComponent {
 
   constructor(
     private srv: WebServerService,
-  ) {}
+  ) { }
 
   get content() {
     return this.srv.WebServer;

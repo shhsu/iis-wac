@@ -10,4 +10,4 @@ import { NotImplementedComponent } from './not-implemented.component';
         AuthorizationComponent,
     ],
 })
-export class ConfigurationsModule {}
+export class ConfigurationsModule { }

@@ -25,7 +25,7 @@ export class Cpu {
     processorAffinityMask64: string;
 
     public static transform(cpu: any): Cpu {
-        const result =  fromCSObject(Cpu, cpu);
+        const result = fromCSObject(Cpu, cpu);
         result.processorAffinityEnabled = cpu.SmpAffinitized;
         result.processorAffinityMask32 = `0x${cpu.SmpProcessorAffinityMask.toString(16)}`;
         result.processorAffinityMask64 = `0x${cpu.SmpProcessorAffinityMask2.toString(16)}`;
@@ -49,7 +49,7 @@ export class ProcessModel {
         public pingResponseTime: number = null,
         public shutdownTimeLimit: number = null,
         public startupTimeLimit: number = null,
-    ) {}
+    ) { }
 
     public static transform(model: any): ProcessModel {
         const result = fromCSObject(ProcessModel, model);
@@ -136,7 +136,7 @@ export class ApplicationPool {
         public recycling: Recycling = null,
         public rapid_fail_protection: RapidFailProtection = null,
         public process_orphaning: ProcessOrphaning = null,
-    ) {}
+    ) { }
 
     public static transform(pool: any): ApplicationPool {
         const result = fromCSObject(ApplicationPool, pool);

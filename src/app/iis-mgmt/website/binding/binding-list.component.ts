@@ -1,9 +1,7 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { formatF } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Binding, Website } from 'src/app/iis-mgmt/models/website';
-import { IISDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-dialog.component';
 import { Strings } from 'src/generated/strings';
-import { BindingComponent } from './binding.component';
 
 @Component({
     selector: 'binding-list',
@@ -12,30 +10,13 @@ import { BindingComponent } from './binding.component';
 export class BindingListComponent {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
 
+    selected: Binding;
+
     @Input()
     site: Website;
 
-    @ViewChild('editDialog')
-    editDialog: IISDialogComponent<Binding>;
-
-    @ViewChild('bindingEdit')
-    editor: BindingComponent;
-
-    selected: Binding;
-    dialogHeader: string;
-
-    get editing() {
-        if (this.editor) {
-            return this.editor.binding;
-        }
-        return null;
-    }
-
-    set editing(v: Binding) {
-        if (this.editor) {
-            this.editor.binding = v;
-        }
-    }
+    // @ViewChild('dataTable')
+    // private dataTable: DataTableComponent;
 
     newBinding() {
         return {
@@ -43,11 +24,11 @@ export class BindingListComponent {
         };
     }
 
-    createHeader() {
+    get createHeader() {
         return formatF(this.strings.MsftIISWAC.website.binding.createDialogHeader, this.site.name);
     }
 
-    editHeader() {
+    get editHeader() {
         return formatF(this.strings.MsftIISWAC.website.binding.editDialogHeader, this.site.name);
     }
 

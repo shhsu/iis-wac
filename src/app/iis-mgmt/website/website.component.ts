@@ -24,8 +24,7 @@ export const websiteSettings = getModules(
 
 @Component({
   selector: 'iis-website',
-  templateUrl: './website.component.html',
-  styleUrls: ['./website.component.css']
+  templateUrl: './website.component.html'
 })
 export class WebsiteComponent {
   public static readonly keyName = WebsiteIdentifierField;

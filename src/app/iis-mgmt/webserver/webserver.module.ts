@@ -51,4 +51,4 @@ export const routes: Routes = [
         WebserverGeneralComponent,
     ],
 })
-export class WebServerModule {}
+export class WebServerModule { }

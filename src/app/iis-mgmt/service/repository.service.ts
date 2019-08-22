@@ -11,7 +11,7 @@ export class RepositoryService<T> {
         private paramMappings: [string, string][],
         private scriptForGet: string,
         private transform: (any) => T,
-    ) {}
+    ) { }
 
     getAll(): Observable<T> {
         const psCommand = PowerShell.createScript(this.scriptForGet);

@@ -41,4 +41,4 @@ import { WebsiteSettingsComponent } from './website-settings.component';
         WebsiteGeneralComponent,
     ]
 })
-export class WebsiteGeneralModule {}
+export class WebsiteGeneralModule { }

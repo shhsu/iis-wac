@@ -27,7 +27,10 @@ export class ContentWrapperComponent implements OnInit {
 <sme-loading-wheel *ngIf="loading"></sme-loading-wheel>
 <error *ngIf="error" [headline]="strings.MsftIISWAC.errors.onList" [error]="error"></error>
 <contents *ngIf="!loading" [table]="table">
-    <ng-content></ng-content>
+    <div class="sme-position-stretch-v sme-arrange-stack-v">
+        <ng-content select="[list-content-header]"></ng-content>
+        <ng-content select="[list-content-body]"></ng-content>
+    </div>
 </contents>
 `,
 })
@@ -59,7 +62,6 @@ export class ListLoaderComponent implements AfterContentInit {
         this.subscription = this.observes.subscribe(
             item => {
                 this.items.push(item);
-                console.error(`loaded ${item.name}`);
                 if (this.select && item[this.select[0]] === this.select[1]) {
                     this.selected = item;
                 }
@@ -78,6 +80,7 @@ export class ListLoaderComponent implements AfterContentInit {
             () => {
                 this.loading = false;
                 if (this.table) {
+                    console.log(`refreshing data, number of items ${this.items.length}`);
                     this.table.refreshData();
                 }
                 Logging.logVerbose(logSource, `list loaded, number of entries ${this.items.length}`);
