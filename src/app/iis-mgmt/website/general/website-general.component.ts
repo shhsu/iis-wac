@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { AppContextService } from '@msft-sme/angular';
-import { Status } from 'src/app/iis-mgmt/models/status';
 import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
 import { LoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/loader.component';
 import { Strings } from 'src/generated/strings';
@@ -24,16 +23,8 @@ export class WebsiteGeneralComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private srv: WebSiteService,
+    public srv: WebSiteService,
   ) { }
-
-  canStart() {
-    return this.loader.item.status === Status.Stopped;
-  }
-
-  canStop() {
-    return this.loader.item.status === Status.Started;
-  }
 
   get content() {
     return this._content;

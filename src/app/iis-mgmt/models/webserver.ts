@@ -39,7 +39,6 @@ export class WebServer {
     // _links: any;
     public static transform(ws: any): WebServer {
         const result = fromCSObject(WebServer, ws);
-        console.warn(ws.Status);
         result.status = toIISStatus(ws.Status);
         return result;
     }

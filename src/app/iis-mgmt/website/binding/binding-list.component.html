@@ -1,16 +1,9 @@
 <div class="sme-position-stretch-v">
-    <sme-action-bar #actionBar class="sme-position-flex-none">
-        <sme-action-button #action [text]="strings.MsftIISWAC.common.list.add" [iconClass]="'sme-icon sme-icon-add'"
-            (execute)="editDialog.onNew"></sme-action-button>
-        <sme-action-button #action [text]="strings.MsftIISWAC.common.list.remove"
-            [iconClass]="'sme-icon sme-icon-remove'" [enabled]="selected !== null" (execute)="removeSelected()">
-        </sme-action-button>
-        <sme-action-button #action [text]="strings.MsftIISWAC.common.list.edit" [iconClass]="'sme-icon sme-icon-edit'"
-            [enabled]="editDialog.canEdit" (execute)="editDialog.onEdit">
-        </sme-action-button>
-    </sme-action-bar>
-    <sme-data-table #dataTable class="sme-position-stretch-v" [items]="site.bindings" [(selection)]="selected"
-        selectionMode="single">
+    <iis-actions>
+        <control-table #actionBarController [table]="dataTable" [addTableItem]="editDialog.onNew"
+            [editTableItem]="editDialog.onEdit" [deleteTableItems]="removeSelected()"></control-table>
+    </iis-actions>
+    <sme-data-table #dataTable class="sme-position-stretch-v" [items]="site.bindings" [(selection)]="selected">
         <sme-data-table-column header="{{strings.MsftIISWAC.website.protocol}}" field="protocol" sortable="true">
         </sme-data-table-column>
         <sme-data-table-column header="{{strings.MsftIISWAC.website.hostname}}" field="hostname" sortable="true">
@@ -23,5 +16,5 @@
 </div>
 <iis-collection-dialog #editDialog id="binding-create-dialog" [create]="newBinding" [createHeader]="createHeader"
     [editHeader]="editHeader" [(selected)]="selected" [dataTable]="dataTable">
-    <iis-binding #editor *ngIf="editDialog.visible" [binding]="editDialog.binding"></iis-binding>
+    <iis-binding #editor *ngIf="editDialog.visible" [binding]="editDialog.editing"></iis-binding>
 </iis-collection-dialog>

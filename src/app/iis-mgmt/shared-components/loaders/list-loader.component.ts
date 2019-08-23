@@ -11,7 +11,7 @@ import { Module as ErrorModule } from './error.component';
     selector: 'list-loader contents',
     template: '<ng-content></ng-content>',
 })
-export class ContentWrapperComponent implements OnInit {
+export class ContentWrapperComponent implements OnInit { // for some reason this needs to be exported otherwise inlineCompile fails
     @Input()
     private table: DataTableComponent;
 
@@ -22,17 +22,8 @@ export class ContentWrapperComponent implements OnInit {
 }
 
 @Component({
-    selector: `list-loader`,
-    template: `
-<sme-loading-wheel *ngIf="loading"></sme-loading-wheel>
-<error *ngIf="error" [headline]="strings.MsftIISWAC.errors.onList" [error]="error"></error>
-<contents *ngIf="!loading" [table]="table">
-    <div class="sme-position-stretch-v sme-arrange-stack-v">
-        <ng-content select="[list-content-header]"></ng-content>
-        <ng-content select="[list-content-body]"></ng-content>
-    </div>
-</contents>
-`,
+    selector: 'list-loader',
+    templateUrl: 'list-loader.component.html',
 })
 export class ListLoaderComponent implements AfterContentInit {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
@@ -80,7 +71,6 @@ export class ListLoaderComponent implements AfterContentInit {
             () => {
                 this.loading = false;
                 if (this.table) {
-                    console.log(`refreshing data, number of items ${this.items.length}`);
                     this.table.refreshData();
                 }
                 Logging.logVerbose(logSource, `list loaded, number of entries ${this.items.length}`);
@@ -90,18 +80,6 @@ export class ListLoaderComponent implements AfterContentInit {
 
     ngAfterContentInit() {
         this.reload();
-    }
-
-    canAdd(): boolean {
-        return !this.loading;
-    }
-
-    canRemove(): boolean {
-        return !this.loading;
-    }
-
-    canEdit(): boolean {
-        return !!this.selected;
     }
 }
 
@@ -115,7 +93,6 @@ const logSource = (typeof ListLoaderComponent).toString();
     ],
     exports: [
         ListLoaderComponent,
-        ContentWrapperComponent,
     ],
     declarations: [
         ListLoaderComponent,

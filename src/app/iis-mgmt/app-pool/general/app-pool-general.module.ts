@@ -2,7 +2,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActionsModule, DialogModule, PivotModule, SmeFormsModule } from '@msft-sme/angular';
+import { DialogModule, PivotModule, SmeFormsModule } from '@msft-sme/angular';
+import { IISActionsModule } from 'src/app/iis-mgmt/shared-components/actions/iis-actions.module';
 import { Module as LoaderModule } from 'src/app/iis-mgmt/shared-components/loaders/loader.component';
 import { AppPoolEditComponent } from './app-pool-edit.component';
 import { AppPoolGeneralComponent } from './app-pool-general.component';
@@ -12,11 +13,11 @@ import { AppPoolGeneralComponent } from './app-pool-general.component';
         CommonModule,
         PivotModule,
         LoaderModule,
-        ActionsModule,
         FormsModule,
         ReactiveFormsModule,
         SmeFormsModule,
         DialogModule,
+        IISActionsModule,
     ],
     declarations: [
         AppPoolEditComponent,

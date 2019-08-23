@@ -14,7 +14,9 @@ export class WebsiteEditComponent {
     editMode: FormEditMode;
 
     @Input()
-    site: Website;
+    site: Website = <Website>{
+        name: this.strings.MsftIISWAC.website.newName,
+    };
 
     onLayoutChanged() {
     }

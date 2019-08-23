@@ -15,9 +15,6 @@ export class BindingListComponent {
     @Input()
     site: Website;
 
-    // @ViewChild('dataTable')
-    // private dataTable: DataTableComponent;
-
     newBinding() {
         return {
             protocol: 'http',

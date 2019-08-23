@@ -1,13 +1,8 @@
 <loader #loader [content]="content">
   <ng-container *ngIf="loader.show">
-    <sme-action-bar #actionBar class="sme-position-flex-none">
-      <sme-action-button #action [text]="strings.MsftIISWAC.common.restart" [iconClass]="'sme-icon sme-icon-refresh'"
-        [enabled]="canStop()"></sme-action-button>
-      <sme-action-button #action [text]="strings.MsftIISWAC.common.start" [iconClass]="'sme-icon sme-icon-play'"
-        [enabled]="canStart()"></sme-action-button>
-      <sme-action-button #action [text]="strings.MsftIISWAC.common.stop" [iconClass]="'sme-icon sme-icon-stop'"
-        [enabled]="canStop()"></sme-action-button>
-    </sme-action-bar>
+    <iis-actions>
+      <control-status #actionBarController [target]="loader.item" [srv]="srv"></control-status>
+    </iis-actions>
     <iis-website-edit [site]="loader.item" editMode="existing"></iis-website-edit>
   </ng-container>
 </loader>

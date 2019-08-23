@@ -1,63 +1,68 @@
 import { Component, Input, ViewChild, } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataTableComponent } from '@msft-sme/angular';
 import { Observable } from 'rxjs';
 import { ApplicationPool } from 'src/app/iis-mgmt/models/app-pool';
-import { Status } from 'src/app/iis-mgmt/models/status';
 import { AppPoolService } from 'src/app/iis-mgmt/service/app-pool.service';
-import { ListLoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/list-loader.component';
+import { IISDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-dialog.component';
 import { Strings } from 'src/generated/strings';
-import { AppPoolEditComponent } from '../general/app-pool-edit.component';
 
 @Component({
-  selector: 'iis-app-pool-list',
-  templateUrl: 'app-pool-list.component.html',
+    selector: 'iis-app-pool-list',
+    templateUrl: 'app-pool-list.component.html',
 })
 export class AppPoolListComponent {
-  public readonly strings = MsftSme.resourcesStrings<Strings>();
-  private _contents = this.srv.getAll();
+    public readonly strings = MsftSme.resourcesStrings<Strings>();
+    private _contents = this.srv.getAll();
 
-  @Input()
-  select: [string, any];
+    @Input()
+    select: [string, any];
 
-  @ViewChild('loader')
-  loader: ListLoaderComponent;
+    @Input()
+    pickerMode: boolean;
 
-  @ViewChild('newAppPool')
-  newAppPool: AppPoolEditComponent;
+    @ViewChild('dataTable')
+    dataTable: DataTableComponent;
 
-  constructor(
-    private router: Router,
-    private srv: AppPoolService,
-  ) { }
+    @ViewChild('createDialog')
+    createDialog: IISDialogComponent<any>;
 
-  get contents(): Observable<ApplicationPool> {
-    return this._contents;
-  }
+    constructor(
+        private router: Router,
+        public srv: AppPoolService,
+    ) { }
 
-  get selected(): ApplicationPool {
-    if (this.loader) {
-      return this.loader.selected;
+    get contents(): Observable<ApplicationPool> {
+        return this._contents;
     }
-  }
 
-  set selected(pool: ApplicationPool) {
-    if (this.loader) {
-      this.loader.selected = pool;
+    get selected(): ApplicationPool {
+        return this.dataTable.selection;
     }
-  }
 
-  canStart(): boolean {
-    return this.selected && this.selected.status === Status.Stopped;
-  }
+    get readonly() {
+        return this.pickerMode;
+    }
 
-  canStop(): boolean {
-    return this.selected && this.selected.status === Status.Started;
-  }
+    get selectionMode() {
+        if (this.pickerMode) {
+            return 'single';
+        } else {
+            return 'multiple';
+        }
+    }
 
-  editSelection() {
-    this.router.navigate([`app-pool/${this.selected.id}`]);
-  }
+    showDialog = () => {
+        this.createDialog.showDialog(null);
+    }
 
-  createAppPool() {
-  }
+    removeAppPools = (pools: ApplicationPool[]) => {
+    }
+
+    editSelection = (pool: ApplicationPool) => {
+        this.router.navigate([`app-pool/${pool.id}`]);
+    }
+
+    createAppPool() {
+    }
 }

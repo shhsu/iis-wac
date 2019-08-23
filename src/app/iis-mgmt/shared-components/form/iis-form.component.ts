@@ -8,6 +8,10 @@ import { IISErrorDialogComponent } from 'src/app/iis-mgmt/shared-components/dial
 import { Strings } from 'src/generated/strings';
 
 export type FormEditMode = 'new' | 'existing';
+export const FormEditMode = {
+    New: 'new' as FormEditMode,
+    Existing: 'existing' as FormEditMode,
+};
 
 function isModifiedDefault(old: any, editing: any) {
     return !deepEqualNaive(old, editing);

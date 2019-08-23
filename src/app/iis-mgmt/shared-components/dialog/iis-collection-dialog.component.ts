@@ -60,8 +60,8 @@ export class IISCollectionDialogComponent<T> {
     dialogHeader: string;
     core: PersistenceMechanic<T, any>;
 
-    get canEdit() {
-        return this.selected !== null;
+    get editable() {
+        return this.selected;
     }
 
     get visible() {

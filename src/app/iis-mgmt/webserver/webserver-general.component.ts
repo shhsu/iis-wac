@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { AppContextService } from '@msft-sme/angular';
 import { Strings } from 'src/generated/strings';
-import { Status } from '../models/status';
 import { WebServerService } from '../service/webserver.service';
 import { LoaderComponent } from '../shared-components/loaders/loader.component';
 
@@ -21,7 +20,7 @@ export class WebserverGeneralComponent {
   }
 
   constructor(
-    private srv: WebServerService,
+    public srv: WebServerService,
   ) { }
 
   get content() {
@@ -30,13 +29,5 @@ export class WebserverGeneralComponent {
 
   get webserver() {
     return this.loader.item;
-  }
-
-  canStart(): boolean {
-    return this.webserver.status === Status.Stopped;
-  }
-
-  canStop(): boolean {
-    return this.webserver.status === Status.Started;
   }
 }

@@ -1,0 +1,8 @@
+<sme-loading-wheel *ngIf="loading"></sme-loading-wheel>
+<error *ngIf="error" [headline]="strings.MsftIISWAC.errors.onList" [error]="error"></error>
+<contents *ngIf="!loading" [table]="table">
+    <div class="sme-position-stretch-v sme-arrange-stack-v">
+        <ng-content select="[list-content-header]"></ng-content>
+        <ng-content select="[list-content-body]"></ng-content>
+    </div>
+</contents>

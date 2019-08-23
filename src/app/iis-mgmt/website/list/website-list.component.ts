@@ -1,12 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Status } from 'src/app/iis-mgmt/models/status';
+import { Observable, of } from 'rxjs';
 import { Website } from 'src/app/iis-mgmt/models/website';
 import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
-import { ListLoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/list-loader.component';
+import { IISDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-dialog.component';
+import { WebsiteEditComponent } from 'src/app/iis-mgmt/website/general/website-edit.component';
 import { Strings } from 'src/generated/strings';
-import { WebsiteEditComponent } from '../general/website-edit.component';
 
 @Component({
     selector: 'iis-website-list',
@@ -16,45 +15,34 @@ export class WebsiteListComponent {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
     private _contents = this.srv.getAll();
 
-    @ViewChild('loader')
-    loader: ListLoaderComponent;
-
     @ViewChild('newSite')
     newSite: WebsiteEditComponent;
 
+    @ViewChild('createDialog')
+    createDialog: IISDialogComponent<any>;
+
     constructor(
         private router: Router,
-        private srv: WebSiteService,
+        public srv: WebSiteService,
     ) { }
 
     get contents(): Observable<Website> {
         return this._contents;
     }
 
-    get selected(): Website {
-        if (this.loader) {
-            return this.loader.selected;
-        }
+    showDialog = () => {
+        this.createDialog.showDialog(null);
     }
 
-    set selected(site: Website) {
-        if (this.loader) {
-            this.loader.selected = site;
-        }
+    editWebsite = (selected: Website) => {
+        this.router.navigate([`website/${selected.id}`]);
     }
 
-    canStart(): boolean {
-        return this.selected && this.selected.status === Status.Stopped;
+    removeWebsites = (_: Website[]) => {
+        return of(null);
     }
 
-    canStop(): boolean {
-        return this.selected && this.selected.status === Status.Started;
-    }
-
-    editSelection() {
-        this.router.navigate([`website/${this.selected.id}`]);
-    }
-
-    createWebsite() {
+    saveWebsite() {
+        // TODO: save the website in editor
     }
 }

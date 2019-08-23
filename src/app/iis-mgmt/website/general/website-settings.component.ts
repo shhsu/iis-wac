@@ -11,9 +11,7 @@ import { Strings } from 'src/generated/strings';
 export class WebsiteSettingsComponent {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
     @Input()
-    site: Website = <Website>{
-        name: this.strings.MsftIISWAC.website.newName,
-    };
+    site: Website;
 
     @ViewChild('appPoolSelect')
     pools: AppPoolListComponent;

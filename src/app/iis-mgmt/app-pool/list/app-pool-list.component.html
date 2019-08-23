@@ -1,20 +1,10 @@
 <list-loader #loader [observes]="contents" [table]="dataTable" [select]="select">
     <div list-content-header>
-        <sme-action-bar #actionBar class="sme-position-flex-none">
-            <sme-action-button #action [text]="strings.MsftIISWAC.common.list.add" [iconClass]="'sme-icon sme-icon-add'"
-                [enabled]="loader.canAdd()" (execute)="createDialog.showDialog()"></sme-action-button>
-            <sme-action-button #action [text]="strings.MsftIISWAC.common.list.remove"
-                [iconClass]="'sme-icon sme-icon-remove'" [enabled]="loader.canRemove()"></sme-action-button>
-            <sme-action-button #action [text]="strings.MsftIISWAC.common.list.edit"
-                [iconClass]="'sme-icon sme-icon-edit'" [enabled]="loader.canEdit()" (execute)="editSelection()">
-            </sme-action-button>
-            <sme-action-button #action [text]="strings.MsftIISWAC.appPool.recycle"
-                [iconClass]="'sme-icon sme-icon-refresh'" [enabled]="canStop()"></sme-action-button>
-            <sme-action-button #action [text]="strings.MsftIISWAC.common.start" [iconClass]="'sme-icon sme-icon-play'"
-                [enabled]="canStart()"></sme-action-button>
-            <sme-action-button #action [text]="strings.MsftIISWAC.common.stop" [iconClass]="'sme-icon sme-icon-stop'"
-                [enabled]="canStop()"></sme-action-button>
-        </sme-action-bar>
+        <iis-actions *ngIf="!readonly">
+            <control-table #actionBarController [table]="dataTable" [addTableItem]="createDialog.showDialog"
+                [editTableItem]="editSelection" [deleteTableItems]="removeAppPools"></control-table>
+            <control-status #actionBarController [target]="dataTable.selection" [srv]="srv"></control-status>
+        </iis-actions>
     </div>
     <div list-content-body class="sme-position-stretch-v">
         <sme-data-table #dataTable class="sme-position-stretch-v" [items]="loader.items" [(selection)]="loader.selected"
@@ -42,7 +32,7 @@
         </sme-data-table>
         <iis-dialog #createDialog id="app-pool-create-dialog" [title]="strings.MsftIISWAC.appPool.createDialogHeader"
             (proceed)="createAppPool()">
-            <iis-app-pool-edit #newAppPool *ngIf="createDialog.visible"></iis-app-pool-edit>
+            <iis-app-pool-edit #newAppPool *ngIf="createDialog.visible" editMode="new"></iis-app-pool-edit>
         </iis-dialog>
     </div>
 </list-loader>
