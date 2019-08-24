@@ -1,3 +1,12 @@
+const dateRegex = /^\/Date\((d|-|.*)\)[\/|\\]$/;
+
+export function fromCSDate(value: string): Date {
+    if (!value) {
+        return null;
+    }
+    const source = dateRegex.exec(value);
+    return new Date(parseInt(source[1], 10));
+}
 
 export function fromCSObject<T>(type: (new () => T), csObject: any) {
     const result = new type();

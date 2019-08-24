@@ -21,6 +21,7 @@
     "MsftIISWAC_common_website": "Web Site",
     "MsftIISWAC_common_appPool": "App Pool",
     "MsftIISWAC_common_applicationPool": "Application Pool",
+    "MsftIISWAC_common_webApplications": "Web Applications",
     "MsftIISWAC_common_url": "URL",
     "MsftIISWAC_common_settings": "Settings",
     "MsftIISWAC_common_bindings": "Bindings",
@@ -49,6 +50,8 @@
     "MsftIISWAC_cert_issuer": "Issuer",
     "MsftIISWAC_cert_notBefore": "Not Before",
     "MsftIISWAC_cert_notAfter": "Not After",
+    "MsftIISWAC_cert_certificateExpired": "Certificate {0} expired on {1}",
+    "MsftIISWAC_cert_certificateNotReady": "Certificate {0} cannot be used until {1}",
 
     "MsftIISWAC_tabs_general": "General",
     "MsftIISWAC_tabs_virtualDirectory": "Virtual Directory",
@@ -75,6 +78,7 @@
     "MsftIISWAC_errors_onList": "An error has occurred while retrieving resources, the list may be incomplete: ",
     "MsftIISWAC_errors_details": "Details",
     "MsftIISWAC_errors_more": "More",
+    "MsftIISWAC_errors_less": "Less",
     "MsftIISWAC_errors_lineInfo": "At {0} (${1}, ${2})",
 
     "MsftIISWAC_website_name": "Name",

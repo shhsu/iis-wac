@@ -6,25 +6,38 @@ export function formatF(s: string, ...args: string[]) {
     return s;
 }
 
-export function stringifySafe(jsObject) {
-    const seen = new Set<any>();
-    const serializedData = JSON.stringify(jsObject, function (_, value) {
-        if (typeof value === 'object') {
-            if (seen.has(value)) {
+class StringifyHelper {
+    private seen = new Set<any>();
+    replacer = (_, value) => {
+        if (value instanceof Error) {
+            if (this.seen.has(value)) {
                 return '(circular reference)';
             }
-            seen.add(value);
+            this.seen.add(value);
+            const obj = {};
+            for (const prop of Object.getOwnPropertyNames(value)) {
+                obj[prop] = value[prop];
+            }
+            return stringifySafe(obj, this);
+        } else if (typeof value === 'object') {
+            if (this.seen.has(value)) {
+                return '(circular reference)';
+            }
+            this.seen.add(value);
         }
         return value;
-    });
-    // return modified, sanitized result
+    }
+}
+
+export function stringifySafe(jsObject, stringifyHelper = new StringifyHelper()) {
+    const serializedData = JSON.stringify(jsObject, stringifyHelper.replacer);
     return serializedData;
 }
 
 const knownFields = ['name', 'message', 'details'];
-export function* enumerateKnownProperties(e: any) {
+export function* enumerateKnownErrorProperties(e: any) {
     for (const p of knownFields) {
-        if (this.error[p]) {
+        if (e[p]) {
             yield `${p}: ${e[p]}`;
         }
     }

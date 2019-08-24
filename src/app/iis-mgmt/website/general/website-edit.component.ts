@@ -16,6 +16,8 @@ export class WebsiteEditComponent {
     @Input()
     site: Website = <Website>{
         name: this.strings.MsftIISWAC.website.newName,
+        bindings: [],
+        applicationPoolName: ' ',   // work around an SME bug where the action btn is disabled if field is empty
     };
 
     onLayoutChanged() {

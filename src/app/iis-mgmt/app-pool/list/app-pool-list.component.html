@@ -1,9 +1,10 @@
 <list-loader #loader [observes]="contents" [table]="dataTable" [select]="select">
     <div list-content-header>
         <iis-actions *ngIf="!readonly">
-            <control-table #actionBarController [table]="dataTable" [addTableItem]="createDialog.showDialog"
+            <control-table #actionBarController [table]="dataTable" [addTableItem]="showDialog"
                 [editTableItem]="editSelection" [deleteTableItems]="removeAppPools"></control-table>
-            <control-status #actionBarController [target]="dataTable.selection" [srv]="srv"></control-status>
+            <control-status #actionBarController [target]="dataTable.selection" [srv]="srv"
+                [restartText]="strings.MsftIISWAC.appPool.recycle"></control-status>
         </iis-actions>
     </div>
     <div list-content-body class="sme-position-stretch-v">

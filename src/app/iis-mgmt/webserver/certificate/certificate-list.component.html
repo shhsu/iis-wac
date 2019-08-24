@@ -1,11 +1,13 @@
 <list-loader #loader [observes]="contents" [table]="dataTable">
-    <div class="list-content-body">
-        <sme-data-table #dataTable class="sme-position-flex-auto sme-position-inset-none sme-arrange-stack-v"
-            [items]="loader.items" [(selection)]="loader.selected" [defaultSortColumn]="nameColumn"
-            [defaultSortMode]="1" [rememberSelection]="true">
+    <div list-content-body class="sme-position-stretch-v">
+        <sme-data-table #dataTable class="sme-position-stretch-v" [items]="loader.items" [(selection)]="loader.selected"
+            [defaultSortColumn]="nameColumn" [defaultSortMode]="1" [rememberSelection]="true">
             <!-- [getItemIdentityFunction]="getItemIdentityFunction"> -->
-            <sme-data-table-column #nameColumn header="{{strings.MsftIISWAC.cert.name}}" field="displayName"
-                sortable="true"></sme-data-table-column>
+            <sme-data-table-column #nameColumn header="{{strings.MsftIISWAC.cert.name}}" sortable="true">
+                <ng-template let-data>
+                    <iis-cert [value]="data"></iis-cert>
+                </ng-template>
+            </sme-data-table-column>
             <sme-data-table-column header="{{strings.MsftIISWAC.cert.location}}" field="location" sortable="true">
             </sme-data-table-column>
             <sme-data-table-column header="{{strings.MsftIISWAC.cert.subject}}" field="subject" sortable="true">

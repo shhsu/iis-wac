@@ -19,8 +19,8 @@ function Get-Cert($location, $cert) {
             "Location" = $location;
             "FriendlyName" = $cert.FriendlyName;
             "Issuer" = $cert.Issuer;
-            "Expires" = $cert.NotAfter;
-            "ValidFrom" = $cert.NotBefore;
+            "NotAfter" = $cert.NotAfter;
+            "NotBefore" = $cert.NotBefore;
             "SignatureAlgorithm" = $algorithm;
             "Subject" = $cert.Subject;
             "Thumbprint" = $cert.Thumbprint;

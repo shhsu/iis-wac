@@ -5,6 +5,7 @@ import { WebsiteIdentifierField } from 'src/app/iis-mgmt/service/website.service
 import { CommonSetting, getModules } from 'src/app/iis-mgmt/shared-components/settings/settings-item';
 
 export const websiteSettings = getModules(
+  CommonSetting.WebApp,
   CommonSetting.VirtualDirectory,
   CommonSetting.Authentication,
   CommonSetting.Authorization,

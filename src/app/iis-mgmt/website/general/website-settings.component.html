@@ -21,7 +21,6 @@
 </form>
 <iis-dialog #appPoolDialog id="website-select-app-pool-dialog" [title]="appPoolDialogHeader"
     (proceed)="selectAppPool()">
-    <!-- TODO: validate only single is selected -->
     <iis-app-pool-list #appPoolSelect *ngIf="appPoolDialog.visible" [select]="['name', site.applicationPoolName]"
         pickerMode="true">
     </iis-app-pool-list>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseDialogComponent, DialogService } from '@msft-sme/angular';
-import { enumerateKnownProperties, formatF, stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
+import { enumerateKnownErrorProperties, formatF, stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Strings } from 'src/generated/strings';
 
 export class IISErrorDialogOptions {
@@ -21,7 +21,11 @@ error-details {
 export class IISErrorDialogComponent extends BaseDialogComponent<IISErrorDialogOptions, {}> {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
 
-    options: IISErrorDialogOptions;
+    _options: IISErrorDialogOptions;
+    knownProperties: string[];
+    lineInfo: string;
+    errorObjectDump: string;
+    stack: any;
 
     constructor(
         srv: DialogService,
@@ -29,24 +33,27 @@ export class IISErrorDialogComponent extends BaseDialogComponent<IISErrorDialogO
         super(srv);
     }
 
-    get knownProperties() {
-        return enumerateKnownProperties(this.options.error);
+    get options() {
+        return this._options;
     }
 
-    get lineInfo() {
-        return formatF(
+    set options(o: IISErrorDialogOptions) {
+        this._options = o;
+        this.knownProperties = Array.from(enumerateKnownErrorProperties(o.error));
+        this.lineInfo = formatF(
             this.strings.MsftIISWAC.errors.lineInfo,
-            this.options.error.fileName,
-            this.options.error.lineNumber,
-            this.options.error.columnNumber);
+            o.error.fileName,
+            o.error.lineNumber,
+            o.error.columnNumber);
+        this.errorObjectDump = stringifySafe(o.error);
+        this.stack = o.error.stack;
     }
 
-    get errorObjectDump() {
-        return stringifySafe(this.options.error);
-    }
-
-    get stack() {
-        return this.options.error.stack;
+    get toggleButtonText() {
+        if (this.options.showDetails) {
+            return this.strings.MsftIISWAC.errors.less;
+        }
+        return this.strings.MsftIISWAC.errors.more;
     }
 
     show(options: IISErrorDialogOptions) {
@@ -59,6 +66,7 @@ export class IISErrorDialogComponent extends BaseDialogComponent<IISErrorDialogO
     }
 
     onOK() {
+        // TODO: why doesn't the dialog close properly?
         this.options = null;
         this.hide(null);
     }

@@ -2,6 +2,7 @@ import { CommonSettingsNavigationItem } from '@msft-sme/angular';
 import { Strings } from 'src/generated/strings';
 
 export enum CommonSetting {
+    WebApp,
     VirtualDirectory,
     Authentication,
     Authorization,
@@ -24,6 +25,15 @@ export enum CommonSetting {
 }
 
 export const commonSettings = new Map<CommonSetting, CommonSettingsNavigationItem>([
+    [CommonSetting.WebApp, <CommonSettingsNavigationItem>{
+        label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.common.webApplications,
+        routeParams: {
+            commands: [
+                'web-app',
+            ],
+        },
+        smeIconClassName: 'sme-icon-embed',
+    }],
     [CommonSetting.VirtualDirectory, <CommonSettingsNavigationItem>{
         label: MsftSme.resourcesStrings<Strings>().MsftIISWAC.tabs.virtualDirectory,
         routeParams: {

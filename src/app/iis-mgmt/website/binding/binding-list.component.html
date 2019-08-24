@@ -1,7 +1,7 @@
 <div class="sme-position-stretch-v">
     <iis-actions>
-        <control-table #actionBarController [table]="dataTable" [addTableItem]="editDialog.onNew"
-            [editTableItem]="editDialog.onEdit" [deleteTableItems]="removeSelected()"></control-table>
+        <control-table #actionBarController [table]="dataTable" [addTableItem]="showNew" [editTableItem]="showEdit"
+            [deleteTableItems]="removeSelected"></control-table>
     </iis-actions>
     <sme-data-table #dataTable class="sme-position-stretch-v" [items]="site.bindings" [(selection)]="selected">
         <sme-data-table-column header="{{strings.MsftIISWAC.website.protocol}}" field="protocol" sortable="true">
@@ -12,9 +12,10 @@
         </sme-data-table-column>
         <sme-data-table-column header="{{strings.MsftIISWAC.website.port}}" field="port" sortable="true">
         </sme-data-table-column>
+        <!-- TODO: show cert name and style it if it expired -->
     </sme-data-table>
 </div>
-<iis-collection-dialog #editDialog id="binding-create-dialog" [create]="newBinding" [createHeader]="createHeader"
-    [editHeader]="editHeader" [(selected)]="selected" [dataTable]="dataTable">
-    <iis-binding #editor *ngIf="editDialog.visible" [binding]="editDialog.editing"></iis-binding>
+<iis-collection-dialog #dialog id="binding-create-dialog" [create]="newBinding" [createHeader]="createHeader"
+    [editHeader]="editHeader" [(selected)]="dataTable.selection" [dataTable]="dataTable">
+    <iis-binding #editor *ngIf="dialog.visible" [binding]="dialog.editing"></iis-binding>
 </iis-collection-dialog>

@@ -9,7 +9,7 @@ import { Strings } from 'src/generated/strings';
     selector: 'error',
     template: `
 <sme-page-alert-bar id="iis-error-alert-bar" [alert]="alert"></sme-page-alert-bar>
-<iis-error-dialog id="iis-error-dialog"></iis-error-dialog>
+<iis-error-dialog #dialog id="iis-error-dialog"></iis-error-dialog>
 `,
 })
 export class ErrorComponent {
@@ -22,7 +22,7 @@ export class ErrorComponent {
     @Input()
     error: Error;
 
-    @ViewChild('iis-error-dialog')
+    @ViewChild('dialog')
     dialog: IISErrorDialogComponent;
 
     get alert() {

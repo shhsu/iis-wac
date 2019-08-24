@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { formatF } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Binding, Website } from 'src/app/iis-mgmt/models/website';
+import { IISCollectionDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-collection-dialog.component';
 import { Strings } from 'src/generated/strings';
 
 @Component({
@@ -14,6 +15,9 @@ export class BindingListComponent {
 
     @Input()
     site: Website;
+
+    @ViewChild('dialog')
+    dialog: IISCollectionDialogComponent<Binding>;
 
     newBinding() {
         return {
@@ -29,7 +33,15 @@ export class BindingListComponent {
         return formatF(this.strings.MsftIISWAC.website.binding.editDialogHeader, this.site.name);
     }
 
-    removeSelected() {
+    showEdit = () => {
+        this.dialog.onEdit();
+    }
+
+    showNew = () => {
+        this.dialog.onNew();
+    }
+
+    removeSelected = () => {
         this.site.bindings.remove(this.selected);
     }
 }
