@@ -8,7 +8,7 @@
         </iis-actions>
     </div>
     <div list-content-body class="sme-position-stretch-v">
-        <sme-data-table #dataTable class="sme-position-stretch-v" [items]="loader.items" [(selection)]="loader.selected"
+        <sme-data-table #dataTable class="sme-position-stretch-v" [items]="loader.items"
             [defaultSortColumn]="nameColumn" [defaultSortMode]="1" [rememberSelection]="true">
             <!-- [getItemIdentityFunction]="getItemIdentityFunction"> -->
             <sme-data-table-column #nameColumn header="{{strings.MsftIISWAC.common.name}}" sortable="true">

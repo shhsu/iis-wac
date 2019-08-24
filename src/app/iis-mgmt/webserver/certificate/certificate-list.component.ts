@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { DataTableComponent } from '@msft-sme/angular';
 import { Observable } from 'rxjs';
 import { Certificate } from 'src/app/iis-mgmt/models/certificate';
 import { CertificateService } from 'src/app/iis-mgmt/service/certificates.service';
@@ -16,6 +17,9 @@ export class CertificateListComponent {
     @ViewChild('loader')
     loader: ListLoaderComponent;
 
+    @ViewChild('dataTable')
+    dataTable: DataTableComponent;
+
     constructor(
         private srv: CertificateService,
     ) { }
@@ -24,15 +28,7 @@ export class CertificateListComponent {
         return this._contents;
     }
 
-    get selected(): Certificate {
-        if (this.loader) {
-            return this.loader.selected;
-        }
-    }
-
-    set selected(cert: Certificate) {
-        if (this.loader) {
-            this.loader.selected = cert;
-        }
+    get selected() {
+        return this.dataTable.selection;
     }
 }

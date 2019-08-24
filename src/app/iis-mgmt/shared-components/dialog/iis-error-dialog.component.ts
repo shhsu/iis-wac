@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BaseDialogComponent, DialogService } from '@msft-sme/angular';
 import { enumerateKnownErrorProperties, formatF, stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Strings } from 'src/generated/strings';
+import { DialogInfo } from './iis-dialog.component';
 
 export class IISErrorDialogOptions {
     headline: string;
@@ -18,7 +19,7 @@ error-details {
 }
 `],
 })
-export class IISErrorDialogComponent extends BaseDialogComponent<IISErrorDialogOptions, {}> {
+export class IISErrorDialogComponent extends BaseDialogComponent<IISErrorDialogOptions, DialogInfo> {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
 
     _options: IISErrorDialogOptions;
@@ -39,14 +40,16 @@ export class IISErrorDialogComponent extends BaseDialogComponent<IISErrorDialogO
 
     set options(o: IISErrorDialogOptions) {
         this._options = o;
-        this.knownProperties = Array.from(enumerateKnownErrorProperties(o.error));
-        this.lineInfo = formatF(
-            this.strings.MsftIISWAC.errors.lineInfo,
-            o.error.fileName,
-            o.error.lineNumber,
-            o.error.columnNumber);
-        this.errorObjectDump = stringifySafe(o.error);
-        this.stack = o.error.stack;
+        if (o) {
+            this.knownProperties = Array.from(enumerateKnownErrorProperties(o.error));
+            this.lineInfo = formatF(
+                this.strings.MsftIISWAC.errors.lineInfo,
+                o.error.fileName,
+                o.error.lineNumber,
+                o.error.columnNumber);
+            this.errorObjectDump = stringifySafe(o.error);
+            this.stack = o.error.stack;
+        }
     }
 
     get toggleButtonText() {
@@ -66,8 +69,6 @@ export class IISErrorDialogComponent extends BaseDialogComponent<IISErrorDialogO
     }
 
     onOK() {
-        // TODO: why doesn't the dialog close properly?
-        this.options = null;
-        this.hide(null);
+        this.hide(DialogInfo.OK);
     }
 }

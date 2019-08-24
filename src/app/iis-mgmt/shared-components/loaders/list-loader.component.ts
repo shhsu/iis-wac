@@ -33,11 +33,10 @@ export class ListLoaderComponent implements AfterContentInit {
     private refreshRate = null;
     @Input()
     private select: [string, any];
-
     @Input()
     public readonly table: DataTableComponent;
+
     public items = [];
-    public selected: any;
     public loading = true;
     private subscription: Subscription;
     error: Error;
@@ -47,14 +46,13 @@ export class ListLoaderComponent implements AfterContentInit {
             this.subscription.unsubscribe();
         }
         this.items = [];
-        this.selected = null;
         this.loading = true;
         this.error = null;
         this.subscription = this.observes.subscribe(
             item => {
                 this.items.push(item);
                 if (this.select && item[this.select[0]] === this.select[1]) {
-                    this.selected = item;
+                    this.table.selection = item;
                 }
                 if (this.table &&
                     this.refreshRate != null &&
