@@ -1,6 +1,6 @@
 <iis-form #form [editItem]="{ type: editMode, value: site }">
-    <sme-pivot #pivot class="sme-pivot sme-position-stretch-v" (layoutChanged)="onLayoutChanged()">
-        <sme-pivot-tab [label]="strings.MsftIISWAC.common.settings">
+    <sme-pivot #pivot class="sme-pivot sme-position-stretch-v">
+        <sme-pivot-tab [label]=" strings.MsftIISWAC.common.settings">
             <ng-template>
                 <iis-website-settings [site]="form.item"></iis-website-settings>
             </ng-template>

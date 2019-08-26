@@ -11,7 +11,7 @@ import {
     IconModule,
     IdleModule,
     ResourceService,
-    SmeUxModule
+    SmeUxModule,
 } from '@msft-sme/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

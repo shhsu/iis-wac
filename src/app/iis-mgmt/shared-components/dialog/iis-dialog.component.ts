@@ -2,14 +2,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseDialogComponent, DialogService } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
+import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Strings } from 'src/generated/strings';
-
-export enum DialogInfo {
-    OK,
-    Cancel,
-}
+import { DialogInfo } from './dialog-info';
 
 @Component({
     selector: 'iis-dialog',
@@ -17,6 +14,7 @@ export enum DialogInfo {
 })
 export class IISDialogComponent<T> extends BaseDialogComponent<T, DialogInfo> {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
+
     @Input()
     title: string;
 
@@ -42,9 +40,14 @@ export class IISDialogComponent<T> extends BaseDialogComponent<T, DialogInfo> {
         this.visible = false;
     }
 
-    showDialog(param: T = null) {
+    // NOTE: do not call this method, call showAsync instead
+    show(param: T = null): Subject<DialogInfo> {
         this.visible = true;
-        super.show(param).pipe(take(1)).subscribe(
+        return super.show(param);
+    }
+
+    showAsync(param: T = null) {
+        this.show(param).pipe(take(1)).subscribe(
             v => {
                 if (v === DialogInfo.OK) {
                     this.proceed.next(param);
@@ -54,6 +57,10 @@ export class IISDialogComponent<T> extends BaseDialogComponent<T, DialogInfo> {
                 Logging.logError(logSource, `Dialog ended with error ${stringifySafe(e)}`);
             },
         );
+    }
+
+    hide(result?: DialogInfo) {
+        super.hide(result);
     }
 }
 

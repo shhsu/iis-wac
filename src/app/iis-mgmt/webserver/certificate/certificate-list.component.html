@@ -14,7 +14,10 @@
             </sme-data-table-column>
             <sme-data-table-column header="{{strings.MsftIISWAC.cert.issuer}}" field="issuer" sortable="true">
             </sme-data-table-column>
-            <sme-data-table-column header="{{strings.MsftIISWAC.cert.notAfter}}" field="notAfter" sortable="true">
+            <sme-data-table-column header="{{strings.MsftIISWAC.cert.notAfter}}" sortable="true">
+                <ng-template let-data>
+                    {{data.notAfter.toLocaleDateString()}}
+                </ng-template>
             </sme-data-table-column>
         </sme-data-table>
     </div>

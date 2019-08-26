@@ -1,11 +1,16 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AppContextService } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { DeactivateGuardedComponent } from 'src/app/iis-mgmt/common/can-deactivate';
 import { deepCopyNaive, deepEqualNaive } from 'src/app/iis-mgmt/common/util/serialization';
 import { stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
+import { RouteDeactivationService } from 'src/app/iis-mgmt/service/ui/route-deactivation.service';
 import { IISErrorDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-error-dialog.component';
 import { Strings } from 'src/generated/strings';
+import { RpcDialogChoiceResponse } from '@msft-sme/core/rpc/dialog/rpc-dialog-model';
 
 export type FormEditMode = 'new' | 'existing';
 export const FormEditMode = {
@@ -21,7 +26,7 @@ function isModifiedDefault(old: any, editing: any) {
     selector: 'iis-form',
     templateUrl: 'iis-form.component.html',
 })
-export class IISFormComponent {
+export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnDestroy {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
 
     public submitting = false;
@@ -36,7 +41,7 @@ export class IISFormComponent {
     submit: () => Observable<any>;
 
     @Input()
-    close: () => {};
+    exit: (submitted: boolean) => {};
 
     @Input()
     checkModifications = isModifiedDefault;
@@ -44,11 +49,17 @@ export class IISFormComponent {
     @Input()
     validate: (editing: any) => boolean;
 
+    @Input()
+    registerDeactivation = true;
+
     @ViewChild('iis-error-dialog')
     dialog: IISErrorDialogComponent;
 
+    private exitConfirmed = false;
+
     constructor(
         private appContext: AppContextService,
+        private formSrv: RouteDeactivationService,
     ) { }
 
     @Input()
@@ -59,6 +70,7 @@ export class IISFormComponent {
         }
         this._isNew = true;
         this._editing = value;
+        this.exitConfirmed = false;
     }
 
     @Input()
@@ -69,6 +81,7 @@ export class IISFormComponent {
         this._isNew = false;
         this._original = value;
         this._editing = deepCopyNaive(value);
+        this.exitConfirmed = false;
     }
 
     @Input()
@@ -94,34 +107,67 @@ export class IISFormComponent {
         return this._isNew || this.checkModifications(this._original, this._editing);
     }
 
-    // TODO: do this on navigation?
     onCancel() {
-        if (this.isModified()) {
-            this.appContext.frame.showDialogConfirmation({
-                title: this.strings.MsftIISWAC.common.discardChangeTitle,
-                message: this.strings.MsftIISWAC.common.discardChangeMessage,
-                confirmButtonText: this.strings.MsftIISWAC.common.proceed,
-                cancelButtonText: this.strings.MsftIISWAC.common.cancel,
-            }).subscribe(
-                response => {
-                    if (response.confirmed) {
-                        this.close();
-                    }
-                },
-                e => {
-                    Logging.logError(logSource, `Error during cancel dialog ${stringifySafe(e)}`);
+        return this.confirmExit().subscribe(
+            confirmed => {
+                if (confirmed) {
+                    this.exit(false);
                 }
-            );
+            }
+        );
+    }
+
+    canDeactivate(
+        _: ActivatedRouteSnapshot,  // currentRoute
+        __: RouterStateSnapshot, // currentState
+        ___?: RouterStateSnapshot,  // nextState
+    ): Observable<boolean> {
+        return this.confirmExit();
+    }
+
+    // private onVerifyExitConfirmation = (res: RpcDialogChoiceResponse) => {
+    //     const confirmed = res.confirmed;
+    //     this.exitConfirmed = confirmed;
+    //     return confirmed;
+    // }
+
+    private confirmExit(): Observable<boolean> {
+        if (this.exitConfirmed) {
+            return of(true);
         }
+        if (!this.isModified()) {
+            return of(true);
+        }
+        const confirmed = confirm(this.strings.MsftIISWAC.common.discardChangeMessage);
+        this.exitConfirmed = confirmed;
+        return of(confirmed);
+
+        // TODO fix this:
+        // can't get this to work, using this dialog always result in some exception and 2 prompts when navigate on the outer pivot
+
+        // return this.appContext.frame.showDialogConfirmation({
+        //     title: this.strings.MsftIISWAC.common.discardChangeTitle,
+        //     message: this.strings.MsftIISWAC.common.discardChangeMessage,
+        //     confirmButtonText: this.strings.MsftIISWAC.common.proceed,
+        //     cancelButtonText: this.strings.MsftIISWAC.common.cancel,
+        // }).pipe(
+        //     map(this.onVerifyExitConfirmation),
+        //     catchError((e, caught) => {
+        //         Logging.logError(logSource, `Error during cancel dialog ${stringifySafe(e)}`);
+        //         return caught;
+        //     }),
+        // );
     }
 
     onSubmit() {
         if (!this.isModified()) {
-            Logging.logVerbose(logSource, `No changes were made, submit action will close the view`);
-            this.close();
+            this.exitConfirmed = true;
+            Logging.logVerbose(logSource, `No changes were made, submit action will simply exit`);
+            this.exit(true);
         } else {
             if (this.validate(this._editing)) {
                 this.submitting = true;
+                this.exitConfirmed = true;
                 this.submit().subscribe(
                     _ => { },
                     e => {
@@ -134,10 +180,22 @@ export class IISFormComponent {
                         this.submitting = false;
                     },
                     () => {
-                        this.close();
+                        this.exit(true);
                     },
                 );
             }
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this.registerDeactivation) {
+            this.formSrv.Release();
+        }
+    }
+
+    ngOnInit(): void {
+        if (this.registerDeactivation) {
+            this.formSrv.Register(this);
         }
     }
 }

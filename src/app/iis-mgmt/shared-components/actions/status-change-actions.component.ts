@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Status } from 'src/app/iis-mgmt/models/status';
-import { StatusChangeService } from 'src/app/iis-mgmt/service/status-change.service';
+import { StatusChangeService } from 'src/app/iis-mgmt/service/data/status-change.service';
 import { Strings } from 'src/generated/strings';
 import { IISActionsController } from './iis-actions.component';
 

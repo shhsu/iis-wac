@@ -3,7 +3,8 @@
         "deserialize",
         "mgmt",
         "vdir",
-        "iiswac"
+        "iiswac",
+        "preactivation",
     ],
     "files.exclude": {
         ".git": true,

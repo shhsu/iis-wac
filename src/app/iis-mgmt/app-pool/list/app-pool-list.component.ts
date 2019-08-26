@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DataTableComponent } from '@msft-sme/angular';
 import { Observable } from 'rxjs';
 import { ApplicationPool } from 'src/app/iis-mgmt/models/app-pool';
-import { AppPoolService } from 'src/app/iis-mgmt/service/app-pool.service';
+import { AppPoolService } from 'src/app/iis-mgmt/service/data/app-pool.service';
 import { IISDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-dialog.component';
 import { Strings } from 'src/generated/strings';
 
@@ -53,7 +53,7 @@ export class AppPoolListComponent {
     }
 
     showDialog = () => {
-        this.createDialog.showDialog(null);
+        this.createDialog.showAsync(null);
     }
 
     removeAppPools = (pools: ApplicationPool[]) => {

@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { CanDeactivateGuard } from '@msft-sme/angular';
 import { WebsiteGeneralComponent } from './website-general.component';
 
 export const websiteGeneralRoute: Route = {
@@ -7,6 +8,7 @@ export const websiteGeneralRoute: Route = {
         {
             path: '',
             component: WebsiteGeneralComponent,
+            canDeactivate: [CanDeactivateGuard],
         },
     ],
 };

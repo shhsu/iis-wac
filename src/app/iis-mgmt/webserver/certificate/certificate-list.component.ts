@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { DataTableComponent } from '@msft-sme/angular';
 import { Observable } from 'rxjs';
 import { Certificate } from 'src/app/iis-mgmt/models/certificate';
-import { CertificateService } from 'src/app/iis-mgmt/service/certificates.service';
+import { CertificateService } from 'src/app/iis-mgmt/service/data/certificates.service';
 import { ListLoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/list-loader.component';
 import { Strings } from 'src/generated/strings';
 

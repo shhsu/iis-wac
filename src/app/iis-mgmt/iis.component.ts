@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { AppContextService } from '@msft-sme/angular';
 import { Strings } from 'src/generated/strings';
-import { PowershellService } from './service/powershell.service';
+import { PowershellService } from './service/data/powershell.service';
 
 @Component({
   selector: 'iis-component',

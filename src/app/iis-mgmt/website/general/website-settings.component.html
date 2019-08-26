@@ -16,7 +16,7 @@
     </sme-form-field>
     <sme-form-field type="text" #appPoolName name="appPool" [(ngModel)]="site.applicationPoolName"
         [label]="strings.MsftIISWAC.common.applicationPool" [required]="true" [showFieldAction]="true"
-        [fieldActionText]="strings.MsftIISWAC.common.selectBtn" (fieldAction)="appPoolDialog.showDialog()">
+        [fieldActionText]="strings.MsftIISWAC.common.selectBtn" (fieldAction)="appPoolDialog.show()">
     </sme-form-field>
 </form>
 <iis-dialog #appPoolDialog id="website-select-app-pool-dialog" [title]="appPoolDialogHeader"

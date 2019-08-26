@@ -72,14 +72,14 @@ export class IISCollectionDialogComponent<T> {
         this.dialogHeader = this.editHeader;
         this.editing = this.selected;
         const param = this.core.getEditParam(this.selected);
-        this.dialog.showDialog(param);
+        this.dialog.showAsync(param);
     }
 
     onNew() {
         this.dialogHeader = this.createHeader;
         this.editing = this.create();
         const param = this.core.getCreateParam();
-        this.dialog.showDialog(param);
+        this.dialog.showAsync(param);
     }
 
     save(param: any) {

@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { appPoolRoute } from './app-pool/app-pool.route';
 import { IISComponent } from './iis.component';
+import { RouteDeactivationGuard } from './service/ui/route-deactivation-guard';
 import { WebserverComponent } from './webserver/webserver.component';
 import { routes as WebServerRoutes } from './webserver/webserver.module';
 import { websiteRoute } from './website/website.route';
 
-const routes: Routes = [
+export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
@@ -27,12 +28,26 @@ const routes: Routes = [
     }
 ];
 
+// function calls are not supported, modify the routes in a code block
+const routeStack = [routes];
+while (routeStack.length > 0) {
+    const thisRoutes = routeStack.pop();
+    for (const route of thisRoutes) {
+        if (route.component) {
+            route.canDeactivate = [RouteDeactivationGuard];
+        }
+        if (route.children) {
+            routeStack.push(route.children);
+        }
+    }
+}
+
 @NgModule({
     imports: [
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
     ],
     exports: [
-        RouterModule
+        RouterModule,
     ],
 })
 export class Routing { }

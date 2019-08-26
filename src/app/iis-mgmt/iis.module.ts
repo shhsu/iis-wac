@@ -4,11 +4,13 @@ import { PivotModule, SettingsModule, SmeFormsModule, SplitViewModule } from '@m
 import { AppPoolModule } from './app-pool/app-pool.module';
 import { IISComponent } from './iis.component';
 import { Routing } from './iis.routing';
-import { AppPoolService } from './service/app-pool.service';
-import { CertificateService } from './service/certificates.service';
-import { PowershellService } from './service/powershell.service';
-import { WebServerService } from './service/webserver.service';
-import { WebSiteService } from './service/website.service';
+import { AppPoolService } from './service/data/app-pool.service';
+import { CertificateService } from './service/data/certificates.service';
+import { PowershellService } from './service/data/powershell.service';
+import { WebServerService } from './service/data/webserver.service';
+import { WebSiteService } from './service/data/website.service';
+import { RouteDeactivationGuard } from './service/ui/route-deactivation-guard';
+import { RouteDeactivationService } from './service/ui/route-deactivation.service';
 import { WebServerModule } from './webserver/webserver.module';
 import { WebSiteModule } from './website/website.module';
 
@@ -33,6 +35,8 @@ import { WebSiteModule } from './website/website.module';
     WebServerService,
     AppPoolService,
     WebSiteService,
+    RouteDeactivationService,
+    RouteDeactivationGuard,
   ]
 })
 export class IISModule { }

@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { AppContextService } from '@msft-sme/angular';
 import { Strings } from 'src/generated/strings';
-import { WebServerService } from '../service/webserver.service';
+import { WebServerService } from '../service/data/webserver.service';
 import { LoaderComponent } from '../shared-components/loaders/loader.component';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { AppContextService } from '@msft-sme/angular';
-import { WebsiteIdentifierField } from 'src/app/iis-mgmt/service/website.service';
+import { WebsiteIdentifierField } from 'src/app/iis-mgmt/service/data/website.service';
 import { CommonSetting, getModules } from 'src/app/iis-mgmt/shared-components/settings/settings-item';
 
 export const websiteSettings = getModules(

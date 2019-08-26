@@ -11,11 +11,11 @@ export function fromCSDate(value: string): Date {
 export function fromCSObject<T>(type: (new () => T), csObject: any) {
     const result = new type();
     for (const key of Object.keys(result)) {
-        const pascalKey = key.charAt(0).toUpperCase() + key.slice(1);
-        if (csObject[pascalKey]) {
-            result[key] = csObject[pascalKey];
-        } else if (csObject[key]) {
+        if (csObject[key]) {
             result[key] = csObject[key];
+        } else {
+            const pascalKey = key.charAt(0).toUpperCase() + key.slice(1);
+            result[key] = csObject[pascalKey];
         }
     }
     return result;
@@ -63,6 +63,7 @@ export function deepCopyNaive(left: any): any {
         for (const k of Object.keys(left)) {
             right[k] = deepCopyNaive(left[k]);
         }
+        return right;
     }
     return left;
 }

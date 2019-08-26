@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { AppContextService } from '@msft-sme/angular';
-import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
+import { WebSiteService } from 'src/app/iis-mgmt/service/data/website.service';
 import { LoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/loader.component';
 import { Strings } from 'src/generated/strings';
 

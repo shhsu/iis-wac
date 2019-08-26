@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Website } from 'src/app/iis-mgmt/models/website';
-import { WebSiteService } from 'src/app/iis-mgmt/service/website.service';
+import { WebSiteService } from 'src/app/iis-mgmt/service/data/website.service';
 import { IISDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-dialog.component';
 import { WebsiteEditComponent } from 'src/app/iis-mgmt/website/general/website-edit.component';
 import { Strings } from 'src/generated/strings';
@@ -31,7 +31,7 @@ export class WebsiteListComponent {
     }
 
     showDialog = () => {
-        this.createDialog.showDialog(null);
+        this.createDialog.showAsync(null);
     }
 
     editWebsite = (selected: Website) => {

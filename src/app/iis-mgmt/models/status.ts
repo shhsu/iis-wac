@@ -1,14 +1,6 @@
-import { Strings } from 'src/generated/strings';
+import { msftSmeStrings } from 'src/app/iis-mgmt/common/constants';
 
-const strings = MsftSme.resourcesStrings<Strings>();
-// enum order refers to https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.administration.objectstate?view=iis-dotnet
-const objectStates = [
-    strings.MsftIISWAC.status.starting,
-    strings.MsftIISWAC.status.started,
-    strings.MsftIISWAC.status.stopping,
-    strings.MsftIISWAC.status.stopped,
-    strings.MsftIISWAC.status.unknown,
-];
+let objectStates: string[];
 
 export function extractStatus(obj: any): Status {
     if (obj.State == null) {
@@ -19,6 +11,16 @@ export function extractStatus(obj: any): Status {
 }
 
 export function printStatus(state: Status): string {
+    if (!objectStates) {
+        // enum order refers to https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.administration.objectstate?view=iis-dotnet
+        objectStates = [
+            msftSmeStrings.MsftIISWAC.status.starting,
+            msftSmeStrings.MsftIISWAC.status.started,
+            msftSmeStrings.MsftIISWAC.status.stopping,
+            msftSmeStrings.MsftIISWAC.status.stopped,
+            msftSmeStrings.MsftIISWAC.status.unknown,
+        ];
+    }
     return objectStates[state];
 }
 

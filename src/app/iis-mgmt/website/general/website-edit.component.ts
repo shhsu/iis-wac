@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Website } from 'src/app/iis-mgmt/models/website';
 import { FormEditMode } from 'src/app/iis-mgmt/shared-components/form/iis-form.component';
+import { IISFormComponent } from 'src/app/iis-mgmt/shared-components/form/iis-form.component';
 import { Strings } from 'src/generated/strings';
 
 @Component({
@@ -9,6 +10,9 @@ import { Strings } from 'src/generated/strings';
 })
 export class WebsiteEditComponent {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
+
+    @ViewChild('form')
+    form: IISFormComponent;
 
     @Input()
     editMode: FormEditMode;
@@ -19,7 +23,4 @@ export class WebsiteEditComponent {
         bindings: [],
         applicationPoolName: ' ',   // work around an SME bug where the action btn is disabled if field is empty
     };
-
-    onLayoutChanged() {
-    }
 }

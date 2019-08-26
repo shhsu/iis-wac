@@ -6,7 +6,7 @@ import { Strings } from 'src/generated/strings';
 @Component({
     selector: 'iis-cert',
     template: `
-<span [showError]="error">{{value.displayName}}</span>
+<span [iis-attention]="error">{{value.displayName}}</span>
 `,
 })
 export class CertificationAnnotationComponent implements OnInit {
