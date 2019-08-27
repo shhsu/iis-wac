@@ -12,7 +12,6 @@ export const appPoolSettings = getModules(
     templateUrl: './app-pool.component.html',
 })
 export class AppPoolComponent {
-    public static readonly routerKeyName = 'AppPoolIdentifierField';
     public readonly items = appPoolSettings;
     public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
         return 'app-pool';

@@ -7,25 +7,26 @@ export class RouteKeyMapping {
     keyParamName: string;
 }
 
-export function parseRoute(route: ActivatedRoute): Observable<any> {
+export function parseRoute(keyMappings: [string, string][], route: ActivatedRoute): Observable<any> {
     let cursor = route;
     const routeParsers: Observable<any>[] = [];
     const result = {};
     while (cursor != null) {
-        if (cursor.component) {
-            const keyName = cursor.component['routerKeyName'];
-            if (keyName) {
-                routeParsers.push(
-                    cursor.paramMap.pipe(
-                        take(1),
-                        map(params => {
-                            const keyValue = params.get(keyName);
-                            result[keyName] = keyValue;
-                        })
-                    ),
-                );
-            }
-        }
+        routeParsers.push(
+            cursor.paramMap.pipe(
+                take(1),
+                map(params => {
+                    for (const pair of keyMappings) {
+                        const keyName = pair[0];
+                        const keyValue = params.get(keyName);
+                        if (keyValue) {
+                            const paramName = pair[1];
+                            result[paramName] = keyValue;
+                        }
+                    }
+                })
+            ),
+        );
         cursor = cursor.parent;
     }
     return forkJoin(routeParsers).pipe(

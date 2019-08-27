@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { enumerateEnum } from 'src/app/iis-mgmt/common/util/serialization';
 import { ApplicationPool, ProcessModelIdentityType, ProcessModelIdentityTypeNames } from 'src/app/iis-mgmt/models/app-pool';
 import { Strings } from 'src/generated/strings';
 
@@ -9,7 +8,6 @@ import { Strings } from 'src/generated/strings';
 })
 export class AppPoolSettingsComponent implements OnInit {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
-    identityEnumType = ProcessModelIdentityType;
     friendlyIdentityTypeOrder = [
         ProcessModelIdentityType.ApplicationPoolIdentity,
         ProcessModelIdentityType.NetworkService,

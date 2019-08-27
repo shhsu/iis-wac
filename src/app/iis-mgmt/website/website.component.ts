@@ -27,7 +27,6 @@ export const websiteSettings = getModules(
     templateUrl: './website.component.html'
 })
 export class WebsiteComponent {
-    public static readonly routerKeyName = WebsiteIdentifierField;
     public readonly items = websiteSettings;
     public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
         return 'website';

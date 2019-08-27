@@ -21,13 +21,7 @@ export class RepositoryService<T> {
     }
 
     get(key: any): Observable<T> {
-        const param: any = {};
-        for (const mapping of this.paramMappings) {
-            const appKey = mapping[0];
-            const psKey = mapping[1];
-            param[psKey] = key[appKey];
-        }
-        const psCommand = PowerShell.createScript(this.scriptForGet, param);
+        const psCommand = PowerShell.createScript(this.scriptForGet, key);
         return this.ps.get(psCommand).pipe(map(this.transform));
     }
 
@@ -37,7 +31,7 @@ export class RepositoryService<T> {
     }
 
     fromRoute(route: ActivatedRoute): Observable<T> {
-        return parseRoute(route).pipe(
+        return parseRoute(this.paramMappings, route).pipe(
             mergeMap(key => this.get(key)),
         );
     }

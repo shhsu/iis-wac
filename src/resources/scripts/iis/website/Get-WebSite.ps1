@@ -3,7 +3,7 @@ param(
     $Name,
 
     [int]
-    $Depth = 8
+    $Depth = 3
 )
 
 $queryArgs = @{ }
@@ -13,5 +13,4 @@ if ($Name) {
 }
 
 $sites = Get-IISSite @queryArgs
-
 $sites | ForEach-Object { $_ | ConvertTo-Json -Compress -Depth $Depth }
