@@ -5,6 +5,7 @@
         "vdir",
         "iiswac",
         "preactivation",
+        "dropdown"
     ],
     "files.exclude": {
         ".git": true,

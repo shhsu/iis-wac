@@ -10,17 +10,18 @@ import { Strings } from 'src/generated/strings';
 })
 export class WebsiteSettingsComponent {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
+
     @Input()
     site: Website;
 
     @ViewChild('appPoolSelect')
-    pools: AppPoolListComponent;
+    appPoolSelectDialog: AppPoolListComponent;
 
-    get appPoolDialogHeader() {
+    get appPoolSelectDialogHeader() {
         return formatF(this.strings.MsftIISWAC.website.selectAppPoolDialogHeader, this.site.name);
     }
 
     selectAppPool() {
-        this.site.applicationPoolName = this.pools.selected.name;
+        this.site.applicationPoolName = this.appPoolSelectDialog.selected.name;
     }
 }

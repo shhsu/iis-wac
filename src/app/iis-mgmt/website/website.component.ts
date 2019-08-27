@@ -5,32 +5,31 @@ import { WebsiteIdentifierField } from 'src/app/iis-mgmt/service/data/website.se
 import { CommonSetting, getModules } from 'src/app/iis-mgmt/shared-components/settings/settings-item';
 
 export const websiteSettings = getModules(
-  CommonSetting.WebApp,
-  CommonSetting.VirtualDirectory,
-  CommonSetting.Authentication,
-  CommonSetting.Authorization,
-  CommonSetting.DefaultDoc,
-  CommonSetting.DirBrowsing,
-  CommonSetting.IpRestriction,
-  CommonSetting.Logging,
-  CommonSetting.MimeMap,
-  CommonSetting.Module,
-  CommonSetting.Compression,
-  CommonSetting.RequestFiltering,
-  CommonSetting.Header,
-  CommonSetting.Tracing,
-  CommonSetting.StaticContent,
-  CommonSetting.UrlRewrite,
+    CommonSetting.WebApp,
+    CommonSetting.VirtualDirectory,
+    CommonSetting.Authentication,
+    CommonSetting.Authorization,
+    CommonSetting.DefaultDoc,
+    CommonSetting.DirBrowsing,
+    CommonSetting.IpRestriction,
+    CommonSetting.Logging,
+    CommonSetting.MimeMap,
+    CommonSetting.Module,
+    CommonSetting.Compression,
+    CommonSetting.RequestFiltering,
+    CommonSetting.Header,
+    CommonSetting.Tracing,
+    CommonSetting.StaticContent,
+    CommonSetting.UrlRewrite,
 );
 
 @Component({
-  selector: 'iis-website',
-  templateUrl: './website.component.html'
+    templateUrl: './website.component.html'
 })
 export class WebsiteComponent {
-  public static readonly keyName = WebsiteIdentifierField;
-  public readonly items = websiteSettings;
-  public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
-    return 'website';
-  }
+    public static readonly routerKeyName = WebsiteIdentifierField;
+    public readonly items = websiteSettings;
+    public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
+        return 'website';
+    }
 }

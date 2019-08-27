@@ -40,18 +40,6 @@ export class AppPoolListComponent {
         return this.dataTable.selection;
     }
 
-    get readonly() {
-        return this.pickerMode;
-    }
-
-    get selectionMode() {
-        if (this.pickerMode) {
-            return 'single';
-        } else {
-            return 'multiple';
-        }
-    }
-
     showDialog = () => {
         this.createDialog.showAsync(null);
     }
@@ -60,7 +48,7 @@ export class AppPoolListComponent {
     }
 
     editSelection = (pool: ApplicationPool) => {
-        this.router.navigate([`app-pool/${pool.id}`]);
+        this.router.navigate([`app-pool/${encodeURI(pool.name)}`]);
     }
 
     createAppPool() {

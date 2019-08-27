@@ -62,7 +62,7 @@ export class LoaderComponent implements OnInit {
             },
             () => {
                 if (this.loading) {
-                    Logging.logError(logSource, `Marking component as loaded even though no item received`);
+                    this.error = new Error('Resource not found');
                     this.loading = false;
                 }
             },

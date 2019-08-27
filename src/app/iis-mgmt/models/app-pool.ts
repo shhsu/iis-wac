@@ -1,12 +1,19 @@
 
+
+import { msftSmeStrings } from 'src/app/iis-mgmt/common/constants';
 import { fromCSObject } from 'src/app/iis-mgmt/common/util/serialization';
 import { extractStatus, Status } from './status';
 
-export type PipelineMode = 'integrated' | 'classic';
-export const PipelineMode = {
-    Integrated: 'integrated' as PipelineMode,
-    Classic: 'classic' as PipelineMode,
-};
+// https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.administration.managedpipelinemode?view=iis-dotnet
+export enum PipelineMode {
+    Integrated = 0,
+    Classic = 1,
+}
+
+export const PipelineModeFriendlyNames = [
+    msftSmeStrings.MsftIISWAC.appPool.pipeline.integrated,
+    msftSmeStrings.MsftIISWAC.appPool.pipeline.classic,
+];
 
 export type ProcessorAction = 'KillW3wp' | 'NoAction' | 'Throttle' | 'ThrottleUnderLoad';
 export const ProcessorAction = {
@@ -62,14 +69,22 @@ export class ProcessModel {
     }
 }
 
-export type ProcessModelIdentityType = 'LocalSystem' | 'LocalService' | 'NetworkService' | 'SpecificUser' | 'ApplicationPoolIdentity';
-export const ProcessModelIdentityType = {
-    LocalSystem: 'LocalSystem' as ProcessModelIdentityType,
-    LocalService: 'LocalService' as ProcessModelIdentityType,
-    NetworkService: 'NetworkService' as ProcessModelIdentityType,
-    SpecificUser: 'SpecificUser' as ProcessModelIdentityType,
-    ApplicationPoolIdentity: 'ApplicationPoolIdentity' as ProcessModelIdentityType
-};
+// https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.administration.processmodelidentitytype?view=iis-dotnet
+export enum ProcessModelIdentityType {
+    LocalSystem = 0,
+    LocalService = 1,
+    NetworkService = 2,
+    SpecificUser = 3,
+    ApplicationPoolIdentity = 4,
+}
+
+export const ProcessModelIdentityTypeNames = [
+    msftSmeStrings.MsftIISWAC.appPool.identity.localSystem,
+    msftSmeStrings.MsftIISWAC.appPool.identity.localService,
+    msftSmeStrings.MsftIISWAC.appPool.identity.networkService,
+    msftSmeStrings.MsftIISWAC.appPool.identity.specificUser,
+    msftSmeStrings.MsftIISWAC.appPool.identity.appPoolIdentity,
+];
 
 export class ApplicationPoolIdentity {
     identityType: ProcessModelIdentityType;
@@ -123,7 +138,6 @@ export class ProcessOrphaning {
 export class ApplicationPool {
     constructor(
         public name: string = null,
-        public id: string = null,
         public status: Status = null,
         public autoStart: boolean = null,
         public managedPipelineMode: PipelineMode = null,
@@ -145,5 +159,22 @@ export class ApplicationPool {
         result.cpu = Cpu.transform(pool.Cpu);
         result.processModel = ProcessModel.transform(pool.ProcessModel);
         return result;
+    }
+
+    public pipelineModeFriendly() {
+        return PipelineModeFriendlyNames[this.managedPipelineMode];
+    }
+
+    public runtimeVersionFriendly() {
+        switch (this.managedRuntimeVersion) {
+            case 'v2.0':
+                return msftSmeStrings.MsftIISWAC.appPool.managed.runtime.v35;
+            case 'v4.0':
+                return msftSmeStrings.MsftIISWAC.appPool.managed.runtime.v4x;
+            case '':
+                return msftSmeStrings.MsftIISWAC.appPool.managed.runtime.none;
+            default:
+                return this.managedRuntimeVersion;
+        }
     }
 }

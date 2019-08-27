@@ -1,6 +1,6 @@
 <list-loader #loader [observes]="contents" [table]="dataTable" [select]="select">
     <div list-content-header>
-        <iis-actions *ngIf="!readonly">
+        <iis-actions>
             <control-table #actionBarController [table]="dataTable" [addTableItem]="showDialog"
                 [editTableItem]="editSelection" [deleteTableItems]="removeAppPools"></control-table>
             <control-status #actionBarController [target]="dataTable.selection" [srv]="srv"
@@ -21,10 +21,14 @@
                     <iis-status [status]="data.status"></iis-status>
                 </ng-template>
             </sme-data-table-column>
-            <sme-data-table-column header="{{strings.MsftIISWAC.appPool.pipeline}}" field="managedPipelineMode"
-                sortable="true"></sme-data-table-column>
-            <sme-data-table-column header="{{strings.MsftIISWAC.appPool.netFrameworkVersion}}"
-                field="managedRuntimeVersion" sortable="true"></sme-data-table-column>
+            <sme-data-table-column header="{{strings.MsftIISWAC.appPool.pipeline.column}}" sortable="true">
+                <ng-template let-data>{{data.pipelineModeFriendly()}}</ng-template>
+            </sme-data-table-column>
+            <sme-data-table-column header="{{strings.MsftIISWAC.appPool.netFrameworkVersion}}" sortable="true">
+                <ng-template let-data>
+                    {{data.runtimeVersionFriendly()}}
+                </ng-template>
+            </sme-data-table-column>
             <sme-data-table-column header="{{strings.MsftIISWAC.appPool.identity.column}}" sortable="true">
                 <ng-template let-data>
                     <identity [value]="data.identity"></identity>

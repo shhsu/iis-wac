@@ -23,14 +23,6 @@ export const appPoolRoute: Route = {
                     path: 'general',
                     component: AppPoolGeneralComponent,
                 },
-                // {
-                //     path: 'authentication',
-                //     component: AuthenticationComponent,
-                // },
-                // {
-                //     path: 'authorization',
-                //     component: AuthorizationComponent,
-                // },
             ],
         },
     ],

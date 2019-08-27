@@ -1,0 +1,10 @@
+<form #formCtrl="ngForm" class="sme-position-inset-none">
+    <sme-form-field name="poolNameTextbox" type="text" required="true" [label]="strings.MsftIISWAC.appPool.name"
+        [(ngModel)]="pool.name">
+    </sme-form-field>
+    <sme-form-field name="autoStartSwitch" type="toggle-switch" [label]="strings.MsftIISWAC.appPool.autoStart"
+        [(ngModel)]="pool.autoStart"></sme-form-field>
+    <iis-enum-dropdown [type]="identityEnumType" [values]="friendlyIdentityTypeOrder" [friendly]="identityTypeNames"
+        [(selected)]="identityType">
+    </iis-enum-dropdown>
+</form>

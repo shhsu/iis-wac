@@ -15,28 +15,28 @@ import { WebServerModule } from './webserver/webserver.module';
 import { WebSiteModule } from './website/website.module';
 
 @NgModule({
-  imports: [
-    PivotModule,
-    CommonModule,
-    SplitViewModule,
-    Routing,
-    SettingsModule,
-    SmeFormsModule,
-    WebServerModule,
-    AppPoolModule,
-    WebSiteModule,
-  ],
-  declarations: [
-    IISComponent,
-  ],
-  providers: [
-    PowershellService,
-    CertificateService,
-    WebServerService,
-    AppPoolService,
-    WebSiteService,
-    RouteDeactivationService,
-    RouteDeactivationGuard,
-  ]
+    imports: [
+        PivotModule,
+        CommonModule,
+        SplitViewModule,
+        Routing,
+        SettingsModule,
+        SmeFormsModule,
+        WebServerModule,
+        AppPoolModule,
+        WebSiteModule,
+    ],
+    declarations: [
+        IISComponent,
+    ],
+    providers: [
+        PowershellService,
+        CertificateService,
+        WebServerService,
+        AppPoolService,
+        WebSiteService,
+        RouteDeactivationService,
+        RouteDeactivationGuard,
+    ]
 })
 export class IISModule { }

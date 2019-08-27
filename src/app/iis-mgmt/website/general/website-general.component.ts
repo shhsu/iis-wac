@@ -6,27 +6,27 @@ import { LoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/load
 import { Strings } from 'src/generated/strings';
 
 @Component({
-  selector: 'iis-website-general',
-  templateUrl: './website-general.component.html'
+    templateUrl: './website-general.component.html'
 })
 export class WebsiteGeneralComponent {
-  public readonly strings = MsftSme.resourcesStrings<Strings>();
+    public readonly strings = MsftSme.resourcesStrings<Strings>();
 
-  @ViewChild('loader')
-  loader: LoaderComponent;
+    @ViewChild('loader')
+    loader: LoaderComponent;
 
-  private _content = this.srv.fromRoute(this.route);
+    private _content = this.srv.fromRoute(this.route);
 
-  public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
-    return 'general';
-  }
+    public static navigationTitle(_: AppContextService, __: ActivatedRouteSnapshot): string {
+        return 'general';
+    }
 
-  constructor(
-    private route: ActivatedRoute,
-    public srv: WebSiteService,
-  ) { }
+    constructor(
+        private route: ActivatedRoute,
+        public srv: WebSiteService,
+    ) {
+    }
 
-  get content() {
-    return this._content;
-  }
+    get content() {
+        return this._content;
+    }
 }

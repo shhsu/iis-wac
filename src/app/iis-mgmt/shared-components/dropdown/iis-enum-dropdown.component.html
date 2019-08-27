@@ -1,0 +1,11 @@
+<sme-dropdown>
+    <button role="button" class="sme-dropdown-toggle">
+        <span>{{friendly[selected]}}</span>
+        <span class="sme-icon sme-icon-chevronDown"></span>
+    </button>
+    <ul role="menu" class="sme-dropdown-content">
+        <li *ngFor="let value of values">
+            <a (click)="onClick(value)">{{friendly[value]}}</a>
+        </li>
+    </ul>
+</sme-dropdown>

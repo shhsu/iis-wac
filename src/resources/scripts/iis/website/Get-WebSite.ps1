@@ -1,22 +1,17 @@
 param(
-    [long]
-    $id = -1,
-
     [string]
-    $appPoolName,
+    $Name,
 
     [int]
-    $depth = 8
+    $Depth = 8
 )
 
-$sites = Get-IISSite
-
-if ($id -ge 0) {
-    $sites = $sites | Where-Object { $_.Id -eq $id }
+$queryArgs = @{ }
+if ($Name) {
+    $Name = [System.Web.HttpUtility]::UrlDecode($Name);
+    $queryArgs.Name = $Name
 }
 
-if ($appPoolName) {
-    $sites = $sites | Where-Object { (GetAppPoolName $_) -eq $appPoolName }
-}
+$sites = Get-IISSite @queryArgs
 
-$sites | ForEach-Object { $_ | ConvertTo-Json -Compress -Depth $depth }
+$sites | ForEach-Object { $_ | ConvertTo-Json -Compress -Depth $Depth }

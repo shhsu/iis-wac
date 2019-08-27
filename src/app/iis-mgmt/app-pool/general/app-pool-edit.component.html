@@ -1,0 +1,25 @@
+<iis-form #form [editItem]="{ type: editMode, value: pool }">
+    <sme-pivot #pivot class="sme-pivot sme-position-stretch-v">
+        <sme-pivot-tab [label]=" strings.MsftIISWAC.common.settings">
+            <ng-template>
+                <iis-app-pool-settings [pool]="form.item"></iis-app-pool-settings>
+            </ng-template>
+        </sme-pivot-tab>
+        <sme-pivot-tab [label]="strings.MsftIISWAC.appPool.process">
+            <ng-template>
+            </ng-template>
+        </sme-pivot-tab>
+        <sme-pivot-tab [label]="strings.MsftIISWAC.appPool.failedProtection">
+            <ng-template>
+            </ng-template>
+        </sme-pivot-tab>
+        <sme-pivot-tab [label]="strings.MsftIISWAC.appPool.recycling">
+            <ng-template>
+            </ng-template>
+        </sme-pivot-tab>
+        <sme-pivot-tab [label]="strings.MsftIISWAC.appPool.limits">
+            <ng-template>
+            </ng-template>
+        </sme-pivot-tab>
+    </sme-pivot>
+</iis-form>

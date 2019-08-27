@@ -35,7 +35,7 @@ export class WebsiteListComponent {
     }
 
     editWebsite = (selected: Website) => {
-        this.router.navigate([`website/${selected.id}`]);
+        this.router.navigate([`website/${encodeURI(selected.name)}`]);
     }
 
     removeWebsites = (_: Website[]) => {

@@ -7,7 +7,7 @@ import { PowershellService } from './powershell.service';
 import { RepositoryService } from './repository.service';
 import { StatusChangeService } from './status-change.service';
 
-export const WebsiteIdentifierField = 'webSiteId';  // we could also use name
+export const WebsiteIdentifierField = 'webSiteName';
 
 @Injectable()
 export class WebSiteService extends RepositoryService<Website> implements StatusChangeService {
@@ -15,7 +15,7 @@ export class WebSiteService extends RepositoryService<Website> implements Status
         ps: PowershellService,
     ) {
         super(ps,
-            [[WebsiteIdentifierField, 'id']],
+            [[WebsiteIdentifierField, 'Name']],
             PowerShellScripts.Iis_website.Get_WebSite.script,
             Website.transform,
         );

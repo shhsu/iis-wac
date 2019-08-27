@@ -13,7 +13,7 @@ export function parseRoute(route: ActivatedRoute): Observable<any> {
     const result = {};
     while (cursor != null) {
         if (cursor.component) {
-            const keyName = cursor.component['keyName'];
+            const keyName = cursor.component['routerKeyName'];
             if (keyName) {
                 routeParsers.push(
                     cursor.paramMap.pipe(

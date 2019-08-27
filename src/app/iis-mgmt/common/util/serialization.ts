@@ -1,5 +1,13 @@
 const dateRegex = /^\/Date\((d|-|.*)\)[\/|\\]$/;
 
+export function* enumerateEnum(e: {}) {
+    for (const value in e) {
+        if (!isNaN(Number(value))) {
+            yield Number(value);
+        }
+    }
+}
+
 export function fromCSDate(value: string): Date {
     if (!value) {
         return null;
