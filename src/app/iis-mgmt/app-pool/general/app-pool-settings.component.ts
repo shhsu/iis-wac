@@ -6,7 +6,7 @@ import { Strings } from 'src/generated/strings';
     selector: 'iis-app-pool-settings',
     templateUrl: './app-pool-settings.component.html',
 })
-export class AppPoolSettingsComponent implements OnInit {
+export class AppPoolSettingsComponent {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
     friendlyIdentityTypeOrder = [
         ProcessModelIdentityType.ApplicationPoolIdentity,
@@ -15,17 +15,8 @@ export class AppPoolSettingsComponent implements OnInit {
         ProcessModelIdentityType.LocalSystem,
         ProcessModelIdentityType.SpecificUser,
     ];
-    identityType: ProcessModelIdentityType;
     identityTypeNames = ProcessModelIdentityTypeNames;
 
     @Input()
     pool: ApplicationPool;
-
-    ngOnInit(): void {
-        if (this.pool.identity) {
-            this.identityType = this.pool.identity.identityType;
-        } else {
-            this.identityType = ProcessModelIdentityType.ApplicationPoolIdentity;
-        }
-    }
 }

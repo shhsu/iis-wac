@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { DataTableComponent } from '@msft-sme/angular';
 import { Observable } from 'rxjs';
 import { Certificate } from 'src/app/iis-mgmt/models/certificate';
@@ -19,6 +19,9 @@ export class CertificateListComponent {
 
     @ViewChild('dataTable')
     dataTable: DataTableComponent;
+
+    @Input()
+    select: [string, any];
 
     constructor(
         private srv: CertificateService,

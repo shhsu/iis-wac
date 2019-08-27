@@ -1,6 +1,6 @@
 
 import { CommonModule } from '@angular/common';
-import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { Component, Input, NgModule, OnDestroy, OnInit } from '@angular/core';
 import { LoadingWheelModule } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
 import { Observable, Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ import { Module as ErrorModule } from './error.component';
 <ng-content *ngIf="show"></ng-content>
 `,
 })
-export class LoaderComponent implements OnInit {
+export class LoaderComponent implements OnInit, OnDestroy {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
 
     @Input()
@@ -36,6 +36,12 @@ export class LoaderComponent implements OnInit {
 
     ngOnInit() {
         this.reload();
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     reload() {

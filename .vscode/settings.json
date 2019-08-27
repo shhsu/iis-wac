@@ -5,7 +5,10 @@
         "vdir",
         "iiswac",
         "preactivation",
-        "dropdown"
+        "dropdown",
+        "affinitized",
+        "isapi",
+        "inetmgr"
     ],
     "files.exclude": {
         ".git": true,

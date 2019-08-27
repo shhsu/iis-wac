@@ -12,11 +12,11 @@
         [label]="strings.MsftIISWAC.website.autoStart">
     </sme-form-field>
     <sme-form-field type="text" name="protocol" [(ngModel)]="site.enabledProtocols"
-        [label]="strings.MsftIISWAC.website.protocols">
+        [label]="strings.MsftIISWAC.website.binding.protocols">
     </sme-form-field>
     <sme-form-field type="text" #appPoolName name="appPool" [(ngModel)]="site.applicationPoolName"
         [label]="strings.MsftIISWAC.common.applicationPool" [required]="true" [showFieldAction]="true"
-        [fieldActionText]="strings.MsftIISWAC.common.selectBtn" (fieldAction)="appPoolSelectDialog.show()">
+        [fieldActionText]="strings.MsftIISWAC.common.selectBtn" (fieldAction)="appPoolSelectDialog.showAsync()">
     </sme-form-field>
 </form>
 <iis-dialog #appPoolSelectDialog id="website-select-app-pool-dialog" [title]="appPoolSelectDialogHeader"

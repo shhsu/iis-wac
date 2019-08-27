@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, Component, Input, NgModule, OnInit } from '@angular/core';
+import { AfterContentInit, Component, Input, NgModule, OnDestroy, OnInit } from '@angular/core';
 import { DataTableComponent, LoadingWheelModule } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
 import { Observable, Subscription } from 'rxjs';
@@ -25,7 +25,7 @@ export class ContentWrapperComponent implements OnInit { // for some reason this
     selector: 'list-loader',
     templateUrl: 'list-loader.component.html',
 })
-export class ListLoaderComponent implements AfterContentInit {
+export class ListLoaderComponent implements AfterContentInit, OnDestroy {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
     @Input()
     private observes: Observable<any>;
@@ -78,6 +78,12 @@ export class ListLoaderComponent implements AfterContentInit {
 
     ngAfterContentInit() {
         this.reload();
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }
 

@@ -5,7 +5,6 @@ param(
 
 $queryArgs = @{ }
 if ($Name) {
-    $Name = [System.Web.HttpUtility]::UrlDecode($Name);
     $queryArgs.Name = $Name
 }
 

@@ -13,11 +13,6 @@ export class IISErrorDialogOptions {
 @Component({
     selector: 'iis-error-dialog',
     templateUrl: './iis-error-dialog.component.html',
-    styles: [`
-error-details {
-    white-space: pre-wrap;
-}
-`],
 })
 export class IISErrorDialogComponent extends BaseDialogComponent<IISErrorDialogOptions, DialogInfo> {
     public readonly strings = MsftSme.resourcesStrings<Strings>();

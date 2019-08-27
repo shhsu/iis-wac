@@ -29,15 +29,22 @@ export class RequestTracing {
     ) { }
 }
 
+// https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.administration.sslflags?view=iis-dotnet
+export enum SslFlags {
+    None = 0,
+    Sni = 1,
+    CentralCertStore = 2,
+}
+
 export class Binding {
     constructor(
         public ipAddress: string = null,
         public port: number = null,
         public hostname: string = null,
-        public requireSni: boolean = null,
+        public sslFlags: SslFlags = null,
         public isHttps: boolean = null,
         public protocol: string = null,
-        public bindingInformation: boolean = null,
+        public bindingInformation: string = null,
         public certificate: Certificate = null,     // TODO:
         public isNew: boolean = null,
     ) { }
@@ -56,6 +63,7 @@ export class Binding {
             }
         }
 
+        // TODO: function incomplete
         result.hostname = binding.Host;
 
         if (bindingName === 'https') {

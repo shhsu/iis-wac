@@ -4,6 +4,7 @@
     </sme-form-field>
     <sme-form-field name="autoStartSwitch" type="toggle-switch" [label]="strings.MsftIISWAC.appPool.autoStart"
         [(ngModel)]="pool.autoStart"></sme-form-field>
-    <iis-enum-dropdown [values]="friendlyIdentityTypeOrder" [friendly]="identityTypeNames" [(selected)]="identityType">
+    <iis-enum-dropdown [label]="strings.MsftIISWAC.appPool.identity.type" [values]="friendlyIdentityTypeOrder"
+        [friendly]="identityTypeNames" [(selected)]="pool.processModel.identityType">
     </iis-enum-dropdown>
 </form>

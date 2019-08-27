@@ -1,7 +1,7 @@
 
 
 import { msftSmeStrings } from 'src/app/iis-mgmt/common/constants';
-import { fromCSObject } from 'src/app/iis-mgmt/common/util/serialization';
+import { fromCSDate, fromCSObject } from 'src/app/iis-mgmt/common/util/serialization';
 import { extractStatus, Status } from './status';
 
 // https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.administration.managedpipelinemode?view=iis-dotnet
@@ -15,13 +15,13 @@ export const PipelineModeFriendlyNames = [
     msftSmeStrings.MsftIISWAC.appPool.pipeline.classic,
 ];
 
-export type ProcessorAction = 'KillW3wp' | 'NoAction' | 'Throttle' | 'ThrottleUnderLoad';
-export const ProcessorAction = {
-    KillW3wp: 'KillW3wp' as ProcessorAction,
-    NoAction: 'NoAction' as ProcessorAction,
-    Throttle: 'Throttle' as ProcessorAction,
-    ThrottleUnderLoad: 'ThrottleUnderLoad' as ProcessorAction,
-};
+// https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.administration.processoraction?view=iis-dotnet
+export enum ProcessorAction {
+    NoAction = 0,
+    KillW3wp = 1,
+    Throttle = 2,
+    ThrottleUnderLoad = 3,
+}
 
 export class Cpu {
     limit: number;
@@ -40,10 +40,10 @@ export class Cpu {
     }
 }
 
-// TODO: does this work?
+// https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.administration.idletimeoutaction?view=iis-dotnet
 export enum IdleTimeoutAction {
-    Terminate,
-    Suspend,
+    Terminate = 0,
+    Suspend = 1,
 }
 
 export class ProcessModel {
@@ -56,6 +56,10 @@ export class ProcessModel {
         public pingResponseTime: number = null,
         public shutdownTimeLimit: number = null,
         public startupTimeLimit: number = null,
+        public identityType = ProcessModelIdentityType.ApplicationPoolIdentity,
+        public userName: string = null,
+        public password: string = null,
+        public loadUserProfile: boolean = null,
     ) { }
 
     public static transform(model: any): ProcessModel {
@@ -86,53 +90,76 @@ export const ProcessModelIdentityTypeNames = [
     msftSmeStrings.MsftIISWAC.appPool.identity.appPoolIdentity,
 ];
 
-export class ApplicationPoolIdentity {
-    identityType: ProcessModelIdentityType;
-    username: string;
-    password: string;
-    loadUserProfile: boolean;
+// https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.administration.processmodelidentitytype?view=iis-dotnet
+export enum RecyclingLogEventOnRecycle {
+    None = 0,
+    Time = 1,
+    Requests = 2,
+    Schedule = 4,
+    Memory = 8,
+    IsapiUnhealthy = 16,
+    OnDemand = 32,
+    ConfigChange = 64,
+    PrivateMemory = 128,
+}
+
+export class ApplicationPoolPeriodicRestart {
+    constructor(
+        public time: number = null,
+        public privateMemory: number = null,
+        public requests: number = null,
+        public memory: number = null,
+        public schedule: Date[] = [],
+    ) { }
+
+    public static transform(obj: any): ApplicationPoolPeriodicRestart {
+        const result = fromCSObject(ApplicationPoolPeriodicRestart, obj);
+        result.time = obj.Time.TotalMinutes;
+        for (const s of obj.Schedule) {
+            s.push(fromCSDate(s.Time));
+        }
+        return result;
+    }
 }
 
 export class Recycling {
-    disable_overlapped_recycle: boolean;
-    disable_recycle_on_config_change: boolean;
-    log_events: {
-        time: boolean;
-        requests: boolean;
-        schedule: boolean;
-        memory: boolean;
-        isapi_unhealthy: boolean;
-        on_demand: boolean;
-        config_change: boolean;
-        private_memory: boolean;
-    };
-    periodic_restart: {
-        time_interval: number;
-        private_memory: number;
-        request_limit: number;
-        virtual_memory: number;
-        schedule: Array<string>;
-    };
+    constructor(
+        public disallowRotationOnConfigChange: boolean = null,
+        public disallowOverlappingRotation: boolean = null,
+        public logEventOnRecycle: RecyclingLogEventOnRecycle = null,
+        public periodicRestart: ApplicationPoolPeriodicRestart = null,
+    ) { }
+
+    public static transform(obj: any): Recycling {
+        const result = fromCSObject(Recycling, obj);
+        result.periodicRestart = ApplicationPoolPeriodicRestart.transform(obj.PeriodicRestart);
+        return result;
+    }
 }
 
+// https://docs.microsoft.com/en-us/dotnet/api/microsoft.web.administration.loadbalancercapabilities?view=iis-dotnet
 export enum LoadBalancerCapabilities {
     TcpLevel = 1,
-    HttpLevel
+    HttpLevel = 2,
 }
 
 export class RapidFailProtection {
-    enabled: boolean;
-    load_balancer_capabilities: LoadBalancerCapabilities;
-    interval: number;
-    max_crashes: number;
-    auto_shutdown_exe: string;
-    auto_shutdown_params: string;
-}
+    constructor(
+        public loadBalancerCapabilities: LoadBalancerCapabilities = null,
+        public interval: number = null,
+        public rapidFailProtectionMaxCrashes: number = null,
+        public autoShutdownExe: string = null,
+        public autoShutdownParams: string = null,
+        public orphanWorkerProcess: boolean = null,
+        public orphanActionExe: string = null,
+        public orphanActionParams: string = null,
+    ) { }
 
-export class ProcessOrphaning {
-    enabled: boolean;
-    orphan_action_exe: string;
-    orphan_action_params: string;
+    public static transform(obj: any): RapidFailProtection {
+        const result = fromCSObject(RapidFailProtection, obj);
+        result.interval = obj.RapidFailProtectionInterval.TotalMinutes;
+        return result;
+    }
 }
 
 export class ApplicationPool {
@@ -146,18 +173,19 @@ export class ApplicationPool {
         public queueLength: number = null,
         public cpu: Cpu = null,
         public processModel: ProcessModel = null,
-        public identity: ApplicationPoolIdentity = null,
         public recycling: Recycling = null,
-        public rapid_fail_protection: RapidFailProtection = null,
-        public process_orphaning: ProcessOrphaning = null,
+        public failure: RapidFailProtection = null,
     ) { }
 
     public static transform(pool: any): ApplicationPool {
         const result = fromCSObject(ApplicationPool, pool);
-        // result.id = encode name
         result.status = extractStatus(pool);
         result.cpu = Cpu.transform(pool.Cpu);
         result.processModel = ProcessModel.transform(pool.ProcessModel);
+        result.recycling = Recycling.transform(pool.Recycling);
+        if (pool.Failure) {
+            result.failure = RapidFailProtection.transform(pool.Failure);
+        }
         return result;
     }
 

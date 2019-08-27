@@ -1,1 +1,34 @@
-<iis-certs></iis-certs>
+<iis-enum-dropdown [label]="strings.MsftIISWAC.website.binding.protocol" [type]="protocolsType"
+    [friendly]="protocolNames" [(selected)]="protocolType">
+</iis-enum-dropdown>
+<ng-container *ngIf="isCustomSelected">
+    <sme-form-field name="protocolTextbox" type="text" [required]="isCustomSelected"
+        [label]="strings.MsftIISWAC.website.binding.custom" [(ngModel)]="binding.protocol">
+    </sme-form-field>
+    <sme-form-field name="bindingInfoTextbox" type="text" [required]="isCustomSelected"
+        [label]="strings.MsftIISWAC.website.binding.info" [(ngModel)]="binding.bindingInformation">
+    </sme-form-field>
+</ng-container>
+<ng-container *ngIf="!isCustomSelected">
+    <sme-form-field name="hostnameTextbox" type="text" [label]="strings.MsftIISWAC.website.binding.hostname"
+        [(ngModel)]="binding.hostname">
+    </sme-form-field>
+    <sme-form-field name="ipTextbox" type="text" [label]="strings.MsftIISWAC.website.binding.ipAddress"
+        [(ngModel)]="binding.ipAddress">
+    </sme-form-field>
+    <sme-form-field name="portTextbox" type="text" [required]="!isCustomSelected"
+        [label]="strings.MsftIISWAC.website.binding.port" [(ngModel)]="binding.port">
+    </sme-form-field>
+    <ng-container *ngIf="showCertInfo">
+        <sme-form-field name="certTextbox" type="text" [required]="showCertInfo" [label]="strings.MsftIISWAC.cert.name"
+            [ngModel]="certificateName" [showFieldAction]="true" [fieldActionText]="strings.MsftIISWAC.common.selectBtn"
+            (fieldAction)="certSelectDialog.showAsync()">
+        </sme-form-field>
+        <sme-form-field name="sniSwitch" type="toggle-switch" [label]="strings.MsftIISWAC.website.binding.requireSNI"
+            [(ngModel)]="requireSNI"></sme-form-field>
+    </ng-container>
+</ng-container>
+<iis-dialog #certSelectDialog id="binding-select-cert-dialog"
+    [title]="strings.MsftIISWAC.website.binding.selectCertHeader" (proceed)="selectCert()">
+    <iis-certs #certSelect *ngIf="certSelectDialog.visible" [select]="getCertSelection"></iis-certs>
+</iis-dialog>

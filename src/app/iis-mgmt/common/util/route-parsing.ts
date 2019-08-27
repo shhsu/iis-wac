@@ -21,7 +21,7 @@ export function parseRoute(keyMappings: [string, string][], route: ActivatedRout
                         const keyValue = params.get(keyName);
                         if (keyValue) {
                             const paramName = pair[1];
-                            result[paramName] = keyValue;
+                            result[paramName] = decodeURI(keyValue);
                         }
                     }
                 })

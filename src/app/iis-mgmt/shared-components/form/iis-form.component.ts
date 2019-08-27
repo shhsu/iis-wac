@@ -136,6 +136,8 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
         if (!this.isModified()) {
             return of(true);
         }
+
+        // TODO: why does app pool name changing didn't cause route navigation to block
         const confirmed = confirm(this.strings.MsftIISWAC.common.discardChangeMessage);
         this.exitConfirmed = confirmed;
         return of(confirmed);

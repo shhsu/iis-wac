@@ -1,5 +1,20 @@
 const dateRegex = /^\/Date\((d|-|.*)\)[\/|\\]$/;
 
+export function bitwiseGet(value: number, flag: number): boolean {
+    // tslint:disable-next-line: no-bitwise
+    return (value & flag) !== 0;
+}
+
+export function bitwiseSet(value: number, set: boolean, flag: number): number {
+    if (set) {
+        // tslint:disable-next-line: no-bitwise
+        return (value | flag);
+    } else {
+        // tslint:disable-next-line: no-bitwise
+        return (value & ~flag);
+    }
+}
+
 export function* enumerateEnum(e: {}) {
     for (const value in e) {
         if (!isNaN(Number(value))) {
@@ -18,12 +33,14 @@ export function fromCSDate(value: string): Date {
 
 export function fromCSObject<T>(type: (new () => T), csObject: any) {
     const result = new type();
-    for (const key of Object.keys(result)) {
-        if (csObject[key]) {
-            result[key] = csObject[key];
-        } else {
-            const pascalKey = key.charAt(0).toUpperCase() + key.slice(1);
-            result[key] = csObject[pascalKey];
+    if (csObject) {
+        for (const key of Object.keys(result)) {
+            if (csObject[key]) {
+                result[key] = csObject[key];
+            } else {
+                const pascalKey = key.charAt(0).toUpperCase() + key.slice(1);
+                result[key] = csObject[pascalKey];
+            }
         }
     }
     return result;

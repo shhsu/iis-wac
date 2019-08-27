@@ -31,7 +31,7 @@
             </sme-data-table-column>
             <sme-data-table-column header="{{strings.MsftIISWAC.appPool.identity.column}}" sortable="true">
                 <ng-template let-data>
-                    <identity [value]="data.identity"></identity>
+                    <identity [model]="data.processModel"></identity>
                 </ng-template>
             </sme-data-table-column>
         </sme-data-table>

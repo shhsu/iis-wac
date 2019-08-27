@@ -1,11 +1,14 @@
-<sme-dropdown>
-    <button role="button" class="sme-dropdown-toggle">
-        <span>{{friendly[selected]}}</span>
-        <span class="sme-icon sme-icon-chevronDown"></span>
-    </button>
-    <ul role="menu" class="sme-dropdown-content">
-        <li *ngFor="let value of values">
-            <a (click)="onClick(value)">{{friendly[value]}}</a>
-        </li>
-    </ul>
-</sme-dropdown>
+<div class="sme-arrange-stack-h sme-arrange-stack-inline">
+    <label>{{label}}</label>
+    <sme-dropdown>
+        <button role="button" class="sme-dropdown-toggle">
+            <span>{{friendly[selected]}}</span>
+            <span class="sme-icon sme-icon-chevronDown"></span>
+        </button>
+        <ul role="menu" class="sme-dropdown-content">
+            <li *ngFor="let value of values">
+                <a role="button" tabIndex="0" (click)="onClick(value)">{{friendly[value]}}</a>
+            </li>
+        </ul>
+    </sme-dropdown>
+</div>

@@ -4,13 +4,16 @@
             [deleteTableItems]="removeSelected"></control-table>
     </iis-actions>
     <sme-data-table #dataTable class="sme-position-stretch-v" [items]="site.bindings" [(selection)]="selected">
-        <sme-data-table-column header="{{strings.MsftIISWAC.website.protocol}}" field="protocol" sortable="true">
+        <sme-data-table-column header="{{strings.MsftIISWAC.website.binding.protocol}}" field="protocol"
+            sortable="true">
         </sme-data-table-column>
-        <sme-data-table-column header="{{strings.MsftIISWAC.website.hostname}}" field="hostname" sortable="true">
+        <sme-data-table-column header="{{strings.MsftIISWAC.website.binding.hostname}}" field="hostname"
+            sortable="true">
         </sme-data-table-column>
-        <sme-data-table-column header="{{strings.MsftIISWAC.website.ipAddress}}" field="ipAddress" sortable="true">
+        <sme-data-table-column header="{{strings.MsftIISWAC.website.binding.ipAddress}}" field="ipAddress"
+            sortable="true">
         </sme-data-table-column>
-        <sme-data-table-column header="{{strings.MsftIISWAC.website.port}}" field="port" sortable="true">
+        <sme-data-table-column header="{{strings.MsftIISWAC.website.binding.port}}" field="port" sortable="true">
         </sme-data-table-column>
         <!-- TODO: show cert name and style it if it expired -->
     </sme-data-table>

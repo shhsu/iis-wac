@@ -4,8 +4,17 @@ import { enumerateEnum } from 'src/app/iis-mgmt/common/util/serialization';
 @Component({
     selector: 'iis-enum-dropdown',
     templateUrl: './iis-enum-dropdown.component.html',
+    // TODO: refactor to common style: dropbox a:hover
+    styles: [`
+a:hover {
+    text-decoration: underline;
+}
+`],
 })
 export class IISEnumDropdownComponent implements OnInit {
+    @Input()
+    label: string;
+
     @Input()
     type: {};
 
