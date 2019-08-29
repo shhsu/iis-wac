@@ -1,6 +1,6 @@
 <ng-content></ng-content>
-<div>
-    <button class="sme-button-primary" (click)="onSubmit()">{{strings.MsftIISWAC.common.submit}}</button>
+<div class="sme-arrange-stack-h sme-arrange-stack-inline">
+    <button class="sme-button-primary" (click)="onSubmit()">{{submitText}}</button>
     <button (click)="onCancel()">{{strings.MsftIISWAC.common.cancel}}</button>
 </div>
 <iis-error-dialog id="iis-error-dialog"></iis-error-dialog>

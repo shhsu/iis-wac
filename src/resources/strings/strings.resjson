@@ -42,6 +42,7 @@
     "MsftIISWAC_common_discardChangeTitle": "Discard changes",
     "MsftIISWAC_common_discardChangeMessage": "Some changes has been made, discard?",
     "MsftIISWAC_common_errorSubmitData": "Error submitting user input",
+    "MsftIISWAC_common_unnamed": "_unnamed_",
 
     "MsftIISWAC_cert_unnamed": "(unnamed certificate)",
     "MsftIISWAC_cert_name": "Certificate",
@@ -50,6 +51,7 @@
     "MsftIISWAC_cert_issuer": "Issuer",
     "MsftIISWAC_cert_notBefore": "Not Before",
     "MsftIISWAC_cert_notAfter": "Not After",
+    "MsftIISWAC_cert_loadingInfo": "Fetching certificate information",
     "MsftIISWAC_cert_certificateExpired": "Certificate {0} expired on {1}",
     "MsftIISWAC_cert_certificateNotReady": "Certificate {0} cannot be used until {1}",
 
@@ -89,6 +91,8 @@
     "MsftIISWAC_website_createDialogHeader": "Create new website",
     "MsftIISWAC_website_selectAppPoolDialogHeader": "Select Application Pool for {0}",
     "MsftIISWAC_website_newName": "New Website",
+    "MsftIISWAC_website_editAppPool": "Edit",
+    "MsftIISWAC_website_editAppPoolDialogHeader": "Edit Application Pool {0}",
     "MsftIISWAC_website_binding_info": "Binding Information",
     "MsftIISWAC_website_binding_protocol": "Protocol",
     "MsftIISWAC_website_binding_protocols": "Protocols",

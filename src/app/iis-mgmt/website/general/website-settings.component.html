@@ -14,14 +14,25 @@
     <sme-form-field type="text" name="protocol" [(ngModel)]="site.enabledProtocols"
         [label]="strings.MsftIISWAC.website.binding.protocols">
     </sme-form-field>
-    <sme-form-field type="text" #appPoolName name="appPool" [(ngModel)]="site.applicationPoolName"
-        [label]="strings.MsftIISWAC.common.applicationPool" [required]="true" [showFieldAction]="true"
-        [fieldActionText]="strings.MsftIISWAC.common.selectBtn" (fieldAction)="appPoolSelectDialog.showAsync()">
-    </sme-form-field>
+    <div class="sme-arrange-stack-h sme-arrange-stack-inline">
+        <sme-form-field type="text" #appPoolName name="appPool" [(ngModel)]="site.applicationPoolName"
+            [label]="strings.MsftIISWAC.common.applicationPool" [required]="true">
+        </sme-form-field>
+        <button class="sme-button-primary"
+            (click)="appPoolSelectDialog.showAsync()">{{strings.MsftIISWAC.common.selectBtn}}</button>
+        <button *ngIf="canEditAppPool" class="sme-button-primary"
+            (click)="appPoolEditDialog.showAsync()">{{strings.MsftIISWAC.website.editAppPool}}</button>
+    </div>
 </form>
-<iis-dialog #appPoolSelectDialog id="website-select-app-pool-dialog" [title]="appPoolSelectDialogHeader"
-    (proceed)="selectAppPool()">
-    <iis-app-pool-list #appPoolSelect *ngIf="appPoolSelectDialog.visible" [select]="['name', site.applicationPoolName]"
-        pickerMode="true">
+<iis-selector-dialog #appPoolSelectDialog id="website-select-app-pool-dialog" [title]="appPoolSelectDialogHeader"
+    [selector]="appPoolSelect" proceed="selectAppPool()">
+    <iis-app-pool-list #appPoolSelect *ngIf="appPoolSelectDialog.visible" [select]="['name', site.applicationPoolName]">
     </iis-app-pool-list>
+</iis-selector-dialog>
+<iis-dialog #appPoolEditDialog id="website-select-app-pool-edit" [title]="appPoolEditDialogHeader"
+    (proceed)="selectAfterEdit()">
+    <iis-loader #appPoolLoader *ngIf="appPoolEditDialog.visible" createDefault="newAppPool">
+        <iis-app-pool-edit #appPoolEdit [editMode]="appPoolEditMode" [pool]="appPoolLoader.item"
+            (exited)="appPoolEditDialog.exit($event)"></iis-app-pool-edit>
+    </iis-loader>
 </iis-dialog>

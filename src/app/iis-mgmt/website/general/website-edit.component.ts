@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Website } from 'src/app/iis-mgmt/models/website';
 import { FormEditMode } from 'src/app/iis-mgmt/shared-components/form/iis-form.component';
 import { IISFormComponent } from 'src/app/iis-mgmt/shared-components/form/iis-form.component';
@@ -11,6 +11,9 @@ import { Strings } from 'src/generated/strings';
 export class WebsiteEditComponent {
     public readonly strings = MsftSme.resourcesStrings<Strings>();
 
+    @Output()
+    exited = new EventEmitter<boolean>();
+
     @ViewChild('form')
     form: IISFormComponent;
 
@@ -21,6 +24,5 @@ export class WebsiteEditComponent {
     site: Website = <Website>{
         name: this.strings.MsftIISWAC.website.newName,
         bindings: [],
-        applicationPoolName: ' ',   // work around an SME bug where the action btn is disabled if field is empty
     };
 }

@@ -1,4 +1,4 @@
-<iis-form #form [editItem]="{ type: editMode, value: pool }">
+<iis-form #form [editItem]="{ type: editMode, value: pool }" (exited)="exited.next($event)">
     <sme-pivot #pivot class="sme-pivot sme-position-stretch-v">
         <sme-pivot-tab [label]=" strings.MsftIISWAC.common.settings">
             <ng-template>

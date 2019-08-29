@@ -1,8 +1,8 @@
-<loader #loader [content]="content">
+<iis-loader #loader [content]="content">
   <ng-container *ngIf="loader.show">
     <iis-actions>
       <control-status #actionBarController [target]="loader.item" [srv]="srv"></control-status>
     </iis-actions>
     <iis-website-edit [site]="loader.item" editMode="existing"></iis-website-edit>
   </ng-container>
-</loader>
+</iis-loader>

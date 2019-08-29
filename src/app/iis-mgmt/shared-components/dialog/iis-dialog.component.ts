@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BaseDialogComponent, DialogService } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
 import { Subject } from 'rxjs';
@@ -18,9 +18,6 @@ export class IISDialogComponent<T> extends BaseDialogComponent<T, DialogInfo> {
     @Input()
     title: string;
 
-    @Output()
-    proceed = new EventEmitter<T>();
-
     visible = false;
 
     constructor(
@@ -29,15 +26,22 @@ export class IISDialogComponent<T> extends BaseDialogComponent<T, DialogInfo> {
         super(dialogSrv);
     }
 
-    onSubmit() {
-        // TODO: validate, for example selection cannot be null
+    ok() {
         this.hide(DialogInfo.OK);
         this.visible = false;
     }
 
-    onCancel() {
+    cancel() {
         this.hide(DialogInfo.Cancel);
         this.visible = false;
+    }
+
+    exit(result: boolean) {
+        if (result) {
+            this.ok();
+        } else {
+            this.cancel();
+        }
     }
 
     // NOTE: do not call this method, call showAsync instead
@@ -47,11 +51,9 @@ export class IISDialogComponent<T> extends BaseDialogComponent<T, DialogInfo> {
     }
 
     showAsync(param: T = null) {
-        this.show(param).pipe(take(1)).subscribe(
+        return this.show(param).pipe(take(1)).subscribe(
             v => {
-                if (v === DialogInfo.OK) {
-                    this.proceed.next(param);
-                }
+                Logging.logVerbose(logSource, `Dialog ending with ${v}`);
             },
             e => {
                 Logging.logError(logSource, `Dialog ended with error ${stringifySafe(e)}`);

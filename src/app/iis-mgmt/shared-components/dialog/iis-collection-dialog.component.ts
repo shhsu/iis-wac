@@ -1,6 +1,8 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { DataTableComponent } from '@msft-sme/angular';
 import { IISDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-dialog.component';
+import { FormEditMode, IISFormComponent } from 'src/app/iis-mgmt/shared-components/form/iis-form.component';
+import { Strings } from 'src/generated/strings';
 
 export interface PersistenceMechanic<TData, TDialogParam> {
     getCreateParam(): TDialogParam;
@@ -36,6 +38,8 @@ class TablePersistenceMechanic<TData> implements PersistenceMechanic<TData, numb
     templateUrl: 'iis-collection-dialog.component.html',
 })
 export class IISCollectionDialogComponent<T> {
+    public readonly strings = MsftSme.resourcesStrings<Strings>();
+
     @Input()
     create: () => T;
 
@@ -48,7 +52,11 @@ export class IISCollectionDialogComponent<T> {
     @Input()
     selected: T;
 
-    editing: T;
+    @ViewChild('form')
+    form: IISFormComponent;
+
+    input: T;
+    editMode: FormEditMode;
 
     @Input()
     set dataTable(table: DataTableComponent) {
@@ -60,6 +68,10 @@ export class IISCollectionDialogComponent<T> {
     dialogHeader: string;
     core: PersistenceMechanic<T, any>;
 
+    get editing() {
+        return this.form.item;
+    }
+
     get editable() {
         return this.selected;
     }
@@ -70,14 +82,16 @@ export class IISCollectionDialogComponent<T> {
 
     onEdit() {
         this.dialogHeader = this.editHeader;
-        this.editing = this.selected;
+        this.input = this.selected;
+        this.editMode = FormEditMode.Existing;
         const param = this.core.getEditParam(this.selected);
         this.dialog.showAsync(param);
     }
 
     onNew() {
         this.dialogHeader = this.createHeader;
-        this.editing = this.create();
+        this.input = this.create();
+        this.editMode = FormEditMode.New;
         const param = this.core.getCreateParam();
         this.dialog.showAsync(param);
     }

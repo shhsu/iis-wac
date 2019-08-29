@@ -7,7 +7,7 @@ import { AuthorizationComponent } from 'src/app/iis-mgmt/configuration/authoriza
 import { ConfigurationsModule } from 'src/app/iis-mgmt/configuration/configuration.module';
 import { NotImplementedComponent } from 'src/app/iis-mgmt/configuration/not-implemented.component';
 import { IISActionsModule } from 'src/app/iis-mgmt/shared-components/actions/iis-actions.module';
-import { Module as LoaderModule } from 'src/app/iis-mgmt/shared-components/loaders/loader.component';
+import { LoadersModule } from 'src/app/iis-mgmt/shared-components/loaders/loaders.module';
 import { WebserverGeneralComponent } from './webserver-general.component';
 import { WebserverComponent } from './webserver.component';
 
@@ -40,7 +40,7 @@ export const routes: Routes = [
         SettingsModule,
         SmeFormsModule,
         ConfigurationsModule,
-        LoaderModule,
+        LoadersModule,
         IISActionsModule,
     ],
     declarations: [

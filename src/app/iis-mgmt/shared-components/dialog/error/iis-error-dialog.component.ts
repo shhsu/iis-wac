@@ -1,8 +1,9 @@
+
 import { Component } from '@angular/core';
 import { BaseDialogComponent, DialogService } from '@msft-sme/angular';
 import { enumerateKnownErrorProperties, formatF, stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Strings } from 'src/generated/strings';
-import { DialogInfo } from './dialog-info';
+import { DialogInfo } from '../dialog-info';
 
 export class IISErrorDialogOptions {
     headline: string;

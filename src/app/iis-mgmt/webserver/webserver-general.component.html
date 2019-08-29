@@ -1,4 +1,4 @@
-<loader #loader [content]="content" implicitCommit="true">
+<iis-loader #loader [content]="content" implicitCommit="true">
     <div *ngIf="loader.show">
         <iis-actions>
             <control-status #actionBarController [target]="loader.item" [srv]="srv"></control-status>
@@ -7,4 +7,4 @@
         <h4>{{strings.MsftIISWAC.common.version}}</h4>
         <p>{{webserver.version}}</p>
     </div>
-</loader>
+</iis-loader>

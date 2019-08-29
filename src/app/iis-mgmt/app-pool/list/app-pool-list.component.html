@@ -1,4 +1,4 @@
-<list-loader #loader [observes]="contents" [table]="dataTable" [select]="select">
+<iis-list-loader #loader [observes]="contents" [table]="dataTable" [select]="select">
     <div list-content-header>
         <iis-actions>
             <control-table #actionBarController [table]="dataTable" [addTableItem]="showDialog"
@@ -37,7 +37,8 @@
         </sme-data-table>
         <iis-dialog #createDialog id="app-pool-create-dialog" [title]="strings.MsftIISWAC.appPool.createDialogHeader"
             (proceed)="createAppPool()">
-            <iis-app-pool-edit #newAppPool *ngIf="createDialog.visible" editMode="new"></iis-app-pool-edit>
+            <iis-app-pool-edit #newAppPool *ngIf="createDialog.visible" editMode="new"
+                (exited)="createDialog.exit($event)"></iis-app-pool-edit>
         </iis-dialog>
     </div>
-</list-loader>
+</iis-list-loader>

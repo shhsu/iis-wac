@@ -1,4 +1,4 @@
-<loader #loader [content]="content">
+<iis-loader #loader [content]="content">
     <ng-container *ngIf="loader.show">
         <iis-actions>
             <control-status #actionBarController [target]="loader.item" [srv]="srv"></control-status>
@@ -6,4 +6,4 @@
         <iis-app-pool-edit [pool]="loader.item" editMode="existing">
         </iis-app-pool-edit>
     </ng-container>
-</loader>
+</iis-loader>

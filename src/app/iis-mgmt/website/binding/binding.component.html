@@ -3,32 +3,38 @@
 </iis-enum-dropdown>
 <ng-container *ngIf="isCustomSelected">
     <sme-form-field name="protocolTextbox" type="text" [required]="isCustomSelected"
-        [label]="strings.MsftIISWAC.website.binding.custom" [(ngModel)]="binding.protocol">
+        [label]="strings.MsftIISWAC.website.binding.custom" [(ngModel)]="form.item.protocol">
     </sme-form-field>
     <sme-form-field name="bindingInfoTextbox" type="text" [required]="isCustomSelected"
-        [label]="strings.MsftIISWAC.website.binding.info" [(ngModel)]="binding.bindingInformation">
+        [label]="strings.MsftIISWAC.website.binding.info" [(ngModel)]="form.item.bindingInformation">
     </sme-form-field>
 </ng-container>
 <ng-container *ngIf="!isCustomSelected">
     <sme-form-field name="hostnameTextbox" type="text" [label]="strings.MsftIISWAC.website.binding.hostname"
-        [(ngModel)]="binding.hostname">
+        [(ngModel)]="form.item.host">
     </sme-form-field>
     <sme-form-field name="ipTextbox" type="text" [label]="strings.MsftIISWAC.website.binding.ipAddress"
-        [(ngModel)]="binding.ipAddress">
+        [(ngModel)]="form.item.endPoint.address">
     </sme-form-field>
     <sme-form-field name="portTextbox" type="text" [required]="!isCustomSelected"
-        [label]="strings.MsftIISWAC.website.binding.port" [(ngModel)]="binding.port">
+        [label]="strings.MsftIISWAC.website.binding.port" [(ngModel)]="form.item.endPoint.port">
     </sme-form-field>
-    <ng-container *ngIf="showCertInfo">
-        <sme-form-field name="certTextbox" type="text" [required]="showCertInfo" [label]="strings.MsftIISWAC.cert.name"
-            [ngModel]="certificateName" [showFieldAction]="true" [fieldActionText]="strings.MsftIISWAC.common.selectBtn"
-            (fieldAction)="certSelectDialog.showAsync()">
-        </sme-form-field>
-        <sme-form-field name="sniSwitch" type="toggle-switch" [label]="strings.MsftIISWAC.website.binding.requireSNI"
-            [(ngModel)]="requireSNI"></sme-form-field>
-    </ng-container>
+    <iis-loader *ngIf="showCertInfo" #certLoader [message]="strings.MsftIISWAC.cert.loadingInfo" [content]="certContent"
+        loadingWheelSize='small'>
+        <ng-container *ngIf="certLoader.show">
+            <div class="sme-arrange-stack-h sme-arrange-stack-inline">
+                <sme-form-field name="certTextbox" type="text" [required]="showCertInfo"
+                    [label]="strings.MsftIISWAC.cert.name" [ngModel]="certDisplayName">
+                </sme-form-field>
+                <button class="sme-button-primary" (click)="certSelectDialog.showAsync()">
+                    {{strings.MsftIISWAC.common.selectBtn}}</button>
+            </div>
+            <sme-form-field name="sniSwitch" type="toggle-switch"
+                [label]="strings.MsftIISWAC.website.binding.requireSNI" [(ngModel)]="requireSNI"></sme-form-field>
+        </ng-container>
+    </iis-loader>
 </ng-container>
-<iis-dialog #certSelectDialog id="binding-select-cert-dialog"
+<iis-selector-dialog #certSelectDialog id="binding-select-cert-dialog" [selector]="certSelect"
     [title]="strings.MsftIISWAC.website.binding.selectCertHeader" (proceed)="selectCert()">
     <iis-certs #certSelect *ngIf="certSelectDialog.visible" [select]="getCertSelection"></iis-certs>
-</iis-dialog>
+</iis-selector-dialog>

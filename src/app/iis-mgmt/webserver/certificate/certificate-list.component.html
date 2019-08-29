@@ -1,4 +1,4 @@
-<list-loader #loader [observes]="contents" [table]="dataTable" [select]="select">
+<iis-list-loader #loader [observes]="contents" [table]="dataTable" [select]="select">
     <div list-content-body class="sme-position-stretch-v">
         <sme-data-table #dataTable class="sme-position-stretch-v" [items]="loader.items"
             [defaultSortColumn]="nameColumn" [defaultSortMode]="1" [rememberSelection]="true">
@@ -21,4 +21,4 @@
             </sme-data-table-column>
         </sme-data-table>
     </div>
-</list-loader>
+</iis-list-loader>

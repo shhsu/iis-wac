@@ -7,13 +7,17 @@
         <sme-data-table-column header="{{strings.MsftIISWAC.website.binding.protocol}}" field="protocol"
             sortable="true">
         </sme-data-table-column>
-        <sme-data-table-column header="{{strings.MsftIISWAC.website.binding.hostname}}" field="hostname"
-            sortable="true">
+        <sme-data-table-column header="{{strings.MsftIISWAC.website.binding.hostname}}" field="host" sortable="true">
         </sme-data-table-column>
-        <sme-data-table-column header="{{strings.MsftIISWAC.website.binding.ipAddress}}" field="ipAddress"
-            sortable="true">
+        <sme-data-table-column header="{{strings.MsftIISWAC.website.binding.ipAddress}}" sortable="true">
+            <ng-template let-data>
+                {{data.endPoint.address}}
+            </ng-template>
         </sme-data-table-column>
         <sme-data-table-column header="{{strings.MsftIISWAC.website.binding.port}}" field="port" sortable="true">
+            <ng-template let-data>
+                {{data.endPoint.port}}
+            </ng-template>
         </sme-data-table-column>
         <!-- TODO: show cert name and style it if it expired -->
     </sme-data-table>

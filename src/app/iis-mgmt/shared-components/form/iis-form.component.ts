@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AppContextService } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
 import { Observable, of } from 'rxjs';
 import { DeactivateGuardedComponent } from 'src/app/iis-mgmt/common/can-deactivate';
 import { deepCopyNaive, deepEqualNaive } from 'src/app/iis-mgmt/common/util/serialization';
 import { stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { RouteDeactivationService } from 'src/app/iis-mgmt/service/ui/route-deactivation.service';
-import { IISErrorDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-error-dialog.component';
+import { IISErrorDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/error/iis-error-dialog.component';
 import { Strings } from 'src/generated/strings';
 
 export type FormEditMode = 'new' | 'existing';
@@ -35,11 +34,14 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
     @Output()
     submitted: EventEmitter<any>;
 
-    @Input()
-    submit: () => Observable<any>;
+    @Output()
+    exited = new EventEmitter<boolean>();
 
     @Input()
-    exit: (submitted: boolean) => {};
+    submitText = this.strings.MsftIISWAC.common.submit;
+
+    @Input()
+    submit: () => Observable<any>;
 
     @Input()
     checkModifications = isModifiedDefault;
@@ -56,7 +58,6 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
     private exitConfirmed = false;
 
     constructor(
-        private appContext: AppContextService,
         private formSrv: RouteDeactivationService,
     ) { }
 
@@ -109,7 +110,7 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
         return this.confirmExit().subscribe(
             confirmed => {
                 if (confirmed) {
-                    this.exit(false);
+                    this.exited.next(false);
                 }
             }
         );
@@ -137,14 +138,12 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
             return of(true);
         }
 
-        // TODO: why does app pool name changing didn't cause route navigation to block
+        // TODO - FIX: the following is a hack that use a browser dialog instead of sme dialog
         const confirmed = confirm(this.strings.MsftIISWAC.common.discardChangeMessage);
         this.exitConfirmed = confirmed;
         return of(confirmed);
 
-        // TODO fix this:
         // can't get this to work, using this dialog always result in some exception and 2 prompts when navigate on the outer pivot
-
         // return this.appContext.frame.showDialogConfirmation({
         //     title: this.strings.MsftIISWAC.common.discardChangeTitle,
         //     message: this.strings.MsftIISWAC.common.discardChangeMessage,
@@ -163,7 +162,7 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
         if (!this.isModified()) {
             this.exitConfirmed = true;
             Logging.logVerbose(logSource, `No changes were made, submit action will simply exit`);
-            this.exit(true);
+            this.exited.next(true);
         } else {
             if (this.validate(this._editing)) {
                 this.submitting = true;
@@ -180,7 +179,7 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
                         this.submitting = false;
                     },
                     () => {
-                        this.exit(true);
+                        this.exited.next(true);
                     },
                 );
             }

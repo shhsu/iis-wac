@@ -1,3 +1,6 @@
-<iis-dialog #arrayDialog id="iis-array-dialog" [title]="dialogHeader" (proceed)="save($event)">
-    <ng-content></ng-content>
+<iis-dialog #arrayDialog id="iis-array-dialog" [title]="dialogHeader">
+    <iis-form #form [editItem]="{ type: editMode, value: input }" [submitText]="strings.MsftIISWAC.common.ok"
+        (exited)="arrayDialog.exit($event)">
+        <ng-content></ng-content>
+    </iis-form>
 </iis-dialog>

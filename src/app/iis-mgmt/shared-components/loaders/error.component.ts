@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, NgModule, ViewChild } from '@angular/core';
 import { HealthAlertSeverity, PageAlertBarModule } from '@msft-sme/angular';
-import { IISDialogModule } from 'src/app/iis-mgmt/shared-components/dialog/iis-dialog.module';
-import { IISErrorDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-error-dialog.component';
+import { IISErrorDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/error/iis-error-dialog.component';
+import { IISErrorDialogModule } from 'src/app/iis-mgmt/shared-components/dialog/error/iis-error-dialog.module';
 import { Strings } from 'src/generated/strings';
 
 @Component({
@@ -42,7 +42,7 @@ export class ErrorComponent {
 @NgModule({
     imports: [
         CommonModule,
-        IISDialogModule,
+        IISErrorDialogModule,
         PageAlertBarModule,
     ],
     exports: [

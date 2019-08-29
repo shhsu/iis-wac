@@ -8,7 +8,10 @@
         "dropdown",
         "affinitized",
         "isapi",
-        "inetmgr"
+        "inetmgr",
+        "irda",
+        "ccitt",
+        "overridable"
     ],
     "files.exclude": {
         ".git": true,

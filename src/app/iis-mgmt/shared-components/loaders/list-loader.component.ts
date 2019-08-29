@@ -1,14 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { AfterContentInit, Component, Input, NgModule, OnDestroy, OnInit } from '@angular/core';
-import { DataTableComponent, LoadingWheelModule } from '@msft-sme/angular';
+import { AfterContentInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { DataTableComponent } from '@msft-sme/angular';
 import { Logging } from '@msft-sme/core';
 import { Observable, Subscription } from 'rxjs';
 import { stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Strings } from 'src/generated/strings';
-import { Module as ErrorModule } from './error.component';
 
 @Component({
-    selector: 'list-loader contents',
+    selector: 'iis-list-loader contents',
     template: '<ng-content></ng-content>',
 })
 export class ContentWrapperComponent implements OnInit { // for some reason this needs to be exported otherwise inlineCompile fails
@@ -22,7 +20,7 @@ export class ContentWrapperComponent implements OnInit { // for some reason this
 }
 
 @Component({
-    selector: 'list-loader',
+    selector: 'iis-list-loader',
     templateUrl: 'list-loader.component.html',
 })
 export class ListLoaderComponent implements AfterContentInit, OnDestroy {
@@ -88,19 +86,3 @@ export class ListLoaderComponent implements AfterContentInit, OnDestroy {
 }
 
 const logSource = (typeof ListLoaderComponent).toString();
-
-@NgModule({
-    imports: [
-        CommonModule,
-        LoadingWheelModule,
-        ErrorModule,
-    ],
-    exports: [
-        ListLoaderComponent,
-    ],
-    declarations: [
-        ListLoaderComponent,
-        ContentWrapperComponent,
-    ],
-})
-export class Module { }

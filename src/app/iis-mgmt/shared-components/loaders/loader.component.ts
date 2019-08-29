@@ -1,17 +1,13 @@
-
-import { CommonModule } from '@angular/common';
-import { Component, Input, NgModule, OnDestroy, OnInit } from '@angular/core';
-import { LoadingWheelModule } from '@msft-sme/angular';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Logging } from '@msft-sme/core';
 import { Observable, Subscription } from 'rxjs';
 import { stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Strings } from 'src/generated/strings';
-import { Module as ErrorModule } from './error.component';
 
 @Component({
-    selector: 'loader',
+    selector: 'iis-loader',
     template: `
-<sme-loading-wheel *ngIf="loading"></sme-loading-wheel>
+<sme-loading-wheel *ngIf="loading" [message]="message" [size]="loadingWheelSize"></sme-loading-wheel>
 <error *ngIf="error" [headline]="strings.MsftIISWAC.errors.onLoad" [error]="error"></error>
 <ng-content *ngIf="show"></ng-content>
 `,
@@ -25,9 +21,19 @@ export class LoaderComponent implements OnInit, OnDestroy {
     @Input()
     enableReload = true;
 
+    @Input()
+    message: string;
+
+    @Input()
+    loadingWheelSize = 'large';
+
+    @Input()
+    createDefault: () => any;
+
     loading = true;
     error: Error;
     item: any;
+    isDefault = false;
     private subscription: Subscription;
 
     public get show() {
@@ -59,6 +65,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
                 }
                 this.item = item;
                 Logging.logVerbose(logSource, `Marking component as loaded`);
+                this.isDefault = false;
                 this.loading = false;
             },
             e => {
@@ -68,7 +75,12 @@ export class LoaderComponent implements OnInit, OnDestroy {
             },
             () => {
                 if (this.loading) {
-                    this.error = new Error('Resource not found');
+                    if (this.createDefault) {
+                        this.isDefault = true;
+                        this.item = this.createDefault();
+                    } else {
+                        this.error = new Error('Resource not found');
+                    }
                     this.loading = false;
                 }
             },
@@ -77,19 +89,3 @@ export class LoaderComponent implements OnInit, OnDestroy {
 }
 
 const logSource = (typeof LoaderComponent).toString();
-
-@NgModule({
-    imports: [
-        CommonModule,
-        LoadingWheelModule,
-        ErrorModule,
-    ],
-    exports: [
-        LoaderComponent,
-    ],
-    declarations: [
-        LoaderComponent,
-    ],
-})
-export class Module {
-}

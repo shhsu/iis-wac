@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { formatF } from 'src/app/iis-mgmt/common/util/string-utils';
-import { Binding, Website } from 'src/app/iis-mgmt/models/website';
+import { Binding, IPEndPoint, Protocol, protocolNames, Website } from 'src/app/iis-mgmt/models/website';
 import { IISCollectionDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-collection-dialog.component';
 import { Strings } from 'src/generated/strings';
 
@@ -20,9 +20,10 @@ export class BindingListComponent {
     dialog: IISCollectionDialogComponent<Binding>;
 
     newBinding() {
-        return {
-            protocol: 'http',
-        };
+        const result = new Binding();
+        result.protocol = protocolNames[Protocol.HTTP];
+        result.endPoint = new IPEndPoint();
+        return result;
     }
 
     get createHeader() {

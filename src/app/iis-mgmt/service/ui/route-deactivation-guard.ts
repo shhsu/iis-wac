@@ -15,8 +15,8 @@ export class RouteDeactivationGuard implements CanDeactivate<any> {
         currentState: RouterStateSnapshot,
         nextState?: RouterStateSnapshot,
     ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        if (this.srv.form) {
-            return this.srv.form.canDeactivate(currentRoute, currentState, nextState);
+        if (this.srv.top) {
+            return this.srv.top.canDeactivate(currentRoute, currentState, nextState);
         }
         return true;
     }

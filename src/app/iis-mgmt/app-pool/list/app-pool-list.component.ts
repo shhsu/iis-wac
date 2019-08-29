@@ -18,9 +18,6 @@ export class AppPoolListComponent {
     @Input()
     select: [string, any];
 
-    @Input()
-    pickerMode: boolean;
-
     @ViewChild('dataTable')
     dataTable: DataTableComponent;
 
