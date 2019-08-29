@@ -6,7 +6,6 @@ import { bitwiseGet, bitwiseSet } from 'src/app/iis-mgmt/common/util/serializati
 import { Certificate } from 'src/app/iis-mgmt/models/certificate';
 import { Binding, getDefaultProtocolValue, Protocol, protocolNames, SslFlags } from 'src/app/iis-mgmt/models/website';
 import { CertificateService } from 'src/app/iis-mgmt/service/data/certificates.service';
-import { IISFormComponent } from 'src/app/iis-mgmt/shared-components/form/iis-form.component';
 import { LoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/loader.component';
 import { CertificateListComponent } from 'src/app/iis-mgmt/webserver/certificate/certificate-list.component';
 
@@ -30,9 +29,6 @@ export class BindingComponent implements OnInit {
 
     @ViewChild('certLoader')
     certLoader: LoaderComponent;
-
-    @ViewChild('form')
-    form: IISFormComponent;
 
     certContent: Observable<Certificate>;
 
@@ -59,10 +55,6 @@ export class BindingComponent implements OnInit {
         );
     }
 
-    get editing(): Binding {
-        return this.form.item;
-    }
-
     get showCertInfo() {
         return this._protocolType === Protocol.HTTPS;
     }
@@ -77,9 +69,9 @@ export class BindingComponent implements OnInit {
 
     set protocolType(value: Protocol) {
         if (value !== Protocol.Custom) {
-            this.editing.protocol = protocolNames[value];
+            this.binding.protocol = protocolNames[value];
         }
-        if (value === Protocol.HTTPS && (!this.editing.certificateHash)) {
+        if (value === Protocol.HTTPS && (!this.binding.certificateHash)) {
             this.certContent = of(null);
         }
         this._protocolType = value;
@@ -87,11 +79,11 @@ export class BindingComponent implements OnInit {
     }
 
     get requireSNI(): boolean {
-        return bitwiseGet(this.editing.sslFlags, SslFlags.Sni);
+        return bitwiseGet(this.binding.sslFlags, SslFlags.Sni);
     }
 
     set requireSNI(value: boolean) {
-        this.editing.sslFlags = bitwiseSet(this.editing.sslFlags, value, SslFlags.Sni);
+        this.binding.sslFlags = bitwiseSet(this.binding.sslFlags, value, SslFlags.Sni);
     }
 
     get getCertSelection() {
@@ -110,11 +102,11 @@ export class BindingComponent implements OnInit {
     }
 
     selectCert() {
-        this.editing.certificateHash = this.certSelect.selected.hash;
-        this.editing.certificateStoreName = this.certSelect.selected.location;
+        this.binding.certificateHash = this.certSelect.selected.hash;
+        this.binding.certificateStoreName = this.certSelect.selected.location;
         // set this in case the view needs to be reloaded
-        this.updateCertContentObservable(this.editing);
-        // Not need to reload, setting item directly to trigger view update
+        this.updateCertContentObservable(this.binding);
+        // No need to reload, setting item directly to trigger view update
         this.certLoader.item = this.certSelect.selected;
     }
 }

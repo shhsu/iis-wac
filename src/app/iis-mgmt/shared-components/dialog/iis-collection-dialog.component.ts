@@ -1,13 +1,18 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { DataTableComponent } from '@msft-sme/angular';
+import { Logging } from '@msft-sme/core';
+import { Observable, of } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { IISDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-dialog.component';
 import { FormEditMode, IISFormComponent } from 'src/app/iis-mgmt/shared-components/form/iis-form.component';
 import { Strings } from 'src/generated/strings';
+import { DialogInfo } from './dialog-info';
 
 export interface PersistenceMechanic<TData, TDialogParam> {
     getCreateParam(): TDialogParam;
     getEditParam(selected: TData): TDialogParam;
-    save(param: TDialogParam, value: TData);
+    save(param: TDialogParam, value: TData): Observable<any>;
 }
 
 class TablePersistenceMechanic<TData> implements PersistenceMechanic<TData, number> {
@@ -30,6 +35,7 @@ class TablePersistenceMechanic<TData> implements PersistenceMechanic<TData, numb
             this.table.items[index] = value;
         }
         this.table.refreshData();
+        return of(value);
     }
 }
 
@@ -51,11 +57,11 @@ export class IISCollectionDialogComponent<T> {
 
     @Input()
     selected: T;
+    item: T;
 
     @ViewChild('form')
     form: IISFormComponent;
 
-    input: T;
     editMode: FormEditMode;
 
     @Input()
@@ -69,7 +75,10 @@ export class IISCollectionDialogComponent<T> {
     core: PersistenceMechanic<T, any>;
 
     get editing() {
-        return this.form.item;
+        if (this.form) {
+            return this.form.item;
+        }
+        return null;
     }
 
     get editable() {
@@ -77,27 +86,40 @@ export class IISCollectionDialogComponent<T> {
     }
 
     get visible() {
-        return this.dialog.visible;
+        return this.form && this.dialog.visible;
     }
 
     onEdit() {
         this.dialogHeader = this.editHeader;
-        this.input = this.selected;
+        this.item = this.selected;
         this.editMode = FormEditMode.Existing;
         const param = this.core.getEditParam(this.selected);
-        this.dialog.showAsync(param);
+        this.showDialog(param);
     }
 
     onNew() {
         this.dialogHeader = this.createHeader;
-        this.input = this.create();
+        this.item = this.create();
         this.editMode = FormEditMode.New;
         const param = this.core.getCreateParam();
-        this.dialog.showAsync(param);
+        this.showDialog(param);
     }
 
-    save(param: any) {
-        this.core.save(param, this.editing);
-        this.selected = this.editing;
+    private showDialog(param: any) {
+        this.dialog.show().pipe(take(1)).subscribe(
+            v => {
+                if (v === DialogInfo.OK) {
+                    this.core.save(param, this.form.item);
+                    this.selected = this.form.item;
+                } else {
+                    Logging.logVerbose(logSource, `Dialog ending with status ${v}`);
+                }
+            },
+            e => {
+                Logging.logError(logSource, `Error during showing dialog ${stringifySafe(e)}`);
+            },
+        );
     }
 }
+
+const logSource = (typeof IISCollectionDialogComponent).toString();

@@ -15,6 +15,14 @@ export const FormEditMode = {
     Existing: 'existing' as FormEditMode,
 };
 
+function validateStub(_: any) {
+    return true;
+}
+
+function submitStub() {
+    return of(true);
+}
+
 function isModifiedDefault(old: any, editing: any) {
     return !deepEqualNaive(old, editing);
 }
@@ -41,13 +49,13 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
     submitText = this.strings.MsftIISWAC.common.submit;
 
     @Input()
-    submit: () => Observable<any>;
+    submit: () => Observable<any> = submitStub;
 
     @Input()
     checkModifications = isModifiedDefault;
 
     @Input()
-    validate: (editing: any) => boolean;
+    validate: (editing: any) => boolean = validateStub;
 
     @Input()
     registerDeactivation = true;

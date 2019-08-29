@@ -35,8 +35,7 @@
                 </ng-template>
             </sme-data-table-column>
         </sme-data-table>
-        <iis-dialog #createDialog id="app-pool-create-dialog" [title]="strings.MsftIISWAC.appPool.createDialogHeader"
-            (proceed)="createAppPool()">
+        <iis-dialog #createDialog id="app-pool-create-dialog" [title]="strings.MsftIISWAC.appPool.createDialogHeader">
             <iis-app-pool-edit #newAppPool *ngIf="createDialog.visible" editMode="new"
                 (exited)="createDialog.exit($event)"></iis-app-pool-edit>
         </iis-dialog>

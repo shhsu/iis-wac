@@ -3,21 +3,21 @@
 </iis-enum-dropdown>
 <ng-container *ngIf="isCustomSelected">
     <sme-form-field name="protocolTextbox" type="text" [required]="isCustomSelected"
-        [label]="strings.MsftIISWAC.website.binding.custom" [(ngModel)]="form.item.protocol">
+        [label]="strings.MsftIISWAC.website.binding.custom" [(ngModel)]="binding.protocol">
     </sme-form-field>
     <sme-form-field name="bindingInfoTextbox" type="text" [required]="isCustomSelected"
-        [label]="strings.MsftIISWAC.website.binding.info" [(ngModel)]="form.item.bindingInformation">
+        [label]="strings.MsftIISWAC.website.binding.info" [(ngModel)]="binding.bindingInformation">
     </sme-form-field>
 </ng-container>
 <ng-container *ngIf="!isCustomSelected">
     <sme-form-field name="hostnameTextbox" type="text" [label]="strings.MsftIISWAC.website.binding.hostname"
-        [(ngModel)]="form.item.host">
+        [(ngModel)]="binding.host">
     </sme-form-field>
     <sme-form-field name="ipTextbox" type="text" [label]="strings.MsftIISWAC.website.binding.ipAddress"
-        [(ngModel)]="form.item.endPoint.address">
+        [(ngModel)]="binding.endPoint.address">
     </sme-form-field>
     <sme-form-field name="portTextbox" type="text" [required]="!isCustomSelected"
-        [label]="strings.MsftIISWAC.website.binding.port" [(ngModel)]="form.item.endPoint.port">
+        [label]="strings.MsftIISWAC.website.binding.port" [(ngModel)]="binding.endPoint.port">
     </sme-form-field>
     <iis-loader *ngIf="showCertInfo" #certLoader [message]="strings.MsftIISWAC.cert.loadingInfo" [content]="certContent"
         loadingWheelSize='small'>

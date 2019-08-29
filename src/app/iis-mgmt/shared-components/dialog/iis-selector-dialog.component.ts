@@ -5,7 +5,7 @@ import { IISDialogComponent } from './iis-dialog.component';
 @Component({
     selector: 'iis-selector-dialog',
     template: `
-<iis-dialog #dialog [title]="title">
+<iis-dialog id="iis-selector-dialog" #dialog [title]="title">
     <ng-content></ng-content>
     <div class="sme-arrange-stack-h sme-arrange-stack-inline">
         <button class="sme-button-primary" [disabled]="!valid" (click)="ok()">{{strings.MsftIISWAC.common.ok}}</button>

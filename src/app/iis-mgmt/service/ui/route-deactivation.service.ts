@@ -17,6 +17,9 @@ export class RouteDeactivationService {
     }
 
     get top() {
+        if (!this._forms.length) {
+            return null;
+        }
         return this._forms.last();
     }
 }

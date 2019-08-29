@@ -44,7 +44,6 @@ export class IISDialogComponent<T> extends BaseDialogComponent<T, DialogInfo> {
         }
     }
 
-    // NOTE: do not call this method, call showAsync instead
     show(param: T = null): Subject<DialogInfo> {
         this.visible = true;
         return super.show(param);

@@ -3,6 +3,7 @@ import { AppPoolEditComponent, newAppPool } from 'src/app/iis-mgmt/app-pool/gene
 import { AppPoolListComponent } from 'src/app/iis-mgmt/app-pool/list/app-pool-list.component';
 import { formatF } from 'src/app/iis-mgmt/common/util/string-utils';
 import { Website } from 'src/app/iis-mgmt/models/website';
+import { IISDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/iis-dialog.component';
 import { FormEditMode } from 'src/app/iis-mgmt/shared-components/form/iis-form.component';
 import { LoaderComponent } from 'src/app/iis-mgmt/shared-components/loaders/loader.component';
 import { Strings } from 'src/generated/strings';
@@ -16,6 +17,9 @@ export class WebsiteSettingsComponent {
 
     @Input()
     site: Website;
+
+    @ViewChild('appPoolEditDialog')
+    appPoolEditDialog: IISDialogComponent<any>;
 
     @ViewChild('appPoolSelect')
     appPoolSelect: AppPoolListComponent;
@@ -52,7 +56,7 @@ export class WebsiteSettingsComponent {
     }
 
     get canEditAppPool(): boolean {
-        return !!this.site.applicationPoolName.trim();
+        return !!this.site.applicationPoolName;
     }
 
     selectAppPool() {
@@ -61,5 +65,12 @@ export class WebsiteSettingsComponent {
 
     selectAfterEdit() {
         this.site.applicationPoolName = this.appPoolEdit.pool.name;
+    }
+
+    editDialogExit(ok: boolean) {
+        if (ok) {
+            this.selectAfterEdit();
+        }
+        this.appPoolEditDialog.exit(ok);
     }
 }

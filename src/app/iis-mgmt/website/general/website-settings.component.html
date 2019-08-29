@@ -25,14 +25,13 @@
     </div>
 </form>
 <iis-selector-dialog #appPoolSelectDialog id="website-select-app-pool-dialog" [title]="appPoolSelectDialogHeader"
-    [selector]="appPoolSelect" proceed="selectAppPool()">
+    [selector]="appPoolSelect" (proceed)="selectAppPool()">
     <iis-app-pool-list #appPoolSelect *ngIf="appPoolSelectDialog.visible" [select]="['name', site.applicationPoolName]">
     </iis-app-pool-list>
 </iis-selector-dialog>
-<iis-dialog #appPoolEditDialog id="website-select-app-pool-edit" [title]="appPoolEditDialogHeader"
-    (proceed)="selectAfterEdit()">
+<iis-dialog #appPoolEditDialog id="website-select-app-pool-edit" [title]="appPoolEditDialogHeader">
     <iis-loader #appPoolLoader *ngIf="appPoolEditDialog.visible" createDefault="newAppPool">
         <iis-app-pool-edit #appPoolEdit [editMode]="appPoolEditMode" [pool]="appPoolLoader.item"
-            (exited)="appPoolEditDialog.exit($event)"></iis-app-pool-edit>
+            (exited)="editDialogExit($event)"></iis-app-pool-edit>
     </iis-loader>
 </iis-dialog>
