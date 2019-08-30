@@ -40,6 +40,7 @@
     "MsftIISWAC_common_notAvailableShort": "N/A",
     "MsftIISWAC_common_selectBtn": "Select",
     "MsftIISWAC_common_discardChangeTitle": "Discard changes",
+    "MsftIISWAC_common_cancelCreationMessage": "Cancel object creation?",
     "MsftIISWAC_common_discardChangeMessage": "Some changes has been made, discard?",
     "MsftIISWAC_common_errorSubmitData": "Error submitting user input",
     "MsftIISWAC_common_unnamed": "_unnamed_",

@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Logging } from '@msft-sme/core';
 import { Observable, of } from 'rxjs';
 import { DeactivateGuardedComponent } from 'src/app/iis-mgmt/common/can-deactivate';
-import { deepCopyNaive, deepEqualNaive } from 'src/app/iis-mgmt/common/util/serialization';
+import { deepCopyNaive, findDelta } from 'src/app/iis-mgmt/common/util/serialization';
 import { stringifySafe } from 'src/app/iis-mgmt/common/util/string-utils';
 import { RouteDeactivationService } from 'src/app/iis-mgmt/service/ui/route-deactivation.service';
 import { IISErrorDialogComponent } from 'src/app/iis-mgmt/shared-components/dialog/error/iis-error-dialog.component';
@@ -21,10 +21,6 @@ function validateStub(_: any) {
 
 function submitStub() {
     return of(true);
-}
-
-function isModifiedDefault(old: any, editing: any) {
-    return !deepEqualNaive(old, editing);
 }
 
 @Component({
@@ -52,9 +48,6 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
     submit: () => Observable<any> = submitStub;
 
     @Input()
-    checkModifications = isModifiedDefault;
-
-    @Input()
     validate: (editing: any) => boolean = validateStub;
 
     @Input()
@@ -62,6 +55,7 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
 
     @ViewChild('iis-error-dialog')
     dialog: IISErrorDialogComponent;
+    delta: any;
 
     private exitConfirmed = false;
 
@@ -110,8 +104,8 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
         return this._editing;
     }
 
-    private isModified() {
-        return this._isNew || this.checkModifications(this._original, this._editing);
+    private isModified(): boolean {
+        return this.delta = findDelta(this._original, this._editing);
     }
 
     onCancel() {
@@ -138,16 +132,9 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
     //     return confirmed;
     // }
 
-    private confirmExit(): Observable<boolean> {
-        if (this.exitConfirmed) {
-            return of(true);
-        }
-        if (!this.isModified()) {
-            return of(true);
-        }
-
+    private confirmExitDialog(msg: string): Observable<boolean> {
         // TODO - FIX: the following is a hack that use a browser dialog instead of sme dialog
-        const confirmed = confirm(this.strings.MsftIISWAC.common.discardChangeMessage);
+        const confirmed = confirm(msg);
         this.exitConfirmed = confirmed;
         return of(confirmed);
 
@@ -164,6 +151,19 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
         //         return caught;
         //     }),
         // );
+    }
+
+    private confirmExit(): Observable<boolean> {
+        if (this.exitConfirmed) {
+            return of(true);
+        }
+        if (this._isNew) {
+            return this.confirmExitDialog(this.strings.MsftIISWAC.common.cancelCreationMessage);
+        } else if (!this.isModified()) {
+            return of(true);
+        } else {
+            return this.confirmExitDialog(this.strings.MsftIISWAC.common.discardChangeMessage);
+        }
     }
 
     onSubmit() {

@@ -1,6 +1,6 @@
 
 import { msftSmeStrings } from 'src/app/iis-mgmt/common/constants';
-import { ChangeDetection, deepEqualNaive, fromCSObject, } from 'src/app/iis-mgmt/common/util/serialization';
+import { deepEqualNaive, fromCSObject, hashArray, hashString } from 'src/app/iis-mgmt/common/util/serialization';
 import { extractStatus, Status } from './status';
 
 // NOTE: make sure custom is always last!!
@@ -115,7 +115,7 @@ export class IPEndPoint {
     }
 }
 
-export class Binding implements ChangeDetection<Binding> {
+export class Binding {
     constructor(
         public bindingInformation: string = null,
         public certificateHash: Int8Array = null,
@@ -140,33 +140,88 @@ export class Binding implements ChangeDetection<Binding> {
     // NOTE: the following functions only compare fields we used
     // if we add feature to binding creation we would need to update
     // these methods
-    isSameAs(other: Binding): boolean {
-        if (this.protocol !== other.protocol) {
-            return false;
-        }
+    public toString(): string {
+        const buffer = {};
+        const details: any = buffer[this.protocol] = {};
         switch (this.protocol) {
-            case protocolNames[Protocol.HTTP]:
-                return this.isHttpSame(other);
             case protocolNames[Protocol.HTTPS]:
-                return this.isHttpSame(other) && this.isHttpsSame(other);
+                details.sslFlags = this.sslFlags;
+                details.certHash = this.certificateHash;
+                details.certStore = this.certificateStoreName;
+            // tslint:disable-next-line: no-switch-case-fall-through
+            case protocolNames[Protocol.HTTP]:
+                details.host = this.host;
+                details.endPoint = this.endPoint;
+                break;
             default:
-                return this.isCustomBindingSame(other);
+                details.bindingInfo = this.bindingInformation;
         }
+        return JSON.stringify(details);
     }
 
-    private isCustomBindingSame(other: Binding): boolean {
-        return this.protocol === other.protocol && this.bindingInformation === other.bindingInformation;
-    }
+    // equals(other: Binding): boolean {
+    //     if (this.protocol !== other.protocol) {
+    //         return false;
+    //     }
+    //     switch (this.protocol) {
+    //         case protocolNames[Protocol.HTTP]:
+    //             return this.isHttpSame(other);
+    //         case protocolNames[Protocol.HTTPS]:
+    //             return this.isHttpSame(other) && this.isHttpsSame(other);
+    //         default:
+    //             return this.isCustomBindingSame(other);
+    //     }
+    // }
 
-    private isHttpSame(other: Binding): boolean {
-        return this.host === other.host && deepEqualNaive(this.endPoint, other.endPoint);
-    }
+    // hash(): number {
+    //     let hash = 0;
+    //     let base: number;
+    //     switch (this.protocol) {
+    //         case protocolNames[Protocol.HTTPS]:
+    //             hash += this.httpsHash();
+    //             base = 3;
+    //         // tslint:disable-next-line: no-switch-case-fall-through
+    //         case protocolNames[Protocol.HTTP]:
+    //             hash += this.httpHash();
+    //             base += 4;
+    //             break;
+    //         default:
+    //             hash += this.customBindingHash();
+    //             base = 11;
+    //     }
+    //     hash = Math.pow(base, hash);
+    //     // tslint:disable-next-line: no-bitwise
+    //     return hash & hash;
+    // }
 
-    private isHttpsSame(other: Binding): boolean {
-        return this.sslFlags === other.sslFlags &&
-            deepEqualNaive(this.certificateHash, other.certificateHash) &&
-            this.certificateStoreName === other.certificateStoreName;
-    }
+    // private httpHash() {
+    //     return this.endPoint.port * 79 +
+    //         this.endPoint.addressFamily * 17 +
+    //         hashString(this.endPoint.address, 37) +
+    //         hashString(this.host || 'none', 31);
+    // }
+
+    // private httpsHash(): number {
+    //     return this.sslFlags * 71 + hashString(this.certificateStoreName, 47) + hashArray(this.certificateHash, 43);
+    // }
+
+    // private customBindingHash(): number {
+    //     return hashString(this.bindingInformation, 53);
+    // }
+
+    // private isCustomBindingSame(other: Binding): boolean {
+    //     return this.protocol === other.protocol && this.bindingInformation === other.bindingInformation;
+    // }
+
+    // private isHttpSame(other: Binding): boolean {
+    //     return this.host === other.host && deepEqualNaive(this.endPoint, other.endPoint);
+    // }
+
+    // private isHttpsSame(other: Binding): boolean {
+    //     return this.sslFlags === other.sslFlags &&
+    //         deepEqualNaive(this.certificateHash, other.certificateHash) &&
+    //         this.certificateStoreName === other.certificateStoreName;
+    // }
 }
 
 function selectByPath(items: any[], path: string) {
