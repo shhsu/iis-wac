@@ -70,6 +70,7 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
             this._original = null;
         }
         this._isNew = true;
+        this._original = null;
         this._editing = value;
         this.exitConfirmed = false;
     }
@@ -167,7 +168,7 @@ export class IISFormComponent implements DeactivateGuardedComponent, OnInit, OnD
     }
 
     onSubmit() {
-        if (!this.isModified()) {
+        if (!this._isNew && !this.isModified()) {
             this.exitConfirmed = true;
             Logging.logVerbose(logSource, `No changes were made, submit action will simply exit`);
             this.exited.next(true);
